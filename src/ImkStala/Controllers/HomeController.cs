@@ -10,20 +10,29 @@ namespace ImkStala.Controllers
     {
         public IActionResult Index()
         {
-            return View();////
+            return View();
         }
 
-        public IActionResult Login()
+        public IActionResult Book()
         {
+            return View();
+        }
+
+        public IActionResult About()
+        {
+            ViewData["Message"] = "Your application description page.";
+
             return View();
         }
 
         public IActionResult Contact()
         {
+            ViewData["Message"] = "Your contact page.";
+
             return View();
         }
 
-        public IActionResult Book()
+        public IActionResult Error()
         {
             return View();
         }

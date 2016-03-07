@@ -1,6 +1,4 @@
-﻿@using System.Threading.Tasks
-@using Microsoft.ApplicationInsights.Extensibility
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -17,14 +15,7 @@
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
     </environment>
-    <link href="~/css/headerStyle.css" rel="stylesheet" />
-    <link href="~/css/footerStyle.css" rel="stylesheet" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-    <script src="~/js/functions.js"></script>
-    <link href="~/css/contentStyle.css" rel="stylesheet" />
+    @Html.ApplicationInsightsJavaScript(TelemetryConfiguration)
 </head>
 <body>
     <nav class="navbar navbar-default head">
@@ -34,16 +25,17 @@
             </div>
             <ul class="nav navbar-nav">
                 <li><a href="/">Home</a></li>
-                <li><a href="@Url.Action("Book", "Home")">Book</a></li>
+                <li><a asp-controller="Home" asp-action="Book">Book</a></li>
                 <li><a href="/">Page 2</a></li>
                 <li><a href="/">Page 3</a></li>
             </ul>
             <ul class="nav navbar-nav navbar">
                 <li class="action-button"><a href="#registerModal" data-toggle="modal" class="noPadding"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-                <li class="action-button"><a href="@Url.Action("Login", "Home")" data-toggle="modal" class="noPadding"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                <li class="action-button"><a asp-controller="Account" asp-action="Login" data-toggle="modal" class="noPadding"><span class="glyphicon glyphicon-log-in"></span>Login</a></li>
             </ul>
         </div>
     </nav>
+
     <div id="registerModal" class="modal fade">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -53,10 +45,10 @@
                 </div>
                 <div class="modal-body">
                     <div class="row">
-                        <div class="col-md-6 text-center" onclick="goToUrl('UserRegistration')">
+                        <div class="col-md-6 text-center" onclick="goToUrl('Account/RegisterUser')">
                             <h1> User </h1>
                         </div>
-                        <div class="col-md-6 text-center" onclick="goToUrl('RestaurantRegistration')">
+                        <div class="col-md-6 text-center" onclick="goToUrl('Account/RegisterRestaurant')">
                             <h1> Restaurant </h1>
                         </div>
                     </div>
@@ -65,11 +57,33 @@
             </div>
         </div>
     </div>
-    <div class="content">
+
+
+    <div class="container body-content">
         @RenderBody()
+        <hr />
+        <footer class="footer">
+            Foooooooooooter
+        </footer>
     </div>
-    <footer class="footer">
-        Foooooooooooter
-    </footer>
+
+    <environment names="Development">
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+    </environment>
+    <environment names="Staging,Production">
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.1.4.min.js"
+                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                asp-fallback-test="window.jQuery">
+        </script>
+        <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.5/bootstrap.min.js"
+                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal">
+        </script>
+        <script src="~/js/site.min.js" asp-append-version="true"></script>
+    </environment>
+
+    @RenderSection("scripts", required: false)
 </body>
 </html>
