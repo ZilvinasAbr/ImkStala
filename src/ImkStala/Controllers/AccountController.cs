@@ -23,7 +23,7 @@ namespace ImkStala.Controllers
         private readonly IEmailSender _emailSender;
         private readonly ISmsSender _smsSender;
         private readonly ILogger _logger;
-        private ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
 
         public AccountController(
             UserManager<ApplicationUser> userManager,
@@ -106,7 +106,21 @@ namespace ImkStala.Controllers
         {
             if (ModelState.IsValid)
             {
-                Restaurant restaurant = new Restaurant();
+                /*List<Table> tables = new List<Table>()
+                {
+                    new Table() {TableSeats = 3},
+                    new Table() {TableSeats = 2},
+                    new Table() {TableSeats = 1}
+                };
+                foreach (var table in tables)
+                {
+                    _context.Tables.Add(table);
+                }*/
+                Restaurant restaurant = new Restaurant()
+                {
+                    RegistrationDate = DateTime.Now
+                    //Tables = tables
+                };
                 _context.Restaurants.Add(restaurant);
                 _context.SaveChanges();
                 var user = new ApplicationUser

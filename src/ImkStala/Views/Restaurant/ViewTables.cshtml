@@ -1,0 +1,23 @@
+﻿@using System.Collections.Generic
+@using Microsoft.AspNet.Http
+@using Microsoft.AspNet.Http.Authentication
+@using ImkStala.ViewModels.Restaurant;
+@model ViewTablesViewModel
+@inject SignInManager<ApplicationUser> SignInManager
+
+@{
+    ViewData["Title"] = "View Tables";
+}
+<table>
+    <thead>
+        <td>Table Number</td>
+        <td>Number of seats</td>
+    </thead>
+    @foreach (var table in Model.Tables)
+    {
+        <tr>
+            <td>@table.Id</td>
+            <td>@table.TableSeats</td>
+        </tr>
+    }
+</table>
