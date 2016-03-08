@@ -21,3 +21,60 @@
         </tr>
     }
 </table>
+	Pasirinkite keleviecius staliukus pildysite:
+<select class="number">
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4" selected="selected">4</option>
+    <option value="5">5</option>
+    <option value="6">6</option>
+    <option value="7">7</option>
+    <option value="8">8</option>
+    <option value="9">9</option>
+</select>
+<h1> Pasirinkite kiek ir kokiu staliuku yra jusu restorane</h1>
+<hr>
+
+<div class='nearWindow row'>
+    <div class='info col-md-2'>
+        <h4> Staliukai prie lango:</h4>
+    </div>
+    <div class='input col-md-1'>
+        <input type="number" onkeypress="return keyValidation(event);" min="0" id="1">
+    </div>
+    <div class='interface col-md-2'>
+        <div class="arrowUp" onclick="addToType(1)"></div>
+        <div class="arrowDown" onclick="downToType(1)"></div>
+    </div>
+</div>
+<hr>
+<div class='center row'>
+    <div class='info col-md-2'>
+        <h4> Staliukai per viduri:</h4>
+    </div>
+    <div class='input col-md-1'>
+        <input type="number" onkeypress="return keyValidation(event);" min="0" id="2">
+    </div>
+    <div class='interface col-md-2'>
+        <div class="arrowUp" onclick="addToType(2)"></div>
+        <div class="arrowDown" onclick="downToType(2)"></div>
+    </div>
+</div>
+<hr>
+<div class='center row'>
+    <div class='info col-md-2'>
+        <h4> Staliukai prie baro:</h4>
+    </div>
+    <div class='input col-md-1'>
+        <input type="number" min="0" onkeypress="return keyValidation(event);" id="3">
+    </div>
+    <div class='interface col-md-2'>
+        <div class="arrowUp" onclick="addToType(3)"></div>
+        <div class="arrowDown" onclick="downToType(3)"></div>
+    </div>
+</div>	
+@section Scripts
+{   
+    <link href="~/css/tableselector.css" rel="stylesheet" />
+}

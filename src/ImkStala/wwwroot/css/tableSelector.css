@@ -1,0 +1,81 @@
+﻿.arrowUp
+{
+	width: 0;
+	height: 0;
+	border-style: solid;
+	border-width: 0 10px 20px 10px;
+	border-color: transparent transparent #0dff00 transparent;
+	margin-bottom:10px;
+}
+
+.arrowUp, .arrowDown:hover
+{
+	cursor:pointer;
+}
+
+.arrowDown
+{
+	width: 0;
+	height: 0;
+	border-style: solid;
+	border-width: 20px 10px 0 10px;
+	border-color: #ff0022 transparent transparent transparent;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type="number"] {
+    -moz-appearance: textfield;
+    width:50px;
+    height:50px;
+    font-size:20px;
+    margin:auto;
+}
+
+.row
+{
+	margin:20px;
+	overflow: hidden; 
+}
+
+.info
+{
+	height:50px;
+	text-align:center;
+}
+
+.info h4
+{
+    margin:auto;
+    margin-top:15px;
+    vertical-align:middle;
+}
+
+h1
+{
+	margin-left: 25px;
+}
+
+select
+{
+	background: #404040;
+	color:white;
+    width: 45px;
+   padding: 5px;
+   font-size: 16px;
+   line-height: 1;
+   border: 0;
+   border-radius: 0;
+   height: 34px;
+   -webkit-appearance: none;
+   border-radius:10px;
+}
+
+select option
+{
+	text-indent:11px;
+}
