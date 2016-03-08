@@ -23,5 +23,6 @@ namespace ImkStala.Models
         //string, ar kiekvienas datos laukas atskirai?
         //Atsakymas: DateTime tipas manau tam tiktu
         public DateTime RegistrationDate { get; set; }
+        public ApplicationUser ApplicationUser { get; set; }
     }
 }

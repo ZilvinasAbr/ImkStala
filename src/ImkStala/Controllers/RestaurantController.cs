@@ -9,6 +9,7 @@ using ImkStala.ViewModels.Restaurant;
 using Microsoft.AspNet.Authorization;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Mvc;
+using Microsoft.Data.Entity;
 using Microsoft.Extensions.Logging;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
@@ -23,18 +24,20 @@ namespace ImkStala.Controllers
         private readonly IEmailSender _emailSender;
         private readonly ISmsSender _smsSender;
         private readonly ILogger _logger;
+        private readonly ApplicationDbContext _context;
 
         public RestaurantController(UserManager<ApplicationUser> userManager,
         SignInManager<ApplicationUser> signInManager,
         IEmailSender emailSender,
         ISmsSender smsSender,
-        ILoggerFactory loggerFactory)
+        ILoggerFactory loggerFactory, ApplicationDbContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
             _smsSender = smsSender;
             _logger = loggerFactory.CreateLogger<ManageController>();
+            _context = context;
         }
 
         // GET: /<controller>/
@@ -61,16 +64,54 @@ namespace ImkStala.Controllers
         public async Task<IActionResult> ViewTables()
         {
             var user = await GetCurrentUserAsync();
-            IEnumerable<Table> tables = GetTablesEnumeration();
+            Restaurant restaurantData = await _context.Restaurants.FirstOrDefaultAsync(w => w.ApplicationUser.Id == user.Id);
+            IEnumerable<Table> tables = _context.Tables.Where(w => w.Restaurant.Id == restaurantData.Id);
+            //IEnumerable<Table> tables = GetTablesEnumeration();
             ViewTablesViewModel viewTablesViewModel = null;
             if (user.UserAccountType == "Restaurant")
             {
                 viewTablesViewModel = new ViewTablesViewModel()
                 {
-                    Tables = tables
+                    Tables = restaurantData.Tables
                 };
             }
             return View(viewTablesViewModel);
+        }
+
+        [HttpGet]
+        public IActionResult AddTable()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddTable(AddTableViewModel tableViewModel)
+        {
+            var user = await GetCurrentUserAsync();
+            //ApplicationUser applicationUser = await _context.ApplicationUsers.FirstOrDefaultAsync(w => w.Id == user.Id);
+            Restaurant restaurantData = await _context.Restaurants.FirstOrDefaultAsync(w => w.ApplicationUser.Id == user.Id);
+            
+            if (user.UserAccountType == "Restaurant")
+            {
+                if (ModelState.IsValid)
+                {
+                    Table table = new Table()
+                    {
+                        TableSeats = tableViewModel.TableSeats
+                    };
+                    _context.Tables.Add(table);
+                    if (restaurantData == null)
+                        user.RestaurantData = new Restaurant();
+                    if(restaurantData.Tables == null)
+                        user.RestaurantData.Tables = new List<Table>();
+                    restaurantData.Tables.Add(table);
+                    _context.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+            }
+            
+            return View(tableViewModel);
         }
 
         /*[Authorize]

@@ -10,5 +10,6 @@ namespace ImkStala.Models
         public int Id { get; set; }
         public int TableSeats { get; set; }
         public ReservationCalendar ReservationCalendar { get; set; }
+        public Restaurant Restaurant { get; set; }
     }
 }
