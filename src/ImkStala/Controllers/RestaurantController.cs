@@ -47,9 +47,6 @@ namespace ImkStala.Controllers
         {
             var user = await GetCurrentUserAsync();
             IndexViewModel model = null;
-            {
-
-            };
             if (user.UserAccountType == "Restaurant")
             {
                 model = new IndexViewModel()
@@ -60,12 +57,11 @@ namespace ImkStala.Controllers
             return View(model);
         }
 
-        [HttpGet]
         public async Task<IActionResult> ViewTables()
         {
             var user = await GetCurrentUserAsync();
             Restaurant restaurantData = await _context.Restaurants.FirstOrDefaultAsync(w => w.ApplicationUser.Id == user.Id);
-            IEnumerable<Table> tables = _context.Tables.Where(w => w.Restaurant.Id == restaurantData.Id);
+            List<Table> tables = await _context.Tables.Where(w => w.Restaurant.Id == restaurantData.Id).ToListAsync();
             //IEnumerable<Table> tables = GetTablesEnumeration();
             ViewTablesViewModel viewTablesViewModel = null;
             if (user.UserAccountType == "Restaurant")
