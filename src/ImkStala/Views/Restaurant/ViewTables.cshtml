@@ -8,37 +8,44 @@
 @{
     ViewData["Title"] = "View Tables";
 }
-<table>
-    <thead>
-        <td>Table Number</td>
-        <td>Number of seats</td>
-    </thead>
-    @foreach (var table in Model.Tables)
-    {
-        <tr>
-            <td>@table.Id</td>
-            <td>@table.TableSeats</td>
-        </tr>
-    }
-</table>
-	Pasirinkite keleviecius staliukus pildysite:
-<select class="number">
-    <option value="1">1</option>
-    <option value="2">2</option>
-    <option value="3">3</option>
-    <option value="4" selected="selected">4</option>
-    <option value="5">5</option>
-    <option value="6">6</option>
-    <option value="7">7</option>
-    <option value="8">8</option>
-    <option value="9">9</option>
-</select>
-<h1> Pasirinkite kiek ir kokiu staliuku yra jusu restorane</h1>
+<h2> Informacija apie dabartine staliuku padeti jusu restorane</h2>
+<div class="infoAboutTables">
+    <table>
+        <thead>
+        <td>Vietu skaicius</td>
+        <td>Staliuku skaicius</td>
+        </thead>
+        @foreach (var table in Model.Tables)
+        {
+            <tr>
+                <td>@table.Id</td>
+                <td>@table.TableSeats</td>
+            </tr>
+        }
+    </table>
+</div>
+<h1> Pasirinkite kiek staliuku yra jusu restorane</h1>
 <hr>
 
-<div class='nearWindow row'>
+<div class='tableSeats row'>
+    <div class="col-md-2 info" >
+        <h4> Vietu skaicius:</h4>
+    </div>
+    <div class="col-md-2 selectTableSeat">
+        <select class="number">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4" selected="selected">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+        </select>
+    </div>
     <div class='info col-md-2'>
-        <h4> Staliukai prie lango:</h4>
+        <h4> Staliuku kiekis:</h4>
     </div>
     <div class='input col-md-1'>
         <input type="number" onkeypress="return keyValidation(event);" min="0" id="1">
@@ -47,33 +54,15 @@
         <div class="arrowUp" onclick="addToType(1)"></div>
         <div class="arrowDown" onclick="downToType(1)"></div>
     </div>
-</div>
-<hr>
-<div class='center row'>
-    <div class='info col-md-2'>
-        <h4> Staliukai per viduri:</h4>
+    <div class="info col-md-2">
+        <h4> Is viso: {{ bind skaiciu}}</h4>
     </div>
-    <div class='input col-md-1'>
-        <input type="number" onkeypress="return keyValidation(event);" min="0" id="2">
-    </div>
-    <div class='interface col-md-2'>
-        <div class="arrowUp" onclick="addToType(2)"></div>
-        <div class="arrowDown" onclick="downToType(2)"></div>
+    <div class="col-md-1 submitTables">
+        <input type="submit" value="Issaugoti" />
     </div>
 </div>
 <hr>
-<div class='center row'>
-    <div class='info col-md-2'>
-        <h4> Staliukai prie baro:</h4>
-    </div>
-    <div class='input col-md-1'>
-        <input type="number" min="0" onkeypress="return keyValidation(event);" id="3">
-    </div>
-    <div class='interface col-md-2'>
-        <div class="arrowUp" onclick="addToType(3)"></div>
-        <div class="arrowDown" onclick="downToType(3)"></div>
-    </div>
-</div>	
+
 @section Scripts
 {   
     <link href="~/css/tableselector.css" rel="stylesheet" />

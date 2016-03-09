@@ -161,3 +161,7 @@ input
    background-color:beige;
 }
 
+.showInline
+{
+    display:inline;
+}
