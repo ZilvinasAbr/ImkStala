@@ -10,7 +10,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		global.json = global.json
 	EndProjectSection
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "ImkStala", "src\ImkStala\ImkStala.xproj", "{B03BF22C-824B-4E02-AEDC-77397D796FCA}"
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "ImkStala.DataAccess", "src\ImkStala.DataAccess\ImkStala.DataAccess.xproj", "{4151A13A-8229-4A90-8B1E-7DA6AB7515E6}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "ImkStala.ServicesContracts", "src\ImkStala.ServicesContracts\ImkStala.ServicesContracts.xproj", "{E9D112C0-7B1F-46A3-9444-4F4E9F72BDED}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "ImkStala.Services", "src\ImkStala.Services\ImkStala.Services.xproj", "{4F7DB943-E16F-4E0F-A413-3D74AEE18FF8}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "ImkStala.Web", "src\ImkStala.Web\ImkStala.Web.xproj", "{B03BF22C-824B-4E02-AEDC-77397D796FCA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,6 +24,18 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4151A13A-8229-4A90-8B1E-7DA6AB7515E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4151A13A-8229-4A90-8B1E-7DA6AB7515E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4151A13A-8229-4A90-8B1E-7DA6AB7515E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4151A13A-8229-4A90-8B1E-7DA6AB7515E6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E9D112C0-7B1F-46A3-9444-4F4E9F72BDED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E9D112C0-7B1F-46A3-9444-4F4E9F72BDED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E9D112C0-7B1F-46A3-9444-4F4E9F72BDED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E9D112C0-7B1F-46A3-9444-4F4E9F72BDED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4F7DB943-E16F-4E0F-A413-3D74AEE18FF8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4F7DB943-E16F-4E0F-A413-3D74AEE18FF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4F7DB943-E16F-4E0F-A413-3D74AEE18FF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4F7DB943-E16F-4E0F-A413-3D74AEE18FF8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B03BF22C-824B-4E02-AEDC-77397D796FCA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B03BF22C-824B-4E02-AEDC-77397D796FCA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B03BF22C-824B-4E02-AEDC-77397D796FCA}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -27,6 +45,9 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{4151A13A-8229-4A90-8B1E-7DA6AB7515E6} = {C6E42BFA-9177-43EB-B34C-56ACFB41809B}
+		{E9D112C0-7B1F-46A3-9444-4F4E9F72BDED} = {C6E42BFA-9177-43EB-B34C-56ACFB41809B}
+		{4F7DB943-E16F-4E0F-A413-3D74AEE18FF8} = {C6E42BFA-9177-43EB-B34C-56ACFB41809B}
 		{B03BF22C-824B-4E02-AEDC-77397D796FCA} = {C6E42BFA-9177-43EB-B34C-56ACFB41809B}
 	EndGlobalSection
 EndGlobal

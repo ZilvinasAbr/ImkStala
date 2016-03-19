@@ -1,0 +1,9 @@
+﻿@model ImkStala.Web.ViewModels.Restaurant.IndexViewModel
+@{
+    ViewData["Title"] = "Restaurant Index";
+}
+
+<h2>@ViewData["Title"].</h2>
+<p class="text-success">@ViewData["StatusMessage"]</p>
+<a asp-controller="Restaurant" asp-action="ViewTables">View restaurant tables</a>
+<a asp-controller="Restaurant" asp-action="AddTable" method="get">Add Table</a>

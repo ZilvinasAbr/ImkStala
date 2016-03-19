@@ -1,0 +1,71 @@
+﻿@using System.Collections.Generic
+@using System.Threading.Tasks
+@using ImkStala.DataAccess.Entities
+@using Microsoft.AspNet.Http
+@using Microsoft.AspNet.Http.Authentication
+@using ImkStala.Web.ViewModels.Restaurant
+@model ImkStala.Web.ViewModels.Restaurant.ViewTablesViewModel
+@inject SignInManager<ApplicationUser> SignInManager
+
+@{
+    ViewData["Title"] = "View Tables";
+}
+<h2> Informacija apie dabartine staliuku padeti jusu restorane</h2>
+<div class="infoAboutTables">
+    <table>
+        <thead>
+        <td>Staliuko nr.</td>
+        <td>Vietu skaičius</td>
+        </thead>
+        @foreach (var table in Model.Tables)
+        {
+            <tr>
+                <td>@table.RestaurantTableId</td>
+                <td>@table.RestaurantTableSeats</td>
+            </tr>
+        }
+    </table>
+</div>
+<h1> Pasirinkite kiek staliuku yra jusu restorane</h1>
+<hr>
+
+<div class='tableSeats row'>
+    <div class="col-md-2 info" >
+        <h4> Vietu skaicius:</h4>
+    </div>
+    <div class="col-md-2 selectTableSeat">
+        <select class="number">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4" selected="selected">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+        </select>
+    </div>
+    <div class='info col-md-2'>
+        <h4> Staliuku kiekis:</h4>
+    </div>
+    <div class='input col-md-1'>
+        <input type="number" onkeypress="return keyValidation(event);" min="0" id="1">
+    </div>
+    <div class='interface col-md-2'>
+        <div class="arrowUp" onclick="addToType(1)"></div>
+        <div class="arrowDown" onclick="downToType(1)"></div>
+    </div>
+    <div class="info col-md-2">
+        <h4> Is viso: {{ bind skaiciu}}</h4>
+    </div>
+    <div class="col-md-1 submitTables">
+        <input type="submit" value="Issaugoti" />
+    </div>
+</div>
+<hr>
+
+@section Scripts
+{   
+    <link href="~/css/tableselector.css" rel="stylesheet" />
+}
