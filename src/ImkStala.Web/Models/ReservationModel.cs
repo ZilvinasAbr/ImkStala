@@ -7,6 +7,7 @@ namespace ImkStala.Web.Models
 {
     public class ReservationModel
     {
+        public int Id { get; set; }
         public DateTime ReservationStartDateTime { get; set; }
         public DateTime ReservationEndDateTime { get; set; }
     }

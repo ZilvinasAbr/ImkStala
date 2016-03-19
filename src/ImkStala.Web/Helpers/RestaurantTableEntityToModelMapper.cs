@@ -14,6 +14,7 @@ namespace ImkStala.Web.Helpers
         {
             RestaurantTableModel model = new RestaurantTableModel
             {
+                Id = entity.RestaurantTableId,
                 ReservationCalendar = new ReservationCalendar(),
                 RestaurantTableSeats = entity.RestaurantTableSeats
             };
@@ -26,6 +27,7 @@ namespace ImkStala.Web.Helpers
             {
                 ReservationModel reservationModel = new ReservationModel()
                 {
+                    Id = reservation.ReservationId,
                     ReservationStartDateTime = reservation.ReservationStartDateTime,
                     ReservationEndDateTime = reservation.ReservationEndDateTime
                 };

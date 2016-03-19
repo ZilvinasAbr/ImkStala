@@ -8,6 +8,7 @@ namespace ImkStala.Web.Models
 {
     public class RestaurantTableModel
     {
+        public int Id { get; set; }
         public int RestaurantTableSeats { get; set; }
         public ReservationCalendar ReservationCalendar { get; set; }
     }

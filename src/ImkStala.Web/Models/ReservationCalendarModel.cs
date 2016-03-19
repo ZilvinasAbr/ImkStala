@@ -7,6 +7,7 @@ namespace ImkStala.Web.Models
 {
     public class ReservationCalendarModel
     {
+        public int Id { get; set; }
         public IList<ReservationModel> Reservations { get; set; }  
     }
 }

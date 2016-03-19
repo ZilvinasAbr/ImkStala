@@ -8,6 +8,7 @@ namespace ImkStala.Web.Models
 {
     public class RestaurantModel
     {
+        public int Id { get; set; }
         public string RestaurantName { get; set; }
         public string VatCode { get; set; } // (lt. PVM moketojo kodas)
         public string Manager { get; set; }
