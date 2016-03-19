@@ -40,6 +40,22 @@ namespace ImkStala.Services
             _dbContext.SaveChanges();
         }
 
+        public IList<Restaurant> GetAllRestaurants()
+        {
+            IList<Restaurant> restaurants = _dbContext.Restaurants.ToList();
+            foreach (var restaurant in restaurants)
+            {
+                restaurant.RestaurantTables =
+                    _dbContext.RestaurantTables.Where(r => r.Restaurant.Id == restaurant.Id).ToList();
+            }
+            return restaurants;
+        }
+
+        public Restaurant GetRestaurantByRestaurantId()
+        {
+            throw new NotImplementedException();
+        }
+
         public Restaurant GetRestaurantByUserId(string userId)
         {
             return _dbContext.Restaurants.FirstOrDefault(r => r.ApplicationUser.Id == userId);

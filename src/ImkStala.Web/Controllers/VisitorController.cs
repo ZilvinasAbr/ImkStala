@@ -9,7 +9,7 @@ using Microsoft.Extensions.Logging;
 using System.Security.Claims;
 using ImkStala.DataAccess;
 using ImkStala.Web.ViewModels.Account;
-using ImkStala.Web.ViewModels.User;
+using ImkStala.Web.ViewModels.Visitor;
 using ImkStala.DataAccess.Entities;
 using ImkStala.ServicesContracts;
 using ImkStala.Web.Services;
