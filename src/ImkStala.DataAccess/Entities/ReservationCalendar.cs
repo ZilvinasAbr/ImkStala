@@ -8,6 +8,6 @@ namespace ImkStala.DataAccess.Entities
     public class ReservationCalendar
     {
         public int ReservationCalendarId { get; set; }
-        private List<Reservation> Reservations { get; set; }
+        public List<Reservation> Reservations { get; set; }
     }
 }

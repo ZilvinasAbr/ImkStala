@@ -1,0 +1,3 @@
+﻿Q: Kai įvykdau komandą "dnx ef database update", duomenų bazė nėra užpildoma migrations nurodytais table'ais.
+A: Reikia iš ImkStala.Web.Migrations katalogo visus failus perkelti į ImkStala.DataAccess.Migrations katalogą, 
+ir įvykdyti "dnx ef database update" komandą.

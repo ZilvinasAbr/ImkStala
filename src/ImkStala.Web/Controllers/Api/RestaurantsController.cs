@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using ImkStala.DataAccess.Entities;
 using ImkStala.ServicesContracts;
+using ImkStala.Web.Helpers;
+using ImkStala.Web.Models;
 using Microsoft.AspNet.Mvc;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
@@ -22,10 +24,12 @@ namespace ImkStala.Web.Controllers.Api
 
         // GET: api/values
         [HttpGet]
-        public IEnumerable<Restaurant> GetAllRestaurants()
+        public IEnumerable<RestaurantModel> GetAllRestaurants()
         {
             List<Restaurant> restaurants = _applicationService.GetAllRestaurants().ToList();
-            return restaurants;
+            //magical by Resharper generated line, just maps all the Resetaurant objects to RestaurantModel
+            IList<RestaurantModel> models = restaurants.Select(RestaurantEntityToModelMapper.EntityToModel).ToList(); 
+            return models;
         }
 
         // GET api/values/5

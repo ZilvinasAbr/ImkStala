@@ -5,7 +5,7 @@ using Microsoft.Data.Entity.Metadata;
 
 namespace ImkStala.Web.Migrations
 {
-    public partial class FirstMigration : Migration
+    public partial class FirstMigrations : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -68,10 +68,10 @@ namespace ImkStala.Web.Migrations
                     ApplicationUserId = table.Column<string>(nullable: true),
                     Email = table.Column<string>(nullable: true),
                     Manager = table.Column<string>(nullable: true),
-                    Name = table.Column<string>(nullable: true),
                     PhoneNumber = table.Column<string>(nullable: true),
                     Rating = table.Column<double>(nullable: false),
                     RegistrationDate = table.Column<DateTime>(nullable: false),
+                    RestaurantName = table.Column<string>(nullable: true),
                     VatCode = table.Column<string>(nullable: true),
                     Website = table.Column<string>(nullable: true),
                     Workhours = table.Column<string>(nullable: true)
@@ -96,7 +96,7 @@ namespace ImkStala.Web.Migrations
                     Email = table.Column<string>(nullable: true),
                     FirstName = table.Column<string>(nullable: true),
                     LastName = table.Column<string>(nullable: true),
-                    Number = table.Column<string>(nullable: true)
+                    PhoneNumber = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {

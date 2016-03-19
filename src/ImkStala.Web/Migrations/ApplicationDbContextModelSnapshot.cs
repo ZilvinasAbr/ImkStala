@@ -101,13 +101,13 @@ namespace ImkStala.Web.Migrations
 
                     b.Property<string>("Manager");
 
-                    b.Property<string>("Name");
-
                     b.Property<string>("PhoneNumber");
 
                     b.Property<double>("Rating");
 
                     b.Property<DateTime>("RegistrationDate");
+
+                    b.Property<string>("RestaurantName");
 
                     b.Property<string>("VatCode");
 
@@ -145,7 +145,7 @@ namespace ImkStala.Web.Migrations
 
                     b.Property<string>("LastName");
 
-                    b.Property<string>("Number");
+                    b.Property<string>("PhoneNumber");
 
                     b.HasKey("VisitorId");
                 });

@@ -8,8 +8,8 @@ using ImkStala.DataAccess;
 namespace ImkStala.Web.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20160319075555_FirstMigration")]
-    partial class FirstMigration
+    [Migration("20160319165016_FirstMigrations")]
+    partial class FirstMigrations
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -102,13 +102,13 @@ namespace ImkStala.Web.Migrations
 
                     b.Property<string>("Manager");
 
-                    b.Property<string>("Name");
-
                     b.Property<string>("PhoneNumber");
 
                     b.Property<double>("Rating");
 
                     b.Property<DateTime>("RegistrationDate");
+
+                    b.Property<string>("RestaurantName");
 
                     b.Property<string>("VatCode");
 
@@ -146,7 +146,7 @@ namespace ImkStala.Web.Migrations
 
                     b.Property<string>("LastName");
 
-                    b.Property<string>("Number");
+                    b.Property<string>("PhoneNumber");
 
                     b.HasKey("VisitorId");
                 });
