@@ -23,5 +23,17 @@ namespace ImkStala.Web.ViewModels.Account
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        [Display(Name ="Restaurant name")]
+        public string RestaurantName { get; set; }
+
+        [Display(Name = "Address")]
+        public string Address { get; set; }
+
+        [Display(Name = "Phone number")]
+        public string PhoneNumber { get; set; }
+
+        [Display(Name = "Website")]
+        public string Website { get; set; }
     }
 }

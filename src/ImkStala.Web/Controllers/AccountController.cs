@@ -113,7 +113,12 @@ namespace ImkStala.Web.Controllers
             {
                 Restaurant restaurant = new Restaurant()
                 {
+                    Email = model.Email,
                     RegistrationDate = DateTime.Now,
+                    RestaurantName = model.RestaurantName,
+                    Address = model.Address,
+                    PhoneNumber = model.PhoneNumber,
+                    Website = model.Website
                 };
                 
                 //_context.Restaurants.Add(restaurant);

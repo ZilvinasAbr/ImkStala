@@ -5,7 +5,7 @@ using Microsoft.Data.Entity.Metadata;
 
 namespace ImkStala.Web.Migrations
 {
-    public partial class FirstMigrations : Migration
+    public partial class FirstMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -64,7 +64,7 @@ namespace ImkStala.Web.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Adress = table.Column<string>(nullable: true),
+                    Address = table.Column<string>(nullable: true),
                     ApplicationUserId = table.Column<string>(nullable: true),
                     Email = table.Column<string>(nullable: true),
                     Manager = table.Column<string>(nullable: true),

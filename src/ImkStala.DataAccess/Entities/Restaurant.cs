@@ -11,7 +11,7 @@ namespace ImkStala.DataAccess.Entities
         public string RestaurantName { get; set; }
         public string VatCode { get; set; } //PVM moketojo kodas
         public string Manager { get; set; }
-        public string Adress { get; set; }
+        public string Address { get; set; }
         public string PhoneNumber { get; set; } //telefono numeris
         public string Email { get; set; }
         public string Website { get; set; }

@@ -14,7 +14,7 @@ namespace ImkStala.Web.Helpers
             RestaurantModel model = new RestaurantModel
             {
                 Id = entity.Id,
-                Adress = entity.Adress,
+                Adress = entity.Address,
                 Email = entity.Email,
                 Manager = entity.Manager,
                 PhoneNumber = entity.PhoneNumber,

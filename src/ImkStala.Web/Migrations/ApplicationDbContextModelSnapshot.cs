@@ -93,7 +93,7 @@ namespace ImkStala.Web.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Adress");
+                    b.Property<string>("Address");
 
                     b.Property<string>("ApplicationUserId");
 
