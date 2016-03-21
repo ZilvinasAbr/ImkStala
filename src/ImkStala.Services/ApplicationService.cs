@@ -51,9 +51,10 @@ namespace ImkStala.Services
             return restaurants;
         }
 
-        public Restaurant GetRestaurantByRestaurantId()
+        public Restaurant GetRestaurantByRestaurantId(int id)
         {
-            throw new NotImplementedException();
+            Restaurant restaurant = _dbContext.Restaurants.FirstOrDefault(x => x.Id == id);
+            return restaurant;
         }
 
         public Restaurant GetRestaurantByUserId(string userId)

@@ -11,6 +11,8 @@ namespace ImkStala.Web.Helpers
     {
         public static RestaurantModel EntityToModel(Restaurant entity)
         {
+            if (entity == null)
+                return null;
             RestaurantModel model = new RestaurantModel
             {
                 Id = entity.Id,
@@ -26,10 +28,14 @@ namespace ImkStala.Web.Helpers
                 Workhours = entity.Workhours,
                 RestaurantTables = new List<RestaurantTableModel>()
             };
-            foreach (var restaurantTable in entity.RestaurantTables)
+            if (entity.RestaurantTables != null)
             {
-                model.RestaurantTables.Add(RestaurantTableEntityToModelMapper.EntityToModel(restaurantTable));
+                foreach (var restaurantTable in entity.RestaurantTables)
+                {
+                    model.RestaurantTables.Add(RestaurantTableEntityToModelMapper.EntityToModel(restaurantTable));
+                }
             }
+            
             return model;
         }
     }
