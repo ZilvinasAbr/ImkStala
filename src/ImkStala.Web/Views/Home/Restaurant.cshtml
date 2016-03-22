@@ -1,10 +1,10 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Restaurant" + @ViewBag.Id;
 }
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
 <script src="~/js/restaurant-controller.js"></script>
 <script>
-    getAllRestaurantData();
+    getOneRestaurantData(@ViewBag.Id);
 </script>
 <div class="row">
     <div class="col-md-3">
@@ -56,20 +56,22 @@
         </div>
     </div>
     <div class="col-md-8">
-        <h1 class="infoHeader"> Naujausi restoranai</h1>
-        <div class="restaurants" ng-app="restaurantApp" ng-controller="restaurantController">
-            <div class="restaurant" ng-repeat="restaurant in restaurants |  orderBy:'id':true">
+        <div class="restaurants" ng-app="restaurantApp" ng-controller="oneRestaurantController">
+            <div class="restaurant">
                 <h2 class="styledHeader"> {{ restaurant.RestaurantName }} </h2>
                 <hr />
                 <div class="description">
                     <p> { restaurant.Description } Aprasyyymas Aprasyyymas AprasyyymasAprasyyymasAprasyyymasAprasyyymasAprasyyymasAprasyyymasAprasyyymasAprasyyymasAprasyyymas </p>
                 </div>
+                {{ restaurant.Adress }}
+                {{ restaurant.PhoneNumber }}
+                {{ restaurant.Email }}
+                <a href="{{ restaurant.Website }}"> Apsilanykite restorano svetaineje</a>
                 <hr />
                 <div class="row buttonRow">
                     <div class="col-md-12">
-                        <a class="infoButton col-md-4" href="/Home/Restaurant/{{ restaurant.Id }}"> More info! </a>
-                        <a class="bookButton col-md-4" href="/Book/{{ restaurant.Id }}"> Book! </a>
-                        <a class="favoriteButton col-md-4" href="/Favorite/{{ restaurant.Id }}"> Add to favorite!</a>
+                        <a class="bookButton col-md-6" href="Book/{{ restaurant.Id }}"> Book! </a>
+                        <a class="favoriteButton col-md-6" href="Favorite/{{ restaurant.Id }}"> Add to favorite!</a>
                     </div>
                 </div>
             </div>

@@ -36,5 +36,11 @@ namespace ImkStala.Web.Controllers
         {
             return View();
         }
+
+        public IActionResult Restaurant(int id)
+        {
+            ViewBag.Id = id;
+            return View();
+        }
     }
 }
