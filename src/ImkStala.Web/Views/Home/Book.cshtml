@@ -1,32 +1,39 @@
 ﻿@{
     ViewData["Title"] = "Book";
 }
-
-<div class="container">
+<script src="~/assets/angular.min.js"></script>
+<script src="~/js/restaurant-controller.js"></script>
+<script>
+    getOneRestaurantData(@ViewBag.Id);
+</script>
+<link href="~/css/bookpagestyle.css" rel="stylesheet" />
+<div class="container" ng-app="restaurantApp" ng-controller="oneRestaurantController">
     <div class="jumbotron">
-        <h2>Uzsirezervuokite staliuka Lietuvos restorane!</h2>
-        <div class="bookingInfo">
-            <div class="picker">
-                <select class="peopleCount">
-                    <option> 2 zmones</option>
-                    <option> 3 zmones</option>
+        <h2>Jus rezervuojates staliuka "{{ restaurant.RestaurantName }}" restorane!</h2>
+    </div>
+    <div class="row">
+        <div class="tableChooser col-md-5">
+            <h3 class="inline"> Staliuko vietu skaicius: </h3>
+            <div class="selectTableSeat inline">
+                <select class="number">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4" selected="selected">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
                 </select>
             </div>
-            <div class="picker">
-                <input id="datepicker" type="text" placeholder="Pasirinkite data" class="input" />
-            </div>
-            <div class="picker">
-                <select class="timePicker">
-                    <option> 10:00 </option>
-                    <option> 10:30 </option>
-                </select>
-            </div>
-            <div class="picker">
-                <input id="cityPicker" type="text" placeholder="Iveskite miesta" class="input" />
-            </div>
-            <div class="picker">
-                <button type="submit" class="submitButton"> Surasti </button>
-            </div>
+            <textarea class="form-control text" placeholder="Daugiau informacijos restoranui"></textarea>
+            <input class="form-control" type="button" value="Užsakyti" />
+        </div>
+        <div class="col-md-7">
+            <h1>Put kalendorius here/??/ ;))</h1>
+            <p> Uzimta vietu: pasirinkus kalendoriuje diena/laika rodo viska cia</p> <br />
+            <p> Laisva vietu:</p>
         </div>
     </div>
 </div>

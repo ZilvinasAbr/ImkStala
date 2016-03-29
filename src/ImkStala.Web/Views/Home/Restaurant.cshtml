@@ -1,8 +1,9 @@
 ﻿@{
     ViewData["Title"] = "Restaurant" + @ViewBag.Id;
 }
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+<script src="~/assets/angular.min.js"></script>
 <script src="~/js/restaurant-controller.js"></script>
+<link href="~/css/bookpagestyle.css" rel="stylesheet" />
 <script>
     getOneRestaurantData(@ViewBag.Id);
 </script>

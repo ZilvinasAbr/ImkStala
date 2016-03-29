@@ -8,7 +8,8 @@ var gulp = require("gulp"),
     uglify = require("gulp-uglify");
 
 var paths = {
-    webroot: "./wwwroot/"
+    webroot: "./wwwroot/",
+    modules: "./node_modules/"
 };
 
 paths.js = paths.webroot + "js/**/*.js";
@@ -41,5 +42,11 @@ gulp.task("min:css", function () {
         .pipe(cssmin())
         .pipe(gulp.dest("."));
 });
+
+gulp.task("assets", function () {
+    gulp.src(paths.modules + 'angular/angular.min.js')
+        .pipe(gulp.dest(paths.webroot +'assets'));
+});
+
 
 gulp.task("min", ["min:js", "min:css"]);

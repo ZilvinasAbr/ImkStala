@@ -1,0 +1,21 @@
+﻿.tableChooser
+{
+    background-color:white;
+    padding:15px;
+    border-radius:10px;
+}
+
+.inline
+{
+    float:left;
+}
+
+h3
+{
+    margin-top:10px;
+}
+
+.text
+{
+    margin-bottom:10px;
+}

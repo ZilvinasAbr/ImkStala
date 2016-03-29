@@ -1,8 +1,10 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+
+<script src="~/assets/angular.min.js"></script>
 <script src="~/js/restaurant-controller.js"></script>
+
 <script>
     getAllRestaurantData();
 </script>
@@ -68,7 +70,7 @@
                 <div class="row buttonRow">
                     <div class="col-md-12">
                         <a class="infoButton col-md-4" href="/Home/Restaurant/{{ restaurant.Id }}"> More info! </a>
-                        <a class="bookButton col-md-4" href="/Book/{{ restaurant.Id }}"> Book! </a>
+                        <a class="bookButton col-md-4" href="/Home/Book/{{ restaurant.Id }}"> Book! </a>
                         <a class="favoriteButton col-md-4" href="/Favorite/{{ restaurant.Id }}"> Add to favorite!</a>
                     </div>
                 </div>

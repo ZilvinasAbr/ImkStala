@@ -13,8 +13,9 @@ namespace ImkStala.Web.Controllers
             return View();
         }
 
-        public IActionResult Book()
+        public IActionResult Book(int id)
         {
+            ViewBag.Id = id;
             return View();
         }
 
