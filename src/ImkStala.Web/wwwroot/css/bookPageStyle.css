@@ -5,6 +5,11 @@
     border-radius:10px;
 }
 
+.margin_left
+{
+    margin-left:20px;
+}
+
 .inline
 {
     float:left;
