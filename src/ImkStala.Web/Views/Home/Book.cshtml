@@ -3,10 +3,12 @@
 }
 <script src="~/assets/angular.min.js"></script>
 <script src="~/js/restaurant-controller.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
 <script>
     getOneRestaurantData(@ViewBag.Id);
 </script>
 <link href="~/css/bookpagestyle.css" rel="stylesheet" />
+<link href="~/css/pikaday.css" rel="stylesheet" />
 <div class="container" ng-app="restaurantApp" ng-controller="oneRestaurantController">
     <div class="jumbotron">
         <h2>Jus rezervuojates staliuka "{{ restaurant.RestaurantName }}" restorane!</h2>
@@ -30,10 +32,23 @@
             <textarea class="form-control text" placeholder="Daugiau informacijos restoranui"></textarea>
             <input class="form-control" type="button" value="Užsakyti" />
         </div>
-        <div class="col-md-7">
-            <h1>Put kalendorius here/??/ ;))</h1>
-            <p> Uzimta vietu: pasirinkus kalendoriuje diena/laika rodo viska cia</p> <br />
-            <p> Laisva vietu:</p>
+        <div class="col-md-2">
+            <input placeholder="Jūsų pasirinkta data" type='text' class="form-control" id='datepicker'>
+            <p> Is viso vietu:</p>
+            <p> Laisvu vietu skaicius:</p>
+        </div>
+        <div class="col-md-3 zeroPadding">
+            <div id="container"></div>
         </div>
     </div>
 </div>
+<script src="~/assets/moment/moment.js"></script>
+<script src="~/js/pikaday.js"></script>
+<script type="text/javascript">
+    var picker = new Pikaday({
+        field: document.getElementById('datepicker'),
+        bound:false,
+        format: 'YYYY-MM-DD',
+        container: document.getElementById('container')
+    });
+</script>

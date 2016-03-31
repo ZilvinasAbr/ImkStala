@@ -45,7 +45,9 @@ gulp.task("min:css", function () {
 
 gulp.task("assets", function () {
     gulp.src(paths.modules + 'angular/angular.min.js')
-        .pipe(gulp.dest(paths.webroot +'assets'));
+        .pipe(gulp.dest(paths.webroot + 'assets'));
+    gulp.src(paths.modules + 'moment/*')
+        .pipe(gulp.dest(paths.webroot + 'assets/moment'));
 });
 
 
