@@ -8,6 +8,8 @@
     getOneRestaurantData(@ViewBag.Id);
 </script>
 <link href="~/css/bookpagestyle.css" rel="stylesheet" />
+<link href="~/css/default.css" rel="stylesheet" />
+<link href="~/css/default.time.css" rel="stylesheet" />
 <link href="~/css/pikaday.css" rel="stylesheet" />
 <div class="container" ng-app="restaurantApp" ng-controller="oneRestaurantController">
     <div class="jumbotron">
@@ -15,6 +17,7 @@
     </div>
     <div class="row margin_left">
         <div class="tableChooser col-md-5">
+            <input style="display:none" value="{{ restaurant.Id}}"/> 
             <h3 class="inline"> Staliuko vietu skaicius: </h3>
             <div class="selectTableSeat inline">
                 <select class="number">
@@ -34,6 +37,7 @@
         </div>
         <div class="col-md-2">
             <input placeholder="Jūsų pasirinkta data" type='text' class="form-control" id='datepicker'>
+            <input placeholder="Pasirinkite laiką" type="text" class="form-control" id="timepicker" />
             <p> Is viso vietu:</p>
             <p> Laisvu vietu skaicius:</p>
         </div>
@@ -42,13 +46,8 @@
         </div>
     </div>
 </div>
+<script src="~/assets/picker.js"></script>
 <script src="~/assets/moment/moment.js"></script>
-<script src="~/js/pikaday.js"></script>
-<script type="text/javascript">
-    var picker = new Pikaday({
-        field: document.getElementById('datepicker'),
-        bound:false,
-        format: 'YYYY-MM-DD',
-        container: document.getElementById('container')
-    });
-</script>
+<script src="~/assets/pikaday.js"></script>
+<script src="~/assets/picker.time.js"></script>
+<script src="~/js/calendarcall.js"></script>
