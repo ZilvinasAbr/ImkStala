@@ -13,11 +13,13 @@ using ImkStala.Web.ViewModels.Visitor;
 using ImkStala.DataAccess.Entities;
 using ImkStala.ServicesContracts;
 using ImkStala.Web.Services;
+using Microsoft.AspNet.Authorization;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace ImkStala.Web.Controllers
 {
+    [Authorize]
     public class VisitorController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;

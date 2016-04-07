@@ -6,7 +6,7 @@
     <form asp-controller="Account" asp-action="LogOff" method="post" id="logoutForm" class="navbar-right">
         <ul class="nav navbar-nav navbar-right">
             <li>
-                <a asp-controller="Manage" asp-action="Index" title="Manage">Hello @User.GetUserName()!</a>
+                <a asp-controller="Manage" asp-action="Index" title="Manage">Hello, @User.GetUserName()!</a>
             </li>
             <li>
                 <button type="submit" class="btn btn-link navbar-btn navbar-link">Log off</button>
@@ -16,7 +16,7 @@
 }
 else
 {
-    <ul class="nav navbar-nav navbar">
+    <ul class="nav navbar-nav navbar-right">
         <li class="action-button"><a href="#registerModal" data-toggle="modal" class="noPadding"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
         <li class="action-button"><a asp-controller="Account" asp-action="Login" data-toggle="modal" class="noPadding"><span class="glyphicon glyphicon-log-in"></span>Login</a></li>
     </ul>

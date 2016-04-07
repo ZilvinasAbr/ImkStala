@@ -1,0 +1,14 @@
+﻿@using System.Security.Claims
+
+@if (User.IsSignedIn())
+{
+    if (User.IsInRole("Visitor"))
+    {
+        <li><a asp-controller="Visitor" asp-action="Index">Visitor</a></li>
+    }
+    else if (User.IsInRole("Restaurant"))
+    {
+        <li><a asp-controller="Restaurant" asp-action="Index">Restaurant</a></li>
+    }
+}
+

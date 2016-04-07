@@ -28,8 +28,9 @@
             <ul class="nav navbar-nav">
                 <li><a href="/">Home</a></li>
                 <li><a asp-controller="Home" asp-action="Book">Book</a></li>
-                <li><a asp-controller="Restaurant" asp-action="Index">Restaurant</a></li>
-                <li><a asp-controller="Visitor" asp-action="Index">Visitor</a></li>
+                @*<li><a asp-controller="Restaurant" asp-action="Index">Restaurant</a></li>*@
+                @await Html.PartialAsync("_UserPartial")
+                @*<li><a asp-controller="Visitor" asp-action="Index">Visitor</a></li>*@
             </ul>
             @await Html.PartialAsync("_LoginPartial")
         </div>

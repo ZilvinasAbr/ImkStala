@@ -14,6 +14,7 @@ using Microsoft.Extensions.Logging;
 using ImkStala.Services;
 using ImkStala.ServicesContracts;
 using ImkStala.Web.Services;
+using Microsoft.AspNet.Identity;
 
 namespace ImkStala.Web
 {
@@ -71,7 +72,7 @@ namespace ImkStala.Web
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public async void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, IServiceProvider serviceProvider)
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
@@ -117,6 +118,28 @@ namespace ImkStala.Web
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+            await CreateRoles(serviceProvider);
+        }
+
+        private async Task CreateRoles(IServiceProvider serviceProvider)
+        {
+            var RoleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+            var UserManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+            string[] roleNames = { "Restaurant", "Visitor" };
+            IdentityResult roleResult;
+            foreach (var roleName in roleNames)
+            {
+                var roleExist = await RoleManager.RoleExistsAsync(roleName);
+                if (!roleExist)
+                {
+                    roleResult = await RoleManager.CreateAsync(new IdentityRole(roleName));
+                }
+            }
+            var user = await UserManager.FindByIdAsync("a987ef16-4f0c-4f33-a4fc-058b9cec3cfa");
+            var user2 = await UserManager.FindByIdAsync("028c7929-9270-4505-85c6-38d3c4577b3b");
+            await UserManager.AddToRoleAsync(user, "Visitor");
+            await UserManager.AddToRoleAsync(user2, "Restaurant");
+
         }
 
         // Entry point for the application.
