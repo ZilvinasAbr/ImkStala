@@ -19,7 +19,7 @@ using Microsoft.AspNet.Authorization;
 
 namespace ImkStala.Web.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Visitor")]
     public class VisitorController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;

@@ -19,7 +19,7 @@ using Microsoft.Extensions.Logging;
 
 namespace ImkStala.Web.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Restaurant")]
     public class RestaurantController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;

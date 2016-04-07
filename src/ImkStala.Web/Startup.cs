@@ -135,10 +135,6 @@ namespace ImkStala.Web
                     roleResult = await RoleManager.CreateAsync(new IdentityRole(roleName));
                 }
             }
-            var user = await UserManager.FindByIdAsync("a987ef16-4f0c-4f33-a4fc-058b9cec3cfa");
-            var user2 = await UserManager.FindByIdAsync("028c7929-9270-4505-85c6-38d3c4577b3b");
-            await UserManager.AddToRoleAsync(user, "Visitor");
-            await UserManager.AddToRoleAsync(user2, "Restaurant");
 
         }
 
