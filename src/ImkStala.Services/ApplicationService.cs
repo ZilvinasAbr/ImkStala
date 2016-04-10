@@ -66,7 +66,11 @@ namespace ImkStala.Services
         {
             int skip = page * 5;
             int pageLength = 4;
-            IList<Restaurant> restaurants = _dbContext.Restaurants.Skip(skip).Take(pageLength).ToList();
+            IList<Restaurant> restaurants = _dbContext.Restaurants
+                .OrderByDescending(x => x.RegistrationDate)
+                .Skip(skip)
+                .Take(pageLength)
+                .ToList();
             foreach (var restaurant in restaurants)
             {
                 restaurant.RestaurantTables =
