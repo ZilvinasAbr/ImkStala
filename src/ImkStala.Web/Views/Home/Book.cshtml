@@ -1,4 +1,5 @@
-﻿@{
+﻿@model ImkStala.Web.ViewModels.Home.BookRestaurantTableViewModel
+@{
     ViewData["Title"] = "Book";
 }
 <script src="~/assets/jquery.min.js"></script>
@@ -18,34 +19,43 @@
         <h2>Jus rezervuojates staliuka "{{ restaurant.RestaurantName }}" restorane!</h2>
     </div>
     <div class="row margin_left">
-        <div class="tableChooser col-md-5">
-            <input style="display:none" value="{{ restaurant.Id}}"/> 
-            <h3 class="inline"> Staliuko vietu skaicius: </h3>
-            <div class="selectTableSeat inline">
-                <select class="number">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4" selected="selected">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
-                    <option value="9">9</option>
-                </select>
+
+
+
+        <form asp-controller="Home" asp-action="Book" method="post" role="form">
+            <div class="tableChooser col-md-5">
+                <input asp-for="RestaurantId" style="display: none" value="{{ restaurant.Id}}" />
+                <h3 class="inline"> Staliuko vietu skaicius: </h3>
+                <div class="selectTableSeat inline">
+                    <select asp-for="RestaurantTableSeats" class="number">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4" selected="selected">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                </div>
+                <textarea asp-for="VisitorMessage" class="form-control text" placeholder="Daugiau informacijos restoranui"></textarea>
+                <input class="form-control" type="button" value="Užsakyti"/>
+                <button type="submit">Užsakyti</button>
             </div>
-            <textarea class="form-control text" placeholder="Daugiau informacijos restoranui"></textarea>
-            <input class="form-control" type="button" value="Užsakyti" />
-        </div>
-        <div class="col-md-2">
-            <input placeholder="Jūsų pasirinkta data" type='text' class="form-control" id='datepicker'>
-            <input placeholder="Pasirinkite laiką" type="text" class="form-control" id="timepicker" />
-            <p> Is viso vietu:</p>
-            <p> Laisvu vietu skaicius:</p>
-        </div>
-        <div class="col-md-3 zeroPadding">
-            <div id="container"></div>
-        </div>
+            <div class="col-md-2">
+                <input asp-for="Date" placeholder="Jūsų pasirinkta data" type='text' class="form-control" id='datepicker'>
+                <input asp-for="Time" placeholder="Pasirinkite laiką" type="text" class="form-control" id="timepicker" />
+                <p> Is viso vietu:</p>
+                <p> Laisvu vietu skaicius:</p>
+            </div>
+            <div class="col-md-3 zeroPadding">
+                <div id="container"></div>
+            </div>
+        </form>
+
+
+
     </div>
 </div>
 <script src="~/assets/picker.js"></script>

@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using ImkStala.DataAccess;
 using ImkStala.DataAccess.Entities;
 using ImkStala.ServicesContracts;
+using Microsoft.Data.Entity;
 
 namespace ImkStala.Services
 {
@@ -23,15 +25,26 @@ namespace ImkStala.Services
             _dbContext.SaveChanges();
         }
 
-        public void AddTableByRestaurantId(RestaurantTable restaurantTable, int id)
+        public bool AddTableByRestaurantId(RestaurantTable restaurantTable, int id)
         {
-            Restaurant restaurant = _dbContext.Restaurants.FirstOrDefault(r => r.Id == id);
-            if(restaurant.RestaurantTables == null)
+            Restaurant restaurant = _dbContext
+                .Restaurants
+                .Include(x => x.RestaurantTables)
+                .Include(y => y)
+                .FirstOrDefault(r => r.Id == id);
+            if (restaurant == null)
+                return false;
+
+            /*if (restaurant.RestaurantTables == null)
+            {
                 restaurant.RestaurantTables = new List<RestaurantTable>();
+            }*/
+                
             restaurant.RestaurantTables.Add(restaurantTable);
-            _dbContext.RestaurantTables.Add(restaurantTable);
+            //_dbContext.RestaurantTables.Add(restaurantTable);
             _dbContext.SaveChanges();
 
+            return true;
         }
 
         public void AddVisitor(Visitor visitor)
@@ -42,12 +55,10 @@ namespace ImkStala.Services
 
         public IList<Restaurant> GetAllRestaurants()
         {
-            IList<Restaurant> restaurants = _dbContext.Restaurants.ToList();
-            foreach (var restaurant in restaurants)
-            {
-                restaurant.RestaurantTables =
-                    _dbContext.RestaurantTables.Where(r => r.Restaurant.Id == restaurant.Id).ToList();
-            }
+            IList<Restaurant> restaurants = _dbContext.Restaurants
+                .Include(x => x.RestaurantTables)
+                .ToList();
+
             return restaurants;
         }
 
@@ -66,29 +77,71 @@ namespace ImkStala.Services
 
         public Restaurant GetRestaurantByRestaurantId(int id)
         {
-            Restaurant restaurant = _dbContext.Restaurants.FirstOrDefault(x => x.Id == id);
+            Restaurant restaurant = _dbContext.Restaurants
+                .Include(r => r.RestaurantTables)
+                .FirstOrDefault(x => x.Id == id);
             return restaurant;
         }
 
         public Restaurant GetRestaurantByUserId(string userId)
         {
-            return _dbContext.Restaurants.FirstOrDefault(r => r.ApplicationUser.Id == userId);
+            return _dbContext.Restaurants
+                .Include(x => x.RestaurantTables)
+                .FirstOrDefault(r => r.ApplicationUser.Id == userId);
+        }
+
+        public Visitor GetVisitorByUserId(string userId)
+        {
+            return _dbContext.Visitors.FirstOrDefault(r => r.ApplicationUser.Id == userId);
         }
 
         public IList<RestaurantTable> GetRestaurantTablesByRestaurantId(int restaurantId)
         {
-            //Restaurant restaurant = _dbContext.Restaurants.FirstOrDefault(r => r.Id == restaurantId);
-            IList<RestaurantTable> restaurantTables = _dbContext.RestaurantTables.Where(r => r.Restaurant.Id == restaurantId).ToList();
+            IList<RestaurantTable> restaurantTables = _dbContext.RestaurantTables
+                .Where(r => r.Restaurant.Id == restaurantId)
+                .ToList();
+
             return restaurantTables;
         }
 
         public IList<RestaurantTable> GetRestaurantTablesByUserId(string userId)
         {
+            /*IList<RestaurantTable> restaurantTables2 = _dbContext.RestaurantTables
+                .Where(r => r.Restaurant.ApplicationUser.Id == userId).ToList();*/
             Restaurant restaurant = GetRestaurantByUserId(userId);
+
             if (restaurant == null)
+            {
                 return null;
-            IList<RestaurantTable> restaurantTables = GetRestaurantTablesByRestaurantId(restaurant.Id);
+            }
+
+            IList<RestaurantTable> restaurantTables = GetRestaurantTablesByRestaurantId(restaurant.Id);//TODO
+
             return restaurantTables;
+        }
+
+        public bool AddReservation(Reservation reservation, string userId, int restaurantId, int reservationTableSeats)
+        {
+            Visitor visitor = this.GetVisitorByUserId(userId);
+            Restaurant restaurant = this.GetRestaurantByRestaurantId(restaurantId);
+            reservation.Visitor = visitor;
+            reservation.Restaurant = restaurant;
+
+            RestaurantTable restaurantTables = restaurant.RestaurantTables
+                .Where(r => r.RestaurantTableSeats == reservationTableSeats)
+                .FirstOrDefault(t => t.ReservationCalendar.CanAddReservation(reservation));
+
+            if (restaurantTables == null)
+            {
+                return false;
+            }
+
+            reservation.ReservationCalendar = restaurantTables.ReservationCalendar;
+            visitor.VisitorReservations.Add(reservation);
+            restaurantTables.ReservationCalendar.Reservations.Add(reservation);
+            _dbContext.SaveChanges();
+
+            return true;
         }
     }
 }

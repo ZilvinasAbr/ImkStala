@@ -7,7 +7,15 @@ namespace ImkStala.DataAccess.Entities
 {
     public class Restaurant
     {
+        public Restaurant()
+        {
+            RestaurantTables = new List<RestaurantTable>();
+        }
+
         public int Id { get; set; }
+        public ApplicationUser ApplicationUser { get; set; }
+
+
         public string RestaurantName { get; set; }
         public string VatCode { get; set; } //PVM moketojo kodas
         public string Manager { get; set; }
@@ -19,6 +27,6 @@ namespace ImkStala.DataAccess.Entities
         public double Rating { get; set; }
         public List<RestaurantTable> RestaurantTables { get; set; }
         public DateTime RegistrationDate { get; set; }
-        public ApplicationUser ApplicationUser { get; set; }
+
     }
 }

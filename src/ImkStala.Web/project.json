@@ -6,13 +6,13 @@
   },
 
   "dependencies": {
-    "AngularJS.Core": "1.5.0",
+    "AngularJS.Core": "1.5.2",
     "EntityFramework.Commands": "7.0.0-rc1-final",
     "EntityFramework.MicrosoftSqlServer": "7.0.0-rc1-final",
     "ImkStala.DataAccess": "1.0.0-*",
     "ImkStala.Services": "1.0.0-*",
     "ImkStala.ServicesContracts": "1.0.0-*",
-    "Microsoft.ApplicationInsights.AspNet": "1.0.0-rc1",
+    "Microsoft.ApplicationInsights.AspNet": "1.0.0-rc1-update2",
     "Microsoft.AspNet.Authentication.Cookies": "1.0.0-rc1-final",
     "Microsoft.AspNet.Diagnostics.Entity": "7.0.0-rc1-final",
     "Microsoft.AspNet.Identity.EntityFramework": "3.0.0-rc1-final",

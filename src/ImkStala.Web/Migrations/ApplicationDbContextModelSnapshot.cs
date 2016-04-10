@@ -77,6 +77,12 @@ namespace ImkStala.Web.Migrations
 
                     b.Property<DateTime>("ReservationStartDateTime");
 
+                    b.Property<int?>("RestaurantId");
+
+                    b.Property<string>("VisitorMessage");
+
+                    b.Property<int?>("VisitorVisitorId");
+
                     b.HasKey("ReservationId");
                 });
 
@@ -237,6 +243,14 @@ namespace ImkStala.Web.Migrations
                     b.HasOne("ImkStala.DataAccess.Entities.ReservationCalendar")
                         .WithMany()
                         .HasForeignKey("ReservationCalendarReservationCalendarId");
+
+                    b.HasOne("ImkStala.DataAccess.Entities.Restaurant")
+                        .WithMany()
+                        .HasForeignKey("RestaurantId");
+
+                    b.HasOne("ImkStala.DataAccess.Entities.Visitor")
+                        .WithMany()
+                        .HasForeignKey("VisitorVisitorId");
                 });
 
             modelBuilder.Entity("ImkStala.DataAccess.Entities.Restaurant", b =>

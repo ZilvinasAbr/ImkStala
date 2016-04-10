@@ -8,7 +8,14 @@ namespace ImkStala.DataAccess.Entities
     public class Reservation
     {
         public int ReservationId { get; set; }
+        public Restaurant Restaurant { get; set; }
+        public Visitor Visitor { get; set; }
+        public ReservationCalendar ReservationCalendar { get; set; }
+
+        //Data of the entity
         public DateTime ReservationStartDateTime { get; set; }
         public DateTime ReservationEndDateTime { get; set; }
+        public string VisitorMessage { get; set; }
+        
     }
 }
