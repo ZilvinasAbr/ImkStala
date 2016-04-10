@@ -6,7 +6,6 @@ restaurantApp.controller('infiniteScrollRestaurants', function ($scope, $http) {
     $http.get(url).success(function (data) {
         $scope.restaurants = data;
     }).error(function () {
-        alert('Failed to get api');
     });
 
     $scope.loadMore = function () {
@@ -20,7 +19,6 @@ restaurantApp.controller('infiniteScrollRestaurants', function ($scope, $http) {
                     $scope.restaurants.push(data[i]);
                 }
             }).error(function () {
-                alert('Failed to get api');
             });
         }
     }
@@ -32,7 +30,6 @@ function getAllRestaurantData() {
         $http.get(url).success(function (data) {
             $scope.restaurants = data;
         }).error(function () {
-            alert('Failed to get api');
         });
     });
 }
@@ -45,7 +42,6 @@ function getOneRestaurantData(id)
         $http.get(url).success(function (data) {
             $scope.restaurant = data;
         }).error(function () {
-            alert('Failed to get api');
         });
     });
 }
