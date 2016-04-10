@@ -30,9 +30,13 @@ namespace ImkStala.Web.ViewModels.Account
         [Display(Name = "Address")]
         public string Address { get; set; }
 
+        [Phone]
+        [StringLength(12, ErrorMessage = "The {0} field must be {2} characters long.", MinimumLength = 12)]
+        [RegularExpression("^(\\+370)[0-9]+", ErrorMessage = "The {0} must be a valid phone number (must begin with '+370')")]
         [Display(Name = "Phone number")]
         public string PhoneNumber { get; set; }
 
+        [RegularExpression("^(https?://)(.+)?", ErrorMessage = "The {0} must be a valid website adress")]
         [Display(Name = "Website")]
         public string Website { get; set; }
     }

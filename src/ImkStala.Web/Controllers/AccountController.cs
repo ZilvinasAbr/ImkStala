@@ -109,10 +109,10 @@ namespace ImkStala.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> RegisterRestaurant(RegisterRestaurantViewModel model)
         {
-            if (!(model.Website.Substring(0, 7) == "http://" || model.Website.Substring(0, 8) == "https://"))
-            {
-                model.Website = "http://" + model.Website;
-            }
+            //if (!(model.Website.Substring(0, 7) == "http://" || model.Website.Substring(0, 8) == "https://"))
+            //{
+            //    model.Website = "http://" + model.Website;
+            //}
             if (ModelState.IsValid)
             {
                 Restaurant restaurant = new Restaurant()
