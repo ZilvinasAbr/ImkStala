@@ -48,6 +48,10 @@ gulp.task("assets", function () {
         .pipe(gulp.dest(paths.webroot + 'assets'));
     gulp.src(paths.modules + 'moment/*')
         .pipe(gulp.dest(paths.webroot + 'assets/moment'));
+    gulp.src(paths.modules + 'jquery/dist/jquery.min.js')
+        .pipe(gulp.dest(paths.webroot + 'assets'));
+    gulp.src(paths.modules + 'ng-infinite-scroll/build/ng-infinite-scroll.js')
+        .pipe(gulp.dest(paths.webroot + 'assets'));
 });
 
 

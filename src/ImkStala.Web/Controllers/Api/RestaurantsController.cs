@@ -31,6 +31,13 @@ namespace ImkStala.Web.Controllers.Api
             IList<RestaurantModel> models = restaurants.Select(RestaurantEntityToModelMapper.EntityToModel).ToList(); 
             return models;
         }
+        [HttpGet("pages/{page}")]
+        public IEnumerable<RestaurantModel> GetRestaurantsPage(int page)
+        {
+            List<Restaurant> restaurants = _applicationService.GetRestaurantsPage(page).ToList();
+            IList<RestaurantModel> models = restaurants.Select(RestaurantEntityToModelMapper.EntityToModel).ToList();
+            return models;
+        }
 
         [HttpGet("{id}")]
         public RestaurantModel GetRestaurantById(int id)

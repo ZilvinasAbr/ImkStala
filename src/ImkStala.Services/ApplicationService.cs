@@ -51,6 +51,19 @@ namespace ImkStala.Services
             return restaurants;
         }
 
+        public IList<Restaurant> GetRestaurantsPage(int page)
+        {
+            int skip = page * 5;
+            int pageLength = 4;
+            IList<Restaurant> restaurants = _dbContext.Restaurants.Skip(skip).Take(pageLength).ToList();
+            foreach (var restaurant in restaurants)
+            {
+                restaurant.RestaurantTables =
+                    _dbContext.RestaurantTables.Where(r => r.Restaurant.Id == restaurant.Id).ToList();
+            }
+            return restaurants;
+        }
+
         public Restaurant GetRestaurantByRestaurantId(int id)
         {
             Restaurant restaurant = _dbContext.Restaurants.FirstOrDefault(x => x.Id == id);

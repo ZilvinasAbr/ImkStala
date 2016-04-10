@@ -1,13 +1,11 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
-
+<script src="~/assets/jquery.min.js"></script>
 <script src="~/assets/angular.min.js"></script>
+<script src="~/assets/ng-infinite-scroll.js"></script>
 <script src="~/js/restaurant-controller.js"></script>
 
-<script>
-    getAllRestaurantData();
-</script>
 <div class="row">
     <div class="col-md-3">
         <div class="profileInfo">
@@ -59,22 +57,24 @@
     </div>
     <div class="col-md-8">
         <h1 class="infoHeader"> Naujausi restoranai</h1>
-        <div class="restaurants" ng-app="restaurantApp" ng-controller="restaurantController">
-            <div class="restaurant" ng-repeat="restaurant in restaurants |  orderBy:'id':true">
-                <h2 class="styledHeader"> {{ restaurant.RestaurantName }} </h2>
-                <hr />
-                <div class="description">
-                    <p> { restaurant.Description } Aprasyyymas Aprasyyymas AprasyyymasAprasyyymasAprasyyymasAprasyyymasAprasyyymasAprasyyymasAprasyyymasAprasyyymasAprasyyymas </p>
-                </div>
-                <hr />
-                <div class="row buttonRow">
-                    <div class="col-md-12">
-                        <a class="infoButton col-md-4" href="/Home/Restaurant/{{ restaurant.Id }}"> More info! </a>
-                        <a class="bookButton col-md-4" href="/Home/Book/{{ restaurant.Id }}"> Book! </a>
-                        <a class="favoriteButton col-md-4" href="/Favorite/{{ restaurant.Id }}"> Add to favorite!</a>
+        <div class="restaurants" ng-app="restaurantApp" ng-controller="infiniteScrollRestaurants">
+            <div infinite-scroll='loadMore()' infinite-scroll-distance='0'>
+                <div class="restaurant" ng-repeat="restaurant in restaurants">
+                    <h2 class="styledHeader"> {{ restaurant.RestaurantName }} </h2>
+                    <hr />
+                    <div class="description">
+                        <p> { restaurant.Description } Aprasyyymas Aprasyyymas AprasyyymasAprasyyymasAprasyyymasAprasyyymasAprasyyymasAprasyyymasAprasyyymasAprasyyymasAprasyyymas </p>
+                    </div>
+                    <hr />
+                    <div class="row buttonRow">
+                        <div class="col-md-12">
+                            <a class="infoButton col-md-4" href="/Home/Restaurant/{{ restaurant.Id }}"> More info! </a>
+                            <a class="bookButton col-md-4" href="/Home/Book/{{ restaurant.Id }}"> Book! </a>
+                            <a class="favoriteButton col-md-4" href="/Favorite/{{ restaurant.Id }}"> Add to favorite!</a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+         </div>
     </div>
 </div>
