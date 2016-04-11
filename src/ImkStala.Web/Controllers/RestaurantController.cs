@@ -51,13 +51,13 @@ namespace ImkStala.Web.Controllers
         {
             var user = await _userManager.FindByIdAsync(HttpContext.User.GetUserId());
             IndexViewModel model = null;
-            if (user.AccountType == "Restaurant")
-            {
+            //if (user.AccountType == "Restaurant")
+            //{
                 model = new IndexViewModel()
                 {
 
                 };
-            }
+            //}
             return View(model);
         }
 
@@ -70,13 +70,13 @@ namespace ImkStala.Web.Controllers
                 _applicationService.GetRestaurantTablesByUserId(user.Id);
             //IEnumerable<Table> tables = GetTablesEnumeration();
             ViewTablesViewModel viewTablesViewModel = null;
-            if (user.AccountType == "Restaurant")
-            {
+            //if (user.AccountType == "Restaurant")
+            //{
                 viewTablesViewModel = new ViewTablesViewModel()
                 {
                     Tables = tables
                 };
-            }
+            //}
             return View(viewTablesViewModel);
         }
 
@@ -93,8 +93,8 @@ namespace ImkStala.Web.Controllers
             var user = await _userManager.FindByIdAsync(HttpContext.User.GetUserId());
             //ApplicationUser applicationUser = await _context.ApplicationUsers.FirstOrDefaultAsync(w => w.Id == user.Id);
             //Restaurant restaurantData = await _context.Restaurants.FirstOrDefaultAsync(w => w.ApplicationUser.Id == user.Id);
-            if (user.AccountType == "Restaurant")
-            {
+            //if (user.AccountType == "Restaurant")
+            //{
                 Restaurant restaurant = _applicationService.GetRestaurantByUserId(user.Id);
                 if (ModelState.IsValid)
                 {
@@ -112,7 +112,7 @@ namespace ImkStala.Web.Controllers
                     //_context.SaveChanges();
                     return RedirectToAction("Index");
                 }
-            }
+            //}
             
             return View(tableViewModel);
         }

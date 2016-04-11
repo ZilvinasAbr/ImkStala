@@ -131,7 +131,7 @@ namespace ImkStala.Web.Controllers
                 {
                     UserName = model.Email,
                     Email = model.Email,
-                    AccountType = "Restaurant",
+                    //AccountType = "Restaurant",
                     RestaurantData = restaurant
                 };
                 _applicationService.AddRestaurant(restaurant);
@@ -186,7 +186,7 @@ namespace ImkStala.Web.Controllers
                 {
                     UserName = model.Email,
                     Email = model.Email,
-                    AccountType = "Restaurant",
+                    //AccountType = "Restaurant",
                     VisitorData = visitor
                 };
                 var result = await _userManager.CreateAsync(user, model.Password);

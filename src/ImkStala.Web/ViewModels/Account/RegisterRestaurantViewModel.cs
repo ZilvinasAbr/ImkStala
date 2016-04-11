@@ -36,7 +36,7 @@ namespace ImkStala.Web.ViewModels.Account
         [Display(Name = "Phone number")]
         public string PhoneNumber { get; set; }
 
-        [RegularExpression("^(https?://)(.+)?", ErrorMessage = "The {0} must be a valid website adress")]
+        [RegularExpression("^(https?://)(.+)?", ErrorMessage = "The {0} must be a valid website address")]
         [Display(Name = "Website")]
         public string Website { get; set; }
     }

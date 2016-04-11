@@ -50,13 +50,13 @@ namespace ImkStala.Web.Controllers
         {
             var user = await _userManager.FindByIdAsync(HttpContext.User.GetUserId());
             IndexViewModel model = null;
-            if (user.AccountType == "User")
-            {
+            //if (user.AccountType == "User")
+            //{
                 model = new IndexViewModel()
                 {
 
                 };
-            }
+            //}
             return View(model);
         }
     }
