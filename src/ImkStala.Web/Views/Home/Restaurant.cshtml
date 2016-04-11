@@ -6,9 +6,14 @@
 <script src="~/assets/ng-infinite-scroll.js"></script>
 <script src="~/js/restaurant-controller.js"></script>
 <link href="~/css/bookpagestyle.css" rel="stylesheet" />
+<script src="http://maps.googleapis.com/maps/api/js"></script>
+<script src="~/js/site.js"></script>
 <script>
     getOneRestaurantData(@ViewBag.Id);
+    var address = getAdressById(@ViewBag.Id);
+    loadMapByAddress(address);
 </script>
+
 <div class="row">
     <div class="col-md-3">
         <div class="profileInfo">
@@ -66,14 +71,17 @@
                 <div class="description">
                     <p> { restaurant.Description } Aprasyyymas Aprasyyymas AprasyyymasAprasyyymasAprasyyymasAprasyyymasAprasyyymasAprasyyymasAprasyyymasAprasyyymasAprasyyymas </p>
                 </div>
-                {{ restaurant.Adress }}
+                <p id="address"> {{ restaurant.Adress }} </p>
                 {{ restaurant.PhoneNumber }}
                 {{ restaurant.Email }}
                 <a href="{{ restaurant.Website }}" target="_blank"> Apsilankykite restorano svetainėje</a>
+                <div id="googleMap" style="height:300px;">
+
+                </div>
                 <hr />
                 <div class="row buttonRow">
                     <div class="col-md-12">
-                        <a class="bookButton col-md-6" href="Book/{{ restaurant.Id }}"> Book! </a>
+                        <a class="bookButton col-md-6" asp-controller="Home" asp-action="Book" asp-route-id="@ViewBag.Id"> Book! </a>
                         <a class="favoriteButton col-md-6" href="Favorite/{{ restaurant.Id }}"> Add to favorite!</a>
                     </div>
                 </div>

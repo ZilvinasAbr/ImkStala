@@ -45,3 +45,19 @@ function getOneRestaurantData(id)
         });
     });
 }
+
+function getAdressById(id)
+{
+    var returnAdress;
+    var url = "/api/restaurants/" + id;
+    $.ajax({
+        url: url,
+        type: 'get',
+        dataType: 'json',
+        async: false,
+        success: function (data) {
+            returnAdress = data.Adress;
+        }
+    });
+    return returnAdress;
+}
