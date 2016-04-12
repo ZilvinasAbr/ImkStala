@@ -39,6 +39,14 @@ namespace ImkStala.Web.Controllers.Api
             return models;
         }
 
+        [HttpGet("favorites/{visitorId}")]
+        public IEnumerable<RestaurantModel> GetFavorites(int visitorId)
+        {
+            List<Restaurant> favorites = _applicationService.GetFavorites(visitorId).ToList();
+            IList<RestaurantModel> models = favorites.Select(RestaurantEntityToModelMapper.EntityToModel).ToList();
+            return models;
+        }
+
         [HttpGet("{id}")]
         public RestaurantModel GetRestaurantById(int id)
         {

@@ -10,6 +10,7 @@ namespace ImkStala.DataAccess.Entities
         public Visitor()
         {
             VisitorReservations = new List<Reservation>();
+            Favorites = new List<Restaurant>();
         }
 
         public int VisitorId { get; set; }
@@ -19,5 +20,6 @@ namespace ImkStala.DataAccess.Entities
         public string Email { get; set; }
         public ApplicationUser ApplicationUser { get; set; }
         public List<Reservation> VisitorReservations { get; set; } 
+        public List<Restaurant> Favorites { get; set; }
     }
 }

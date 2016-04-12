@@ -11,9 +11,10 @@ namespace ImkStala.ServicesContracts
         void AddRestaurant(Restaurant restaurant);
         void AddVisitor(Visitor visitor);
         bool AddTableByRestaurantId(RestaurantTable restaurantTable, int id);
+        bool AddFavorite(string userId, int restaurantId);
         IList<RestaurantTable> GetRestaurantTablesByRestaurantId(int resetaurantId);
         IList<RestaurantTable> GetRestaurantTablesByUserId(string userId);
-        
+        IList<Restaurant> GetFavorites(int visitorId);
         IList<Restaurant> GetAllRestaurants();
         IList<Restaurant> GetRestaurantsPage(int page);
         Restaurant GetRestaurantByRestaurantId(int id);

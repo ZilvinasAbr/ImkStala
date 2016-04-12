@@ -117,6 +117,8 @@ namespace ImkStala.Web.Migrations
 
                     b.Property<string>("VatCode");
 
+                    b.Property<int?>("VisitorVisitorId");
+
                     b.Property<string>("Website");
 
                     b.Property<string>("Workhours");
@@ -258,6 +260,10 @@ namespace ImkStala.Web.Migrations
                     b.HasOne("ImkStala.DataAccess.Entities.ApplicationUser")
                         .WithOne()
                         .HasForeignKey("ImkStala.DataAccess.Entities.Restaurant", "ApplicationUserId");
+
+                    b.HasOne("ImkStala.DataAccess.Entities.Visitor")
+                        .WithMany()
+                        .HasForeignKey("VisitorVisitorId");
                 });
 
             modelBuilder.Entity("ImkStala.DataAccess.Entities.RestaurantTable", b =>

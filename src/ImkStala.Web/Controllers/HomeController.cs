@@ -48,6 +48,18 @@ namespace ImkStala.Web.Controllers
             return View();
         }
 
+        [HttpGet]
+        public async Task<IActionResult> ToFavourites(int restaurantId)
+        {
+            /*var user = await _userManager.FindByIdAsync(HttpContext.User.GetUserId());
+            if (user.Roles == "Visitor")
+            {
+
+            }*/
+            
+            return View();
+        }
+
         [HttpPost]
         public async Task<IActionResult> Book(BookRestaurantTableViewModel model)
         {

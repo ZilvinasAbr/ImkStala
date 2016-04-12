@@ -8,8 +8,8 @@ using ImkStala.DataAccess;
 namespace ImkStala.Web.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20160403124617_ChangedSomeEntities")]
-    partial class ChangedSomeEntities
+    [Migration("20160412110206_FirstMigration")]
+    partial class FirstMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -117,6 +117,8 @@ namespace ImkStala.Web.Migrations
                     b.Property<string>("RestaurantName");
 
                     b.Property<string>("VatCode");
+
+                    b.Property<int?>("VisitorVisitorId");
 
                     b.Property<string>("Website");
 
@@ -259,6 +261,10 @@ namespace ImkStala.Web.Migrations
                     b.HasOne("ImkStala.DataAccess.Entities.ApplicationUser")
                         .WithOne()
                         .HasForeignKey("ImkStala.DataAccess.Entities.Restaurant", "ApplicationUserId");
+
+                    b.HasOne("ImkStala.DataAccess.Entities.Visitor")
+                        .WithMany()
+                        .HasForeignKey("VisitorVisitorId");
                 });
 
             modelBuilder.Entity("ImkStala.DataAccess.Entities.RestaurantTable", b =>

@@ -53,6 +53,15 @@ namespace ImkStala.Services
             _dbContext.SaveChanges();
         }
 
+        public bool AddFavorite(string userId, int restaurantId)
+        {
+            Visitor visitor = this.GetVisitorByUserId(userId);
+            Restaurant restaurant = this.GetRestaurantByRestaurantId(restaurantId);
+            visitor.Favorites.Add(restaurant);
+            _dbContext.SaveChanges();
+            return true;
+        }
+
         public IList<Restaurant> GetAllRestaurants()
         {
             IList<Restaurant> restaurants = _dbContext.Restaurants
@@ -77,6 +86,15 @@ namespace ImkStala.Services
                     _dbContext.RestaurantTables.Where(r => r.Restaurant.Id == restaurant.Id).ToList();
             }
             return restaurants;
+        }
+
+        public IList<Restaurant> GetFavorites(int visitorId)
+        {
+            Visitor visitor = _dbContext.Visitors
+                .Include(x => x.Favorites)
+                .SingleOrDefault(v => v.VisitorId == visitorId);
+            List<Restaurant> favourites = visitor.Favorites;
+            return favourites;
         }
 
         public Restaurant GetRestaurantByRestaurantId(int id)
