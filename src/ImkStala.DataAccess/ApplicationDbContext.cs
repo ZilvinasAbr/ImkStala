@@ -14,7 +14,8 @@ namespace ImkStala.DataAccess
         public DbSet<RestaurantTable> RestaurantTables { get; set; }
         public DbSet<Restaurant> Restaurants { get; set; }
         public DbSet<Visitor> Visitors { get; set; }
-        public DbSet<ApplicationUser> ApplicationUsers { get; set; }      
+        public DbSet<ApplicationUser> ApplicationUsers { get; set; }
+        public DbSet<Rating> Ratings { get; set; }      
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);

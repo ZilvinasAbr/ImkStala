@@ -10,6 +10,7 @@ namespace ImkStala.DataAccess.Entities
         public Restaurant()
         {
             RestaurantTables = new List<RestaurantTable>();
+            Ratings = new List<Rating>();
         }
 
         public int Id { get; set; }
@@ -27,6 +28,7 @@ namespace ImkStala.DataAccess.Entities
         //Navigation properties
         public ApplicationUser ApplicationUser { get; set; }
         public ICollection<RestaurantTable> RestaurantTables { get; set; }
+        public ICollection<Rating> Ratings { get; set; }
 
     }
 }

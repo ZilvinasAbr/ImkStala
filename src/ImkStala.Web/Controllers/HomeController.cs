@@ -10,6 +10,7 @@ using ImkStala.Web.ViewModels.Home;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Mvc;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNet.Authorization;
 
 namespace ImkStala.Web.Controllers
 {
@@ -77,13 +78,11 @@ namespace ImkStala.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Visitor")]
         public async Task<IActionResult> ToFavourites(int restaurantId)
         {
-            /*var user = await _userManager.FindByIdAsync(HttpContext.User.GetUserId());
-            if (user.Roles == "Visitor")
-            {
+            var user = await _userManager.FindByIdAsync(HttpContext.User.GetUserId());
 
-            }*/
             
             return View();
         }

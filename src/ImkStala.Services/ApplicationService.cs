@@ -89,7 +89,7 @@ namespace ImkStala.Services
         {
             Visitor visitor = _dbContext.Visitors
                 .Include(x => x.Favorites)
-                .SingleOrDefault(v => v.VisitorId == visitorId);
+                .SingleOrDefault(v => v.Id == visitorId);
 
             List<Restaurant> favourites = (List<Restaurant>) visitor?.Favorites;
 

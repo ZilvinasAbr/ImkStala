@@ -8,7 +8,7 @@ using ImkStala.DataAccess;
 namespace ImkStala.Web.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20160413131319_FirstMigration")]
+    [Migration("20160413145757_FirstMigration")]
     partial class FirstMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -22,8 +22,6 @@ namespace ImkStala.Web.Migrations
                     b.Property<string>("Id");
 
                     b.Property<int>("AccessFailedCount");
-
-                    b.Property<string>("AccountType");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
@@ -67,6 +65,20 @@ namespace ImkStala.Web.Migrations
                     b.HasAnnotation("Relational:TableName", "AspNetUsers");
                 });
 
+            modelBuilder.Entity("ImkStala.DataAccess.Entities.Rating", b =>
+                {
+                    b.Property<int>("RatingId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int?>("RestaurantId");
+
+                    b.Property<int?>("VisitorId");
+
+                    b.Property<int>("rating");
+
+                    b.HasKey("RatingId");
+                });
+
             modelBuilder.Entity("ImkStala.DataAccess.Entities.Reservation", b =>
                 {
                     b.Property<int>("ReservationId")
@@ -80,9 +92,9 @@ namespace ImkStala.Web.Migrations
 
                     b.Property<int?>("RestaurantTableRestaurantTableId");
 
-                    b.Property<string>("VisitorMessage");
+                    b.Property<int?>("VisitorId");
 
-                    b.Property<int?>("VisitorVisitorId");
+                    b.Property<string>("VisitorMessage");
 
                     b.HasKey("ReservationId");
                 });
@@ -110,7 +122,7 @@ namespace ImkStala.Web.Migrations
 
                     b.Property<string>("VatCode");
 
-                    b.Property<int?>("VisitorVisitorId");
+                    b.Property<int?>("VisitorId");
 
                     b.Property<string>("Website");
 
@@ -133,7 +145,7 @@ namespace ImkStala.Web.Migrations
 
             modelBuilder.Entity("ImkStala.DataAccess.Entities.Visitor", b =>
                 {
-                    b.Property<int>("VisitorId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("ApplicationUserId");
@@ -146,7 +158,7 @@ namespace ImkStala.Web.Migrations
 
                     b.Property<string>("PhoneNumber");
 
-                    b.HasKey("VisitorId");
+                    b.HasKey("Id");
                 });
 
             modelBuilder.Entity("Microsoft.AspNet.Identity.EntityFramework.IdentityRole", b =>
@@ -231,6 +243,17 @@ namespace ImkStala.Web.Migrations
                     b.HasAnnotation("Relational:TableName", "AspNetUserRoles");
                 });
 
+            modelBuilder.Entity("ImkStala.DataAccess.Entities.Rating", b =>
+                {
+                    b.HasOne("ImkStala.DataAccess.Entities.Restaurant")
+                        .WithMany()
+                        .HasForeignKey("RestaurantId");
+
+                    b.HasOne("ImkStala.DataAccess.Entities.Visitor")
+                        .WithMany()
+                        .HasForeignKey("VisitorId");
+                });
+
             modelBuilder.Entity("ImkStala.DataAccess.Entities.Reservation", b =>
                 {
                     b.HasOne("ImkStala.DataAccess.Entities.Restaurant")
@@ -243,7 +266,7 @@ namespace ImkStala.Web.Migrations
 
                     b.HasOne("ImkStala.DataAccess.Entities.Visitor")
                         .WithMany()
-                        .HasForeignKey("VisitorVisitorId");
+                        .HasForeignKey("VisitorId");
                 });
 
             modelBuilder.Entity("ImkStala.DataAccess.Entities.Restaurant", b =>
@@ -254,7 +277,7 @@ namespace ImkStala.Web.Migrations
 
                     b.HasOne("ImkStala.DataAccess.Entities.Visitor")
                         .WithMany()
-                        .HasForeignKey("VisitorVisitorId");
+                        .HasForeignKey("VisitorId");
                 });
 
             modelBuilder.Entity("ImkStala.DataAccess.Entities.RestaurantTable", b =>
