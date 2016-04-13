@@ -10,6 +10,7 @@ using ImkStala.Web.ViewModels.Home;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Mvc;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNet.Authorization;
 
 namespace ImkStala.Web.Controllers
 {
@@ -48,39 +49,45 @@ namespace ImkStala.Web.Controllers
             return View();
         }
 
-        [HttpGet]
-        public async Task<IActionResult> ToFavourites(int restaurantId)
-        {
-            /*var user = await _userManager.FindByIdAsync(HttpContext.User.GetUserId());
-            if (user.Roles == "Visitor")
-            {
-
-            }*/
-            
-            return View();
-        }
-
         [HttpPost]
         public async Task<IActionResult> Book(BookRestaurantTableViewModel model)
         {
             DateTime reservationStartDateTime = new DateTime(model.Date.Year,
                 model.Date.Month, model.Date.Day, model.Time.Hour, model.Time.Minute, 0);
+
             DateTime reservationEndDateTime = new DateTime(model.Date.Year,
-                model.Date.Month, model.Date.Day, model.Time.Hour+2, model.Time.Minute, 0);
+                model.Date.Month, model.Date.Day, model.Time.Hour + 2, model.Time.Minute, 0);
+
             var user = await _userManager.FindByIdAsync(HttpContext.User.GetUserId());
+
             Reservation reservation = new Reservation()
             {
                 ReservationStartDateTime = reservationStartDateTime,
                 ReservationEndDateTime = reservationEndDateTime,
                 VisitorMessage = model.VisitorMessage,
             };
+
             bool succeeded = _applicationService.AddReservation(reservation, user.Id, model.RestaurantId, model.RestaurantTableSeats);
+
             if (succeeded)
             {
                 return RedirectToAction(nameof(HomeController.Index), "Home");
             }
+
             return View();
         }
+
+        [HttpGet]
+        [Authorize(Roles = "Visitor")]
+        public async Task<IActionResult> ToFavourites(int restaurantId)
+        {
+            var user = await _userManager.FindByIdAsync(HttpContext.User.GetUserId());
+
+            
+            return View();
+        }
+
+        
 
         public IActionResult About()
         {

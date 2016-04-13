@@ -7,12 +7,13 @@ namespace ImkStala.DataAccess.Entities
 {
     public class Reservation
     {
-        public int ReservationId { get; set; }
+        //Navigation properties
         public Restaurant Restaurant { get; set; }
         public Visitor Visitor { get; set; }
-        public ReservationCalendar ReservationCalendar { get; set; }
+        public RestaurantTable RestaurantTable { get; set; }
 
         //Data of the entity
+        public int ReservationId { get; set; }
         public DateTime ReservationStartDateTime { get; set; }
         public DateTime ReservationEndDateTime { get; set; }
         public string VisitorMessage { get; set; }

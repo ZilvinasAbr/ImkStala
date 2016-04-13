@@ -104,11 +104,7 @@ namespace ImkStala.Web.Controllers
                     };
                     //_context.RestaurantTables.Add(table);
                     _applicationService.AddTableByRestaurantId(table, restaurant.Id);
-                    if (restaurant == null)
-                        user.RestaurantData = new Restaurant();
-                    if(restaurant.RestaurantTables == null)
-                        user.RestaurantData.RestaurantTables = new List<RestaurantTable>();
-                    restaurant.RestaurantTables.Add(table);
+                    //restaurant.RestaurantTables.Add(table);
                     //_context.SaveChanges();
                     return RedirectToAction("Index");
                 }

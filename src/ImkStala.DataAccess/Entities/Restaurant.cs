@@ -10,12 +10,10 @@ namespace ImkStala.DataAccess.Entities
         public Restaurant()
         {
             RestaurantTables = new List<RestaurantTable>();
+            Ratings = new List<Rating>();
         }
 
         public int Id { get; set; }
-        public ApplicationUser ApplicationUser { get; set; }
-
-
         public string RestaurantName { get; set; }
         public string VatCode { get; set; } //PVM moketojo kodas
         public string Manager { get; set; }
@@ -25,8 +23,12 @@ namespace ImkStala.DataAccess.Entities
         public string Website { get; set; }
         public string Workhours { get; set; }
         public double Rating { get; set; }
-        public List<RestaurantTable> RestaurantTables { get; set; }
         public DateTime RegistrationDate { get; set; }
+
+        //Navigation properties
+        public ApplicationUser ApplicationUser { get; set; }
+        public ICollection<RestaurantTable> RestaurantTables { get; set; }
+        public ICollection<Rating> Ratings { get; set; }
 
     }
 }

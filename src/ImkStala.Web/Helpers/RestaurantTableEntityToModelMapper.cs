@@ -15,15 +15,15 @@ namespace ImkStala.Web.Helpers
             RestaurantTableModel model = new RestaurantTableModel
             {
                 Id = entity.RestaurantTableId,
-                ReservationCalendar = new ReservationCalendar(),
+                Reservations = new List<ReservationModel>(),
                 RestaurantTableSeats = entity.RestaurantTableSeats
             };
-            model.ReservationCalendar.Reservations = new List<Reservation>();
-            if (entity.ReservationCalendar == null || entity.ReservationCalendar.Reservations == null)
+
+            if (entity.Reservations == null)
             {
                 return model;
             }
-            foreach (var reservation in entity.ReservationCalendar.Reservations)
+            foreach (var reservation in entity.Reservations)
             {
                 ReservationModel reservationModel = new ReservationModel()
                 {
@@ -31,6 +31,7 @@ namespace ImkStala.Web.Helpers
                     ReservationStartDateTime = reservation.ReservationStartDateTime,
                     ReservationEndDateTime = reservation.ReservationEndDateTime
                 };
+                model.Reservations.Add(reservationModel);
             }
             return model;
         }
