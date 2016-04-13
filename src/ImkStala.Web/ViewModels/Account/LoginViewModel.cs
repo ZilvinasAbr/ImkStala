@@ -8,15 +8,17 @@ namespace ImkStala.Web.ViewModels.Account
 {
     public class LoginViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "Elektroninis paštas yra privalomas")]
         [EmailAddress]
+        [Display(Name = "El. paštas")]
         public string Email { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Slaptažodis yra privalomas")]
         [DataType(DataType.Password)]
+        [Display(Name = "Slaptažodis")]
         public string Password { get; set; }
 
-        [Display(Name = "Remember me?")]
+        [Display(Name = "Prisiminti")]
         public bool RememberMe { get; set; }
     }
 }

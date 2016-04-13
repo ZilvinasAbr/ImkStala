@@ -1,6 +1,6 @@
 ﻿@model ImkStala.Web.ViewModels.Home.BookRestaurantTableViewModel
 @{
-    ViewData["Title"] = "Book";
+    ViewData["Title"] = "Rezervacija";
 }
 <script src="~/assets/jquery.min.js"></script>
 <script src="~/assets/angular.min.js"></script>
@@ -10,13 +10,13 @@
 <script>
     getOneRestaurantData(@ViewBag.Id);
 </script>
-<link href="~/css/bookpagestyle.css" rel="stylesheet" />
+<link href="~/css/bookPageStyle.css" rel="stylesheet" />
 <link href="~/css/default.css" rel="stylesheet" />
 <link href="~/css/default.time.css" rel="stylesheet" />
 <link href="~/css/pikaday.css" rel="stylesheet" />
 <div class="container" ng-app="restaurantApp" ng-controller="oneRestaurantController">
     <div class="jumbotron">
-        <h2>Jus rezervuojates staliuka "{{ restaurant.RestaurantName }}" restorane!</h2>
+        <h2>Jūs rezervuojate staliuką "{{ restaurant.RestaurantName }}" restorane!</h2>
     </div>
     <div class="row margin_left">
 
@@ -25,7 +25,7 @@
         <form asp-controller="Home" asp-action="Book" method="post" role="form">
             <div class="tableChooser col-md-5">
                 <input asp-for="RestaurantId" style="display: none" value="{{ restaurant.Id}}" />
-                <h3 class="inline"> Staliuko vietu skaicius: </h3>
+                <h3 class="inline"> Staliuko vietų skaičius: </h3>
                 <div class="selectTableSeat inline">
                     <select asp-for="RestaurantTableSeats" class="number">
                         <option value="1">1</option>
@@ -40,14 +40,13 @@
                     </select>
                 </div>
                 <textarea asp-for="VisitorMessage" class="form-control text" placeholder="Daugiau informacijos restoranui"></textarea>
-                <input class="form-control" type="button" value="Užsakyti"/>
-                <button type="submit">Užsakyti</button>
+                <button class="form-control" type="submit">Užsakyti</button>
             </div>
             <div class="col-md-2">
                 <input asp-for="Date" placeholder="Jūsų pasirinkta data" type='text' class="form-control" id='datepicker'>
                 <input asp-for="Time" placeholder="Pasirinkite laiką" type="text" class="form-control" id="timepicker" />
-                <p> Is viso vietu:</p>
-                <p> Laisvu vietu skaicius:</p>
+                <p> Iš viso vietų:</p>
+                <p> Laisvų vietų skaičius:</p>
             </div>
             <div class="col-md-3 zeroPadding">
                 <div id="container"></div>

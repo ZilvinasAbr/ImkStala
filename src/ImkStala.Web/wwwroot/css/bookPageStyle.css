@@ -29,3 +29,21 @@ h3
 {
     padding:0px;
 }
+
+.jumbotron
+{
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-style: italic;
+    background: none;
+}
+
+p > span
+{
+    color: red;
+}
+
+.restaurantInfo
+{
+    color: green;
+    font-style: italic;
+}

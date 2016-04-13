@@ -10,12 +10,12 @@
 @{
     ViewData["Title"] = "View Tables";
 }
-<h2> Informacija apie dabartine staliuku padeti jusu restorane</h2>
+<h2> Informacija apie dabartinę staliukų padėti jūsų restorane</h2>
 <div class="infoAboutTables">
     <table>
         <thead>
         <td>Staliuko nr.</td>
-        <td>Vietu skaičius</td>
+        <td>Vietų skaičius</td>
         </thead>
         @foreach (var table in Model.Tables)
         {
@@ -26,12 +26,11 @@
         }
     </table>
 </div>
-<h1> Pasirinkite kiek staliuku yra jusu restorane</h1>
-<hr>
+<h1> Pasirinkite, kiek staliukų yra jūsų restorane</h1>
 
 <div class='tableSeats row'>
     <div class="col-md-2 info" >
-        <h4> Vietu skaicius:</h4>
+        <h4> Vietų skaičius:</h4>
     </div>
     <div class="col-md-2 selectTableSeat">
         <select class="number">
@@ -47,7 +46,7 @@
         </select>
     </div>
     <div class='info col-md-2'>
-        <h4> Staliuku kiekis:</h4>
+        <h4> Staliukų kiekis:</h4>
     </div>
     <div class='input col-md-1'>
         <input type="number" onkeypress="return keyValidation(event);" min="0" id="1">
@@ -60,7 +59,7 @@
         <h4> Is viso: {{ bind skaiciu}}</h4>
     </div>
     <div class="col-md-1 submitTables">
-        <input type="submit" value="Issaugoti" />
+        <input type="submit" value="Išsaugoti" />
     </div>
 </div>
 <hr>

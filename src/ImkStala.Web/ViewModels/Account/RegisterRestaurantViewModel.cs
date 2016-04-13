@@ -8,36 +8,36 @@ namespace ImkStala.Web.ViewModels.Account
 {
     public class RegisterRestaurantViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "Elektroninis paštas yra privalomas")]
         [EmailAddress]
-        [Display(Name = "Email")]
+        [Display(Name = "Elektroninis paštas*")]
         public string Email { get; set; }
 
-        [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [Required(ErrorMessage = "Slaptažodis yra privalomas")]
+        [StringLength(100, ErrorMessage = "{0} turi būti bent {2} simbolių ilgio.", MinimumLength = 6)]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display(Name = "Slaptažodis*")]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [Display(Name = "Patvirtinkite slaptažodį*")]
+        [Compare("Password", ErrorMessage = "Slaptažodžiai nesutampa!")]
         public string ConfirmPassword { get; set; }
 
-        [Display(Name ="Restaurant name")]
+        [Display(Name ="Restorano pavadinimas")]
         public string RestaurantName { get; set; }
 
-        [Display(Name = "Address")]
+        [Display(Name = "Adresas")]
         public string Address { get; set; }
 
         [Phone]
-        [StringLength(12, ErrorMessage = "The {0} field must be {2} characters long.", MinimumLength = 12)]
-        [RegularExpression("^(\\+370)[0-9]+", ErrorMessage = "The {0} must be a valid phone number (must begin with '+370')")]
-        [Display(Name = "Phone number")]
+        [StringLength(12, ErrorMessage = "{0} turi būti {2} simbolių ilgio.", MinimumLength = 12)]
+        [RegularExpression("^(\\+370)[0-9]+", ErrorMessage = "{0} turi būti teisingas (turi prasidėti su '+370')")]
+        [Display(Name = "Telefono numeris")]
         public string PhoneNumber { get; set; }
 
-        [RegularExpression("^(https?://)(.+)?", ErrorMessage = "The {0} must be a valid website address")]
-        [Display(Name = "Website")]
+        [RegularExpression("^(https?://)(.+)?", ErrorMessage = "{0} turi būti teisingas")]
+        [Display(Name = "Restorano tinklalapis")]
         public string Website { get; set; }
     }
 }

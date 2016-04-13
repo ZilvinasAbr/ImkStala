@@ -8,20 +8,32 @@ namespace ImkStala.Web.ViewModels.Account
 {
     public class RegisterUserViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "Elektroninis paštas yra privalomas")]
         [EmailAddress]
-        [Display(Name = "Email")]
+        [Display(Name = "Elektroninis paštas*")]
         public string Email { get; set; }
 
-        [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [Required(ErrorMessage = "Slaptažodis yra privalomas")]
+        [StringLength(100, ErrorMessage = "{0} turi būti bent {2} simbolių ilgio.", MinimumLength = 6)]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display(Name = "Slaptažodis*")]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [Display(Name = "Patvirtinkite slaptažodį*")]
+        [Compare("Password", ErrorMessage = "Slaptažodžiai nesutampa!")]
         public string ConfirmPassword { get; set; }
+
+        [Display(Name = "Vardas")]
+        public string FirstName { get; set; }
+
+        [Display(Name = "Pavardė")]
+        public string LastName { get; set; }
+
+        [Phone]
+        [StringLength(12, ErrorMessage = "{0} turi būti {2} simbolių ilgio.", MinimumLength = 12)]
+        [RegularExpression("^(\\+370)[0-9]+", ErrorMessage = "{0} turi būti teisingas (turi prasidėti su '+370')")]
+        [Display(Name = "Telefono numeris")]
+        public string PhoneNumber { get; set; }
     }
 }

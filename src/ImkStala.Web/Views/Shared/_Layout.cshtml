@@ -26,8 +26,8 @@
                 <a class="navbar-brand" href="/">imkStala</a>
             </div>
             <ul class="nav navbar-nav">
-                <li><a href="/">Home</a></li>
-                <li><a asp-controller="Home" asp-action="Book">Book</a></li>
+                <li><a href="/">Pradžia</a></li>
+                <li><a asp-controller="Home" asp-action="Book">Rezervacija</a></li>
                 @*<li><a asp-controller="Restaurant" asp-action="Index">Restaurant</a></li>*@
                 @await Html.PartialAsync("_UserPartial")
                 @*<li><a asp-controller="Visitor" asp-action="Index">Visitor</a></li>*@
@@ -49,7 +49,7 @@
                             <h1> User </h1>
                         </div>
                         <div class="col-md-6 text-center" onclick="goToUrl('/Account/RegisterRestaurant')">
-                            <h1> Restaurant </h1>
+                            <h1> Restoranas </h1>
                         </div>
                     </div>
                     <button type="button" class="closeButton" data-dismiss="modal"> Close </button>
@@ -61,10 +61,9 @@
 
     <div class="container body-content">
         @RenderBody()
-        <hr />
-        <footer class="footer">
+        @*<footer class="footer">
             Foooooooooooter
-        </footer>
+        </footer>*@
     </div>
 
     <environment names="Development">

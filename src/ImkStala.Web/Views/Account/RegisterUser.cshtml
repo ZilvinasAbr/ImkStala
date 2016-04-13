@@ -7,13 +7,13 @@
 @using ImkStala.Web.ViewModels.Account
 @model ImkStala.Web.ViewModels.Account.RegisterUserViewModel
 @{
-    ViewData["Title"] = "Register User";
+    ViewData["Title"] = "Kliento registracija";
 }
 
-<h2 class="formInfo">@ViewData["Title"].</h2>
+<h2 class="formInfo">@ViewData["Title"]</h2>
 
 <form asp-controller="Account" asp-action="RegisterUser" method="post" class="form-horizontal registerForm" role="form">
-    <h4>Create a new user account.</h4>
+    <h4>Užpildykite registracijos duomenis</h4>
     <hr />
     <div asp-validation-summary="ValidationSummary.All" class="text-danger"></div>
     <div class="form-group">
@@ -38,10 +38,32 @@
         </div>
     </div>
     <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <button type="submit" class="btn btn-default">Register</button>
+        <label asp-for="FirstName" class="col-md-2 control-label"></label>
+        <div class="col-md-5">
+            <input asp-for="FirstName" class="form-control" />
+            <span asp-validation-for="FirstName" class="text-danger"></span>
         </div>
     </div>
+    <div class="form-group">
+        <label asp-for="LastName" class="col-md-2 control-label"></label>
+        <div class="col-md-5">
+            <input asp-for="LastName" class="form-control" />
+            <span asp-validation-for="LastName" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="PhoneNumber" class="col-md-2 control-label"></label>
+        <div class="col-md-5">
+            <input asp-for="PhoneNumber" class="form-control" />
+            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <button type="submit" class="btn btn-default">Registruotis</button>
+        </div>
+    </div>
+    <p style="color: red">*- privalomi laukeliai</p>
 </form>
 
 @section Scripts {

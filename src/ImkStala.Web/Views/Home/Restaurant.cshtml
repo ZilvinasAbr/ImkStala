@@ -1,11 +1,11 @@
 ﻿@{
-    ViewData["Title"] = "Restaurant" + @ViewBag.Id;
+    ViewData["Title"] = "Apie restoraną";
 }
 <script src="~/assets/jquery.min.js"></script>
 <script src="~/assets/angular.min.js"></script>
 <script src="~/assets/ng-infinite-scroll.js"></script>
 <script src="~/js/restaurant-controller.js"></script>
-<link href="~/css/bookpagestyle.css" rel="stylesheet" />
+<link href="~/css/bookPageStyle.css" rel="stylesheet" />
 <script src="http://maps.googleapis.com/maps/api/js"></script>
 <script src="~/js/site.js"></script>
 <script>
@@ -17,14 +17,14 @@
 <div class="row">
     <div class="col-md-3">
         <div class="profileInfo">
-            <h1 class="styledHeader"> Profile </h1>
+            <h1 class="styledHeader"> Profilis </h1>
             <hr />
             <nav>
                 <ul>
-                    <li><a href="">My reservation history</a></li>
-                    <li><a href="">My favorite restaurants</a></li>
-                    <li><a href="">My rated restaurants</a></li>
-                    <li><a href="">Book</a></li>
+                    <li><a href="">Mano rezervacijų istorija</a></li>
+                    <li><a href="">Mano mėgstami restoranai</a></li>
+                    <li><a href="">Mano įvertinti restoranai</a></li>
+                    <li><a href="">Rezervuoti</a></li>
                 </ul>
             </nav>
         </div>
@@ -35,9 +35,9 @@
                 <h2 class="styledHeader"> Pavadinimas</h2>
                 <div class="row buttonRow">
                     <div class="col-md-12">
-                        <a class="infoButton col-md-4" href="{{ restaurant.Id }}"> More info! </a>
-                        <a class="bookButton col-md-4" href="book/{{ restaurant.Id }}"> Book! </a>
-                        <a class="favoriteButton col-md-4" href="favorite/{{ restaurant.Id }}"> Favorite!</a>
+                        <a class="infoButton col-md-4" href="Restaurant/{{ restaurant.Id }}"> Informacija </a>
+                        <a class="bookButton col-md-4" href="Book/{{ restaurant.Id }}"> Rezervuoti </a>
+                        <a class="favoriteButton col-md-4" href="Favorite/{{ restaurant.Id }}"> Pamėgti </a>
                     </div>
                 </div>
             </div>
@@ -45,9 +45,9 @@
                 <h2 class="styledHeader"> Pavadinimas</h2>
                 <div class="row buttonRow">
                     <div class="col-md-12">
-                        <a class="infoButton col-md-4" href="Restaurant/{{ restaurant.Id }}"> More info! </a>
-                        <a class="bookButton col-md-4" href="Book/{{ restaurant.Id }}"> Book! </a>
-                        <a class="favoriteButton col-md-4" href="Favorite/{{ restaurant.Id }}"> Favorite!</a>
+                        <a class="infoButton col-md-4" href="Restaurant/{{ restaurant.Id }}"> Informacija </a>
+                        <a class="bookButton col-md-4" href="Book/{{ restaurant.Id }}"> Rezervuoti </a>
+                        <a class="favoriteButton col-md-4" href="Favorite/{{ restaurant.Id }}"> Pamėgti </a>
                     </div>
                 </div>
             </div>
@@ -55,9 +55,9 @@
                 <h2 class="styledHeader"> Pavadinimas</h2>
                 <div class="row buttonRow">
                     <div class="col-md-12">
-                        <a class="infoButton col-md-4" href="Restaurant/{{ restaurant.Id }}"> More info! </a>
-                        <a class="bookButton col-md-4" href="Book/{{ restaurant.Id }}"> Book! </a>
-                        <a class="favoriteButton col-md-4" href="Favorite/{{ restaurant.Id }}"> Favorite!</a>
+                        <a class="infoButton col-md-4" href="Restaurant/{{ restaurant.Id }}"> Informacija </a>
+                        <a class="bookButton col-md-4" href="Book/{{ restaurant.Id }}"> Rezervuoti </a>
+                        <a class="favoriteButton col-md-4" href="Favorite/{{ restaurant.Id }}"> Pamėgti </a>
                     </div>
                 </div>
             </div>
@@ -69,11 +69,12 @@
                 <h2 class="styledHeader"> {{ restaurant.RestaurantName }} </h2>
                 <hr />
                 <div class="description">
-                    <p> { restaurant.Description } Aprasyyymas Aprasyyymas AprasyyymasAprasyyymasAprasyyymasAprasyyymasAprasyyymasAprasyyymasAprasyyymasAprasyyymasAprasyyymas </p>
+                    <p><span>Restorano aprašymas:</span></p>
+                    <p class="restaurantInfo"> { restaurant.Description } Aprasyyymas Aprasyyymas AprasyyymasAprasyyymasAprasyyymasAprasyyymasAprasyyymasAprasyyymasAprasyyymasAprasyyymasAprasyyymas </p>
                 </div>
-                <p id="address"> {{ restaurant.Adress }} </p>
-                {{ restaurant.PhoneNumber }}
-                {{ restaurant.Email }}
+                <p class="restaurantInfo"><span>Adresas:</span> {{ restaurant.Adress }} </p>
+                <p class="restaurantInfo"><span>Telefono numeris:</span> {{ restaurant.PhoneNumber }}</p>
+                <p class="restaurantInfo"><span>Elektroninis paštas:</span> {{ restaurant.Email }}</p>
                 <a href="{{ restaurant.Website }}" target="_blank"> Apsilankykite restorano svetainėje</a>
                 <div id="googleMap" style="height:300px;">
 
@@ -81,8 +82,8 @@
                 <hr />
                 <div class="row buttonRow">
                     <div class="col-md-12">
-                        <a class="bookButton col-md-6" asp-controller="Home" asp-action="Book" asp-route-id="@ViewBag.Id"> Book! </a>
-                        <a class="favoriteButton col-md-6" href="Favorite/{{ restaurant.Id }}"> Add to favorite!</a>
+                        <a class="bookButton col-md-6" asp-controller="Home" asp-action="Book" asp-route-id="@ViewBag.Id"> Rezervuoti </a>
+                        <a class="favoriteButton col-md-6" href="Favorite/{{ restaurant.Id }}"> Pamėgti </a>
                     </div>
                 </div>
             </div>
