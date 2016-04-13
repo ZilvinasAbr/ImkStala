@@ -31,10 +31,10 @@ namespace ImkStala.Web.Controllers.Api
             IList<RestaurantModel> models = restaurants.Select(RestaurantEntityToModelMapper.EntityToModel).ToList(); 
             return models;
         }
-        [HttpGet("pages/{page}")]
-        public IEnumerable<RestaurantModel> GetRestaurantsPage(int page)
+        [HttpGet("pages/{page}/{searchKey}")]
+        public IEnumerable<RestaurantModel> GetRestaurantsPage(int page, string searchKey)
         {
-            List<Restaurant> restaurants = _applicationService.GetRestaurantsPage(page).ToList();
+            List<Restaurant> restaurants = _applicationService.GetRestaurantsPage(page,searchKey).ToList();
             IList<RestaurantModel> models = restaurants.Select(RestaurantEntityToModelMapper.EntityToModel).ToList();
             return models;
         }
