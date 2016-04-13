@@ -48,6 +48,34 @@ namespace ImkStala.Web.Controllers
             return View();
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Book(BookRestaurantTableViewModel model)
+        {
+            DateTime reservationStartDateTime = new DateTime(model.Date.Year,
+                model.Date.Month, model.Date.Day, model.Time.Hour, model.Time.Minute, 0);
+
+            DateTime reservationEndDateTime = new DateTime(model.Date.Year,
+                model.Date.Month, model.Date.Day, model.Time.Hour + 2, model.Time.Minute, 0);
+
+            var user = await _userManager.FindByIdAsync(HttpContext.User.GetUserId());
+
+            Reservation reservation = new Reservation()
+            {
+                ReservationStartDateTime = reservationStartDateTime,
+                ReservationEndDateTime = reservationEndDateTime,
+                VisitorMessage = model.VisitorMessage,
+            };
+
+            bool succeeded = _applicationService.AddReservation(reservation, user.Id, model.RestaurantId, model.RestaurantTableSeats);
+
+            if (succeeded)
+            {
+                return RedirectToAction(nameof(HomeController.Index), "Home");
+            }
+
+            return View();
+        }
+
         [HttpGet]
         public async Task<IActionResult> ToFavourites(int restaurantId)
         {
@@ -60,27 +88,7 @@ namespace ImkStala.Web.Controllers
             return View();
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Book(BookRestaurantTableViewModel model)
-        {
-            DateTime reservationStartDateTime = new DateTime(model.Date.Year,
-                model.Date.Month, model.Date.Day, model.Time.Hour, model.Time.Minute, 0);
-            DateTime reservationEndDateTime = new DateTime(model.Date.Year,
-                model.Date.Month, model.Date.Day, model.Time.Hour+2, model.Time.Minute, 0);
-            var user = await _userManager.FindByIdAsync(HttpContext.User.GetUserId());
-            Reservation reservation = new Reservation()
-            {
-                ReservationStartDateTime = reservationStartDateTime,
-                ReservationEndDateTime = reservationEndDateTime,
-                VisitorMessage = model.VisitorMessage,
-            };
-            bool succeeded = _applicationService.AddReservation(reservation, user.Id, model.RestaurantId, model.RestaurantTableSeats);
-            if (succeeded)
-            {
-                return RedirectToAction(nameof(HomeController.Index), "Home");
-            }
-            return View();
-        }
+        
 
         public IActionResult About()
         {

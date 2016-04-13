@@ -10,6 +10,6 @@ namespace ImkStala.Web.Models
     {
         public int Id { get; set; }
         public int RestaurantTableSeats { get; set; }
-        public ReservationCalendar ReservationCalendar { get; set; }
+        public ICollection<ReservationModel> Reservations { get; set; } 
     }
 }

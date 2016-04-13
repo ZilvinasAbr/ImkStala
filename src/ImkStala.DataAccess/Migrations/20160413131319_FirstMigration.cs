@@ -35,17 +35,6 @@ namespace ImkStala.Web.Migrations
                     table.PrimaryKey("PK_ApplicationUser", x => x.Id);
                 });
             migrationBuilder.CreateTable(
-                name: "ReservationCalendar",
-                columns: table => new
-                {
-                    ReservationCalendarId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ReservationCalendar", x => x.ReservationCalendarId);
-                });
-            migrationBuilder.CreateTable(
                 name: "AspNetRoles",
                 columns: table => new
                 {
@@ -198,47 +187,11 @@ namespace ImkStala.Web.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
             migrationBuilder.CreateTable(
-                name: "Reservation",
-                columns: table => new
-                {
-                    ReservationId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    ReservationCalendarReservationCalendarId = table.Column<int>(nullable: true),
-                    ReservationEndDateTime = table.Column<DateTime>(nullable: false),
-                    ReservationStartDateTime = table.Column<DateTime>(nullable: false),
-                    RestaurantId = table.Column<int>(nullable: true),
-                    VisitorMessage = table.Column<string>(nullable: true),
-                    VisitorVisitorId = table.Column<int>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Reservation", x => x.ReservationId);
-                    table.ForeignKey(
-                        name: "FK_Reservation_ReservationCalendar_ReservationCalendarReservationCalendarId",
-                        column: x => x.ReservationCalendarReservationCalendarId,
-                        principalTable: "ReservationCalendar",
-                        principalColumn: "ReservationCalendarId",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Reservation_Restaurant_RestaurantId",
-                        column: x => x.RestaurantId,
-                        principalTable: "Restaurant",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Reservation_Visitor_VisitorVisitorId",
-                        column: x => x.VisitorVisitorId,
-                        principalTable: "Visitor",
-                        principalColumn: "VisitorId",
-                        onDelete: ReferentialAction.Restrict);
-                });
-            migrationBuilder.CreateTable(
                 name: "RestaurantTable",
                 columns: table => new
                 {
                     RestaurantTableId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    ReservationCalendarReservationCalendarId = table.Column<int>(nullable: true),
                     RestaurantId = table.Column<int>(nullable: true),
                     RestaurantTableSeats = table.Column<int>(nullable: false)
                 },
@@ -246,16 +199,45 @@ namespace ImkStala.Web.Migrations
                 {
                     table.PrimaryKey("PK_RestaurantTable", x => x.RestaurantTableId);
                     table.ForeignKey(
-                        name: "FK_RestaurantTable_ReservationCalendar_ReservationCalendarReservationCalendarId",
-                        column: x => x.ReservationCalendarReservationCalendarId,
-                        principalTable: "ReservationCalendar",
-                        principalColumn: "ReservationCalendarId",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
                         name: "FK_RestaurantTable_Restaurant_RestaurantId",
                         column: x => x.RestaurantId,
                         principalTable: "Restaurant",
                         principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+            migrationBuilder.CreateTable(
+                name: "Reservation",
+                columns: table => new
+                {
+                    ReservationId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    ReservationEndDateTime = table.Column<DateTime>(nullable: false),
+                    ReservationStartDateTime = table.Column<DateTime>(nullable: false),
+                    RestaurantId = table.Column<int>(nullable: true),
+                    RestaurantTableRestaurantTableId = table.Column<int>(nullable: true),
+                    VisitorMessage = table.Column<string>(nullable: true),
+                    VisitorVisitorId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Reservation", x => x.ReservationId);
+                    table.ForeignKey(
+                        name: "FK_Reservation_Restaurant_RestaurantId",
+                        column: x => x.RestaurantId,
+                        principalTable: "Restaurant",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Reservation_RestaurantTable_RestaurantTableRestaurantTableId",
+                        column: x => x.RestaurantTableRestaurantTableId,
+                        principalTable: "RestaurantTable",
+                        principalColumn: "RestaurantTableId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Reservation_Visitor_VisitorVisitorId",
+                        column: x => x.VisitorVisitorId,
+                        principalTable: "Visitor",
+                        principalColumn: "VisitorId",
                         onDelete: ReferentialAction.Restrict);
                 });
             migrationBuilder.CreateIndex(
@@ -275,14 +257,13 @@ namespace ImkStala.Web.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable("Reservation");
-            migrationBuilder.DropTable("RestaurantTable");
             migrationBuilder.DropTable("AspNetRoleClaims");
             migrationBuilder.DropTable("AspNetUserClaims");
             migrationBuilder.DropTable("AspNetUserLogins");
             migrationBuilder.DropTable("AspNetUserRoles");
-            migrationBuilder.DropTable("ReservationCalendar");
-            migrationBuilder.DropTable("Restaurant");
+            migrationBuilder.DropTable("RestaurantTable");
             migrationBuilder.DropTable("AspNetRoles");
+            migrationBuilder.DropTable("Restaurant");
             migrationBuilder.DropTable("Visitor");
             migrationBuilder.DropTable("AspNetUsers");
         }

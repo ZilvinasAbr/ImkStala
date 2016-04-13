@@ -29,16 +29,13 @@ namespace ImkStala.Services
         {
             Restaurant restaurant = _dbContext
                 .Restaurants
-                .Include(x => x.RestaurantTables)
-                .Include(y => y)
+                //.Include(x => x.RestaurantTables)
                 .FirstOrDefault(r => r.Id == id);
-            if (restaurant == null)
-                return false;
 
-            /*if (restaurant.RestaurantTables == null)
+            if (restaurant == null)
             {
-                restaurant.RestaurantTables = new List<RestaurantTable>();
-            }*/
+                return false;
+            }
                 
             restaurant.RestaurantTables.Add(restaurantTable);
             //_dbContext.RestaurantTables.Add(restaurantTable);
@@ -93,7 +90,9 @@ namespace ImkStala.Services
             Visitor visitor = _dbContext.Visitors
                 .Include(x => x.Favorites)
                 .SingleOrDefault(v => v.VisitorId == visitorId);
-            List<Restaurant> favourites = visitor.Favorites;
+
+            List<Restaurant> favourites = (List<Restaurant>) visitor?.Favorites;
+
             return favourites;
         }
 
@@ -148,19 +147,24 @@ namespace ImkStala.Services
             Restaurant restaurant = this.GetRestaurantByRestaurantId(restaurantId);
             reservation.Visitor = visitor;
             reservation.Restaurant = restaurant;
+            RestaurantTable restaurantTable = _dbContext.RestaurantTables
+                .Include(r => r.Reservations)
+                .Where(r => r.RestaurantTableSeats == reservationTableSeats && r.Restaurant.Id == restaurantId)
+                .FirstOrDefault(r => r.CanAddReservation(reservation));
 
-            RestaurantTable restaurantTables = restaurant.RestaurantTables
+            /*RestaurantTable restaurantTable = restaurant.RestaurantTables
                 .Where(r => r.RestaurantTableSeats == reservationTableSeats)
-                .FirstOrDefault(t => t.ReservationCalendar.CanAddReservation(reservation));
+                .FirstOrDefault(t => t.CanAddReservation(reservation));*/
 
-            if (restaurantTables == null)
+            if (restaurantTable == null)
             {
                 return false;
             }
 
-            reservation.ReservationCalendar = restaurantTables.ReservationCalendar;
+            reservation.RestaurantTable = restaurantTable;
+            reservation.Visitor = visitor;
             visitor.VisitorReservations.Add(reservation);
-            restaurantTables.ReservationCalendar.Reservations.Add(reservation);
+            restaurantTable.Reservations.Add(reservation);
             _dbContext.SaveChanges();
 
             return true;

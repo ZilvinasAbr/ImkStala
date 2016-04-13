@@ -71,27 +71,19 @@ namespace ImkStala.Web.Migrations
                     b.Property<int>("ReservationId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int?>("ReservationCalendarReservationCalendarId");
-
                     b.Property<DateTime>("ReservationEndDateTime");
 
                     b.Property<DateTime>("ReservationStartDateTime");
 
                     b.Property<int?>("RestaurantId");
 
+                    b.Property<int?>("RestaurantTableRestaurantTableId");
+
                     b.Property<string>("VisitorMessage");
 
                     b.Property<int?>("VisitorVisitorId");
 
                     b.HasKey("ReservationId");
-                });
-
-            modelBuilder.Entity("ImkStala.DataAccess.Entities.ReservationCalendar", b =>
-                {
-                    b.Property<int>("ReservationCalendarId")
-                        .ValueGeneratedOnAdd();
-
-                    b.HasKey("ReservationCalendarId");
                 });
 
             modelBuilder.Entity("ImkStala.DataAccess.Entities.Restaurant", b =>
@@ -130,8 +122,6 @@ namespace ImkStala.Web.Migrations
                 {
                     b.Property<int>("RestaurantTableId")
                         .ValueGeneratedOnAdd();
-
-                    b.Property<int?>("ReservationCalendarReservationCalendarId");
 
                     b.Property<int?>("RestaurantId");
 
@@ -242,13 +232,13 @@ namespace ImkStala.Web.Migrations
 
             modelBuilder.Entity("ImkStala.DataAccess.Entities.Reservation", b =>
                 {
-                    b.HasOne("ImkStala.DataAccess.Entities.ReservationCalendar")
-                        .WithMany()
-                        .HasForeignKey("ReservationCalendarReservationCalendarId");
-
                     b.HasOne("ImkStala.DataAccess.Entities.Restaurant")
                         .WithMany()
                         .HasForeignKey("RestaurantId");
+
+                    b.HasOne("ImkStala.DataAccess.Entities.RestaurantTable")
+                        .WithMany()
+                        .HasForeignKey("RestaurantTableRestaurantTableId");
 
                     b.HasOne("ImkStala.DataAccess.Entities.Visitor")
                         .WithMany()
@@ -268,10 +258,6 @@ namespace ImkStala.Web.Migrations
 
             modelBuilder.Entity("ImkStala.DataAccess.Entities.RestaurantTable", b =>
                 {
-                    b.HasOne("ImkStala.DataAccess.Entities.ReservationCalendar")
-                        .WithMany()
-                        .HasForeignKey("ReservationCalendarReservationCalendarId");
-
                     b.HasOne("ImkStala.DataAccess.Entities.Restaurant")
                         .WithMany()
                         .HasForeignKey("RestaurantId");

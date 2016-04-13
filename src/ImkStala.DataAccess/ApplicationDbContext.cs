@@ -11,7 +11,6 @@ namespace ImkStala.DataAccess
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     { 
         public DbSet<Reservation> Reservations { get; set; }
-        public DbSet<ReservationCalendar> ReservationCalendars { get; set; }
         public DbSet<RestaurantTable> RestaurantTables { get; set; }
         public DbSet<Restaurant> Restaurants { get; set; }
         public DbSet<Visitor> Visitors { get; set; }
