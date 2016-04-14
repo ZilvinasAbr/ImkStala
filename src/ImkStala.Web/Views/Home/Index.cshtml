@@ -56,8 +56,8 @@
         </div>
     </div>
     <div class="col-md-8">
+        <h1 class="infoHeader"> Naujausi restoranai</h1>
         <div class="restaurants" ng-app="restaurantApp" ng-controller="infiniteScrollRestaurants">
-            <input style="width:100%" id="searchBar" type="text" ng-change="searchChanged()" ng-model="searchKey"/>
             <div infinite-scroll='loadMore()' infinite-scroll-distance='0'>
                 <div class="restaurant" ng-repeat="restaurant in restaurants">
                     <h2 class="styledHeader"> {{ restaurant.RestaurantName }} </h2>
