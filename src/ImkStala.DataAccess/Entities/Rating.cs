@@ -11,7 +11,7 @@ namespace ImkStala.DataAccess.Entities
         public int RatingId { get; set; }
         public Restaurant Restaurant { get; set; }
         public Visitor Visitor { get; set; }
-        public int rating { get; set; }
+        public int RatingValue { get; set; }
 
     }
 }

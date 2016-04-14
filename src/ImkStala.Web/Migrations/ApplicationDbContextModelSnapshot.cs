@@ -69,11 +69,11 @@ namespace ImkStala.Web.Migrations
                     b.Property<int>("RatingId")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<int>("RatingValue");
+
                     b.Property<int?>("RestaurantId");
 
                     b.Property<int?>("VisitorId");
-
-                    b.Property<int>("rating");
 
                     b.HasKey("RatingId");
                 });

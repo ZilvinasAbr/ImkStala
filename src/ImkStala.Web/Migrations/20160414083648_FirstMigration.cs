@@ -191,9 +191,9 @@ namespace ImkStala.Web.Migrations
                 {
                     RatingId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    RatingValue = table.Column<int>(nullable: false),
                     RestaurantId = table.Column<int>(nullable: true),
-                    VisitorId = table.Column<int>(nullable: true),
-                    rating = table.Column<int>(nullable: false)
+                    VisitorId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
