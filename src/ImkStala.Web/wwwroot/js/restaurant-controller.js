@@ -2,7 +2,8 @@
 
 restaurantApp.controller('infiniteScrollRestaurants', function ($scope, $http) {
     var page = 0;
-    var url = "/api/restaurants/pages/" + page;
+    var value = "all";
+    var url = "/api/restaurants/pages/" + page + "/" + value;
     $http.get(url).success(function (data) {
         $scope.restaurants = data;
     }).error(function () {
@@ -12,7 +13,7 @@ restaurantApp.controller('infiniteScrollRestaurants', function ($scope, $http) {
         var scrollTop = (window.pageYOffset !== undefined) ? window.pageYOffset : (document.documentElement || document.body.parentNode || document.body).scrollTop;
         if (scrollTop != 0) {
             page++;
-            var url = "/api/restaurants/pages/" + page;
+            var url = "/api/restaurants/pages/" + page + "/" + value;
             $http.get(url).success(function (data) {
                 var data = data;
                 for (var i = 0; i < data.length; i++) {
@@ -21,6 +22,16 @@ restaurantApp.controller('infiniteScrollRestaurants', function ($scope, $http) {
             }).error(function () {
             });
         }
+    }
+    $scope.searchChanged = function()
+    {
+        var page = 0;
+        value = document.getElementById('searchBar').value;
+        var url = "/api/restaurants/pages/" + page + "/" + value;
+        $http.get(url).success(function (data) {
+            $scope.restaurants = data;
+        }).error(function () {
+        });
     }
 });
 
@@ -60,4 +71,10 @@ function getAdressById(id)
         }
     });
     return returnAdress;
+}
+function loadScope(scope,http,url)
+{
+    http.get(url).success(function (data) {
+        scope.restaurant = data;
+    }).error(function () { });
 }

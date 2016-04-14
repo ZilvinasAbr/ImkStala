@@ -8,7 +8,6 @@ namespace ImkStala.DataAccess.Entities
 {
     public class ApplicationUser : IdentityUser
     {
-        public string AccountType { get; set; }
         public Visitor VisitorData { get; set; }
         public Restaurant RestaurantData { get; set; }
     }

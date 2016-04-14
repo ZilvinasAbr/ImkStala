@@ -29,16 +29,13 @@ namespace ImkStala.Services
         {
             Restaurant restaurant = _dbContext
                 .Restaurants
-                .Include(x => x.RestaurantTables)
-                .Include(y => y)
+                //.Include(x => x.RestaurantTables)
                 .FirstOrDefault(r => r.Id == id);
-            if (restaurant == null)
-                return false;
 
-            /*if (restaurant.RestaurantTables == null)
+            if (restaurant == null)
             {
-                restaurant.RestaurantTables = new List<RestaurantTable>();
-            }*/
+                return false;
+            }
                 
             restaurant.RestaurantTables.Add(restaurantTable);
             //_dbContext.RestaurantTables.Add(restaurantTable);
@@ -71,15 +68,26 @@ namespace ImkStala.Services
             return restaurants;
         }
 
-        public IList<Restaurant> GetRestaurantsPage(int page)
+        public IList<Restaurant> GetRestaurantsPage(int page, string searchKey)
         {
             int skip = page * 5;
             int pageLength = 4;
+            if (searchKey != "all")
+            {
+                IList < Restaurant > restaurantsSearch = _dbContext.Restaurants
+                    .Where(x => x.RestaurantName.StartsWith(searchKey))
+                    .OrderByDescending(x => x.RegistrationDate)
+                    .Skip(skip)
+                    .Take(pageLength)
+                    .ToList();
+                return restaurantsSearch;
+            }
             IList<Restaurant> restaurants = _dbContext.Restaurants
                 .OrderByDescending(x => x.RegistrationDate)
                 .Skip(skip)
                 .Take(pageLength)
                 .ToList();
+
             foreach (var restaurant in restaurants)
             {
                 restaurant.RestaurantTables =
@@ -92,8 +100,10 @@ namespace ImkStala.Services
         {
             Visitor visitor = _dbContext.Visitors
                 .Include(x => x.Favorites)
-                .SingleOrDefault(v => v.VisitorId == visitorId);
-            List<Restaurant> favourites = visitor.Favorites;
+                .SingleOrDefault(v => v.Id == visitorId);
+
+            List<Restaurant> favourites = (List<Restaurant>) visitor?.Favorites;
+
             return favourites;
         }
 
@@ -148,19 +158,24 @@ namespace ImkStala.Services
             Restaurant restaurant = this.GetRestaurantByRestaurantId(restaurantId);
             reservation.Visitor = visitor;
             reservation.Restaurant = restaurant;
+            RestaurantTable restaurantTable = _dbContext.RestaurantTables
+                .Include(r => r.Reservations)
+                .Where(r => r.RestaurantTableSeats == reservationTableSeats && r.Restaurant.Id == restaurantId)
+                .FirstOrDefault(r => r.CanAddReservation(reservation));
 
-            RestaurantTable restaurantTables = restaurant.RestaurantTables
+            /*RestaurantTable restaurantTable = restaurant.RestaurantTables
                 .Where(r => r.RestaurantTableSeats == reservationTableSeats)
-                .FirstOrDefault(t => t.ReservationCalendar.CanAddReservation(reservation));
+                .FirstOrDefault(t => t.CanAddReservation(reservation));*/
 
-            if (restaurantTables == null)
+            if (restaurantTable == null)
             {
                 return false;
             }
 
-            reservation.ReservationCalendar = restaurantTables.ReservationCalendar;
+            reservation.RestaurantTable = restaurantTable;
+            reservation.Visitor = visitor;
             visitor.VisitorReservations.Add(reservation);
-            restaurantTables.ReservationCalendar.Reservations.Add(reservation);
+            restaurantTable.Reservations.Add(reservation);
             _dbContext.SaveChanges();
 
             return true;
