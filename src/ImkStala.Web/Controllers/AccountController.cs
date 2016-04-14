@@ -130,7 +130,7 @@ namespace ImkStala.Web.Controllers
                     //AccountType = "Restaurant",
                     RestaurantData = restaurant
                 };
-                _applicationService.AddRestaurant(restaurant);
+                //_applicationService.AddRestaurant(restaurant);
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -153,20 +153,20 @@ namespace ImkStala.Web.Controllers
         }
 
         //
-        // GET: /Account/RegisterUser
+        // GET: /Account/RegisterVisitor
         [HttpGet]
         [AllowAnonymous]
-        public IActionResult RegisterUser()
+        public IActionResult RegisterVisitor()
         {
             return View();
         }
 
         //
-        // POST: /Account/RegisterUser
+        // POST: /Account/RegisterVisitor
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> RegisterUser(RegisterUserViewModel model)
+        public async Task<IActionResult> RegisterVisitor(RegisterVisitorViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -178,14 +178,10 @@ namespace ImkStala.Web.Controllers
                     PhoneNumber = model.PhoneNumber
                 };
 
-                _applicationService.AddVisitor(visitor);
-                //_context.Visitors.Add(userData);
-                //_context.SaveChanges();
                 var user = new ApplicationUser
                 {
                     UserName = model.Email,
                     Email = model.Email,
-                    //AccountType = "Restaurant",
                     VisitorData = visitor
                 };
                 var result = await _userManager.CreateAsync(user, model.Password);

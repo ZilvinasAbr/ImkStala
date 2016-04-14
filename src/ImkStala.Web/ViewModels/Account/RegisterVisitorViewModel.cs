@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ImkStala.Web.ViewModels.Account
 {
-    public class RegisterUserViewModel
+    public class RegisterVisitorViewModel
     {
         [Required(ErrorMessage = "Elektroninis paštas yra privalomas")]
         [EmailAddress]
