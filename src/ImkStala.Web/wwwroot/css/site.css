@@ -341,6 +341,11 @@ hr
     text-align:center;
 }
 
+.col-md-6
+{
+    color: black;
+}
+
 .col-md-8
 {
     padding-top:20px;
@@ -356,3 +361,25 @@ hr
 {
     margin:0px;
 }
+
+#registerModal .modal-body > div > div
+{
+    background-image: url("/images/client.jpg");
+    background-size:cover;
+    background-repeat:no-repeat;
+    opacity: 0.3;
+    transition: opacity 1s;
+}
+
+#registerModal .modal-body > div > div:hover
+{
+    opacity: 1;
+}
+
+#registerModal .modal-body > div > div:nth-child(2) 
+{
+    background-image: url("/images/restaurant.jpg");
+    background-size:cover;
+    background-repeat:no-repeat;
+}
+
