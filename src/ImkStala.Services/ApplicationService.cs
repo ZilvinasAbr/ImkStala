@@ -68,15 +68,26 @@ namespace ImkStala.Services
             return restaurants;
         }
 
-        public IList<Restaurant> GetRestaurantsPage(int page)
+        public IList<Restaurant> GetRestaurantsPage(int page, string searchKey)
         {
             int skip = page * 5;
             int pageLength = 4;
+            if (searchKey != "all")
+            {
+                IList < Restaurant > restaurantsSearch = _dbContext.Restaurants
+                    .Where(x => x.RestaurantName.StartsWith(searchKey))
+                    .OrderByDescending(x => x.RegistrationDate)
+                    .Skip(skip)
+                    .Take(pageLength)
+                    .ToList();
+                return restaurantsSearch;
+            }
             IList<Restaurant> restaurants = _dbContext.Restaurants
                 .OrderByDescending(x => x.RegistrationDate)
                 .Skip(skip)
                 .Take(pageLength)
                 .ToList();
+
             foreach (var restaurant in restaurants)
             {
                 restaurant.RestaurantTables =

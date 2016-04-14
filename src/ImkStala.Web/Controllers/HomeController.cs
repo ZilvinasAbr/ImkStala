@@ -83,7 +83,6 @@ namespace ImkStala.Web.Controllers
         {
             var user = await _userManager.FindByIdAsync(HttpContext.User.GetUserId());
 
-            
             return View();
         }
 

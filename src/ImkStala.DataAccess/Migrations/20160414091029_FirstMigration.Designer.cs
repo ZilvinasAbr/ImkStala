@@ -8,7 +8,7 @@ using ImkStala.DataAccess;
 namespace ImkStala.Web.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20160414083648_FirstMigration")]
+    [Migration("20160414091029_FirstMigration")]
     partial class FirstMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
