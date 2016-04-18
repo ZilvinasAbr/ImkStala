@@ -55,13 +55,6 @@ namespace ImkStala.Web.Controllers.Api
             return model;
         }
 
-        // GET api/values/5
-        /*[HttpGet("{id}")]
-        public Restaurant Get(int id)
-        {
-            return "value";
-        }*/
-
         // POST api/values
         [HttpPost]
         public void Post([FromBody]string value)

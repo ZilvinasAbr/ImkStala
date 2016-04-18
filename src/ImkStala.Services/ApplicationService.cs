@@ -38,7 +38,6 @@ namespace ImkStala.Services
             }
                 
             restaurant.RestaurantTables.Add(restaurantTable);
-            //_dbContext.RestaurantTables.Add(restaurantTable);
             _dbContext.SaveChanges();
 
             return true;
@@ -56,13 +55,15 @@ namespace ImkStala.Services
             Restaurant restaurant = this.GetRestaurantByRestaurantId(restaurantId);
             visitor.Favorites.Add(restaurant);
             _dbContext.SaveChanges();
+
             return true;
         }
 
         public IList<Restaurant> GetAllRestaurants()
         {
             IList<Restaurant> restaurants = _dbContext.Restaurants
-                .Include(x => x.RestaurantTables)
+                .Include(r => r.RestaurantTables)
+                .ThenInclude(t => t.Reservations)
                 .ToList();
 
             return restaurants;
@@ -72,9 +73,12 @@ namespace ImkStala.Services
         {
             int skip = page * 5;
             int pageLength = 4;
+
             if (searchKey != "all")
             {
-                IList < Restaurant > restaurantsSearch = _dbContext.Restaurants
+                IList<Restaurant> restaurantsSearch = _dbContext.Restaurants
+                    .Include(r => r.RestaurantTables)
+                    .ThenInclude(t => t.Reservations)
                     .Where(x => x.RestaurantName.StartsWith(searchKey))
                     .OrderByDescending(x => x.RegistrationDate)
                     .Skip(skip)
@@ -82,17 +86,15 @@ namespace ImkStala.Services
                     .ToList();
                 return restaurantsSearch;
             }
+
             IList<Restaurant> restaurants = _dbContext.Restaurants
+                .Include(r => r.RestaurantTables)
+                .ThenInclude(t => t.Reservations)
                 .OrderByDescending(x => x.RegistrationDate)
                 .Skip(skip)
                 .Take(pageLength)
                 .ToList();
 
-            foreach (var restaurant in restaurants)
-            {
-                restaurant.RestaurantTables =
-                    _dbContext.RestaurantTables.Where(r => r.Restaurant.Id == restaurant.Id).ToList();
-            }
             return restaurants;
         }
 
@@ -111,6 +113,7 @@ namespace ImkStala.Services
         {
             Restaurant restaurant = _dbContext.Restaurants
                 .Include(r => r.RestaurantTables)
+                .ThenInclude(t => t.Reservations)
                 .FirstOrDefault(x => x.Id == id);
             return restaurant;
         }
@@ -138,8 +141,6 @@ namespace ImkStala.Services
 
         public IList<RestaurantTable> GetRestaurantTablesByUserId(string userId)
         {
-            /*IList<RestaurantTable> restaurantTables2 = _dbContext.RestaurantTables
-                .Where(r => r.Restaurant.ApplicationUser.Id == userId).ToList();*/
             Restaurant restaurant = GetRestaurantByUserId(userId);
 
             if (restaurant == null)
@@ -162,10 +163,6 @@ namespace ImkStala.Services
                 .Include(r => r.Reservations)
                 .Where(r => r.RestaurantTableSeats == reservationTableSeats && r.Restaurant.Id == restaurantId)
                 .FirstOrDefault(r => r.CanAddReservation(reservation));
-
-            /*RestaurantTable restaurantTable = restaurant.RestaurantTables
-                .Where(r => r.RestaurantTableSeats == reservationTableSeats)
-                .FirstOrDefault(t => t.CanAddReservation(reservation));*/
 
             if (restaurantTable == null)
             {

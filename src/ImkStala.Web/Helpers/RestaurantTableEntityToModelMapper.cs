@@ -27,7 +27,6 @@ namespace ImkStala.Web.Helpers
             {
                 ReservationModel reservationModel = new ReservationModel()
                 {
-                    Id = reservation.ReservationId,
                     ReservationStartDateTime = reservation.ReservationStartDateTime,
                     ReservationEndDateTime = reservation.ReservationEndDateTime
                 };
