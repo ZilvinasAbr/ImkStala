@@ -62,7 +62,34 @@ function getOneRestaurantData(id)
     console.log(url);
     restaurantApp.controller('oneRestaurantController', function ($scope, $http) {
         $http.get(url).success(function (data) {
+            $scope.uniqueTables = [];
+            $scope.allTables = [];
+            $scope.exactTableCount;
+            for (var i = 0; i < data.RestaurantTables.length; i++)
+            {
+                var seats = data.RestaurantTables[i].RestaurantTableSeats;
+                $scope.allTables.push(seats);
+                if (!checkIfAlreadyIn($scope.uniqueTables, seats))
+                {
+                    $scope.uniqueTables.push(seats);
+                }
+            }
             $scope.restaurant = data;
+
+            $scope.changed = function () {
+                var seats = parseInt($scope.data.selectedTable);
+                var tableArray = $scope.allTables;
+                var count = 0;
+                for (var i = 0; i < tableArray.length; i++)
+                {
+                    if(tableArray[i]==seats)
+                    {
+                        count++;
+                    }
+                }
+                $scope.exactTableCount = count;
+            };
+            
         }).error(function () {
         });
     });
@@ -83,9 +110,29 @@ function getAdressById(id)
     });
     return returnAdress;
 }
-function loadScope(scope,http,url)
+
+function checkIfAlreadyIn(array,value)
 {
-    http.get(url).success(function (data) {
-        scope.restaurant = data;
-    }).error(function () { });
+    for(var i=0; i<array.length; i++)
+    {
+        if(array[i]==value)
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
+function getHowManyInArray(array,value)
+{
+    var value=0;
+    for(var i=0; i<array.length; i++)
+    {
+        console.log(array[i] + ' ' + value)
+        if(array[i]==value)
+        {
+            value++;
+        }
+    }
+    return value;
 }

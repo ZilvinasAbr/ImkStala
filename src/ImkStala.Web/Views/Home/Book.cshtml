@@ -19,24 +19,13 @@
         <h2>Jūs rezervuojate staliuką "{{ restaurant.RestaurantName }}" restorane!</h2>
     </div>
     <div class="row margin_left">
-
-
-
         <form asp-controller="Home" asp-action="Book" method="post" role="form">
             <div class="tableChooser col-md-5">
                 <input asp-for="RestaurantId" style="display: none" value="{{ restaurant.Id}}" />
                 <h3 class="inline"> Staliuko vietų skaičius: </h3>
                 <div class="selectTableSeat inline">
-                    <select asp-for="RestaurantTableSeats" class="number">
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4" selected="selected">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                        <option value="8">8</option>
-                        <option value="9">9</option>
+                    <select asp-for="RestaurantTableSeats" class="number" ng-model="data.selectedTable" ng-change="changed()">
+                        <option selected ng-repeat="table in uniqueTables"> {{ table }} </option>
                     </select>
                 </div>
                 <textarea asp-for="VisitorMessage" class="form-control text" placeholder="Daugiau informacijos restoranui"></textarea>
@@ -45,8 +34,8 @@
             <div class="col-md-2">
                 <input asp-for="Date" placeholder="Jūsų pasirinkta data" type='text' class="form-control" id='datepicker'>
                 <input asp-for="Time" placeholder="Pasirinkite laiką" type="text" class="form-control" id="timepicker" />
-                <p> Iš viso vietų:</p>
-                <p> Laisvų vietų skaičius:</p>
+                <p style="color:white;"> Iš viso{{ data.selectedTable }}-iečių staliukų: {{ exactTableCount }}</p>
+                <p style="color:white;"> Laisvų skaičius:</p>
             </div>
             <div class="col-md-3 zeroPadding">
                 <div id="container"></div>

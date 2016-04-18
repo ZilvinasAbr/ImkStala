@@ -60,3 +60,7 @@ function loadMapByAddress(address)
     }
     google.maps.event.addDomListener(window, 'load', initialize);
 }
+
+$('input[type=radio]').on('change', function () {
+    $(this).closest("form").submit();
+});
