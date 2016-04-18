@@ -27,11 +27,22 @@ restaurantApp.controller('infiniteScrollRestaurants', function ($scope, $http) {
     {
         var page = 0;
         value = document.getElementById('searchBar').value;
-        var url = "/api/restaurants/pages/" + page + "/" + value;
-        $http.get(url).success(function (data) {
-            $scope.restaurants = data;
-        }).error(function () {
-        });
+        if (value == "")
+        {
+            var url = "/api/restaurants/pages/" + page + "/all";
+            $http.get(url).success(function (data) {
+                $scope.restaurants = data;
+            }).error(function () {
+            });
+        }
+        else
+        {
+            var url = "/api/restaurants/pages/" + page + "/" + value;
+            $http.get(url).success(function (data) {
+                $scope.restaurants = data;
+            }).error(function () {
+            });
+        }
     }
 });
 

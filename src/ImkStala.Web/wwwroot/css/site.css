@@ -383,3 +383,30 @@ hr
     background-repeat:no-repeat;
 }
 
+.rating
+{
+    unicode-bidi: bidi-override;
+    direction: rtl;
+    text-align: center;
+}
+
+.rating label
+{
+    display: inline-block;
+    position: relative;
+    font-size:75px;
+}
+
+.rating label:hover:before,
+.rating label:hover ~ label:before
+{
+    content: "\2605";
+    position: absolute;
+    cursor: pointer;
+    color: yellow;
+}
+
+.radio_item
+{
+    display: none !important;
+}
