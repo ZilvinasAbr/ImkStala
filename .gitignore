@@ -1,2 +1,4 @@
 /src/ImkStala.Web/node_modules/*
-.vs/*
+/.vs/*
+/src/ImkStala.Web/Migrations/*
+/src/ImkStala.DataAccess/Migrations/*

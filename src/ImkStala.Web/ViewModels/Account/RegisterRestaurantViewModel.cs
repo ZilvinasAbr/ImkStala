@@ -39,5 +39,8 @@ namespace ImkStala.Web.ViewModels.Account
         [RegularExpression("^(https?://)(.+)?", ErrorMessage = "{0} turi būti teisingas")]
         [Display(Name = "Restorano tinklalapis")]
         public string Website { get; set; }
+
+        [Display(Name = "Aprašymas")]
+        public string Description { get; set; }
     }
 }

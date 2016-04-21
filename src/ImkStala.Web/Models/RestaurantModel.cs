@@ -18,6 +18,7 @@ namespace ImkStala.Web.Models
         public string Website { get; set; }
         public string Workhours { get; set; }
         public double Rating { get; set; }
+        public string Description { get; set; }
         public DateTime RegistrationDate { get; set; }
         public List<RestaurantTableModel> RestaurantTables { get; set; } 
     }

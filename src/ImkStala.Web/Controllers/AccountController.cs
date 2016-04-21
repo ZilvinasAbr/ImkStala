@@ -118,7 +118,8 @@ namespace ImkStala.Web.Controllers
                     RestaurantName = model.RestaurantName,
                     Address = model.Address,
                     PhoneNumber = model.PhoneNumber,
-                    Website = model.Website
+                    Website = model.Website,
+                    Description = model.Description
                 };
                 
                 //_context.Restaurants.Add(restaurant);

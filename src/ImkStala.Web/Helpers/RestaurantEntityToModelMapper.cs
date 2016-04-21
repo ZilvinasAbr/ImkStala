@@ -26,6 +26,7 @@ namespace ImkStala.Web.Helpers
                 VatCode = entity.VatCode,
                 Website = entity.Website,
                 Workhours = entity.Workhours,
+                Description = entity.Description,
                 RestaurantTables = new List<RestaurantTableModel>()
             };
             if (entity.RestaurantTables != null)
