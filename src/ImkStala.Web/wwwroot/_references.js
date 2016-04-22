@@ -10,6 +10,7 @@
 /// <reference path="assets/picker.time.js" />
 /// <reference path="assets/pikaday.js" />
 /// <reference path="js/calendarcall.js" />
+/// <reference path="js/facebookplugin.js" />
 /// <reference path="js/restaurant-controller.js" />
 /// <reference path="js/site.js" />
 /// <reference path="lib/bootstrap/dist/js/bootstrap.js" />

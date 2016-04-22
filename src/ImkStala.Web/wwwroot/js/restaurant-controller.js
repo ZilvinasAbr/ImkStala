@@ -95,6 +95,26 @@ function getOneRestaurantData(id)
     });
 }
 
+function getReservedTables(id)
+{
+    var url = "/api/restaurants/" + id;
+    console.log(url);
+    restaurantApp.controller('oneRestaurantController', function ($scope, $http) {
+        $http.get(url).success(function (data) {
+            $scope.reservedTables = [];
+            for (var i = 0; i < data.RestaurantTables.length; i++) {
+                if (data.RestaurantTables[i].Reservations.length != 0)
+                {
+                    var tables = data.RestaurantTables[i];
+                    $scope.reservedTables.push(tables);
+                }
+            }
+
+        }).error(function () {
+        });
+    });
+}
+
 function getAdressById(id)
 {
     var returnAdress;

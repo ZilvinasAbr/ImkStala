@@ -86,6 +86,14 @@ namespace ImkStala.Web.Controllers
             return View();
         }
 
+        public async Task<IActionResult> Orders()
+        {
+            var user = await _userManager.FindByIdAsync(HttpContext.User.GetUserId());
+            Restaurant restaurant = _applicationService.GetRestaurantByUserId(user.Id);
+            ViewBag.Id = restaurant.Id;
+            return View();
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddTable(AddTableViewModel tableViewModel)

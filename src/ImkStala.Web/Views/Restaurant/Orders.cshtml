@@ -1,0 +1,15 @@
+﻿@model ImkStala.Web.ViewModels.Home.BookRestaurantTableViewModel
+@{
+    ViewData["Title"] = "Užsakymai";
+}
+<script src="~/assets/jquery.min.js"></script>
+<script src="~/assets/angular.min.js"></script>
+<script src="~/assets/ng-infinite-scroll.js"></script>
+<script src="~/js/restaurant-controller.js"></script>
+
+<script>
+    getReservedTables(@ViewBag.Id);
+</script>
+<div class="restaurants" ng-app="restaurantApp" ng-controller="oneRestaurantController">
+    <p ng-repeat="table in reservedTables">{{ table.RestaurantTableSeats }} {{ table.Reservations }} {{ table.Reservations }}</p>
+</div>
