@@ -20,7 +20,6 @@ namespace ImkStala.Web.Helpers
                 Email = entity.Email,
                 Manager = entity.Manager,
                 PhoneNumber = entity.PhoneNumber,
-                Rating = entity.Rating,
                 RegistrationDate = entity.RegistrationDate,
                 RestaurantName = entity.RestaurantName,
                 VatCode = entity.VatCode,

@@ -78,14 +78,15 @@
                 <p class="restaurantInfo"><span>Elektroninis paštas:</span> {{ restaurant.Email }}</p>
                 <a href="{{ restaurant.Website }}" target="_blank"> Apsilankykite restorano svetainėje</a>
                 <div class="rating">
-                    <form>
-                        <input type="radio" id="form_rating_4" required="required" class="radio_item" value="5" />
-                        <input type="radio" id="form_rating_3" required="required" class="radio_item" value="4" />
-                        <input type="radio" id="form_rating_2" required="required" class="radio_item" value="3" />
-                        <input type="radio" id="form_rating_1" required="required" class="radio_item" value="2" />
-                        <input type="radio" id="form_rating_0" required="required" class="radio_item" value="1" />
+                    <form asp-controller="Home" asp-action="Rate" method="post" role="form">
+                        <input type="text" style="display:none" name="id" value="{{ restaurant.Id }}" />
+                        <input type="radio" id="form_rating_4" required="required" class="radio_item" name="rating" value="1" />
+                        <input type="radio" id="form_rating_3" required="required" class="radio_item" name="rating" value="2" />
+                        <input type="radio" id="form_rating_2" required="required" class="radio_item" name="rating" value="3" />
+                        <input type="radio" id="form_rating_1" required="required" class="radio_item" name="rating" value="4" />
+                        <input type="radio" id="form_rating_0" required="required" class="radio_item" name="rating" value="5" />
                         @{
-                            for (int i = 1; i < 6; i++)
+                            for (int i = 1; i <= 5 ; i++)
                             {
                                 int k = i - 1;
                                 <label id="@i " class="label_item" for="form_rating_@k"> <span>&#9734</span> </label>

@@ -21,5 +21,6 @@ namespace ImkStala.ServicesContracts
         Restaurant GetRestaurantByUserId(string userId);
         Visitor GetVisitorByUserId(string userId);
         bool AddReservation(Reservation reservation, string userId, int restaurantId, int reservationTableSeats);
+        bool AddRating(Rating rating, string userId, int restaurentId);
     }
 }

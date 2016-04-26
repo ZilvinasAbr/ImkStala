@@ -107,13 +107,13 @@ namespace ImkStala.Web.Migrations
 
                     b.Property<string>("ApplicationUserId");
 
+                    b.Property<string>("Description");
+
                     b.Property<string>("Email");
 
                     b.Property<string>("Manager");
 
                     b.Property<string>("PhoneNumber");
-
-                    b.Property<double>("Rating");
 
                     b.Property<DateTime>("RegistrationDate");
 

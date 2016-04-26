@@ -177,5 +177,19 @@ namespace ImkStala.Services
 
             return true;
         }
+
+        public bool AddRating(Rating rating, string userId, int restaurantId)
+        {
+            Visitor visitor = this.GetVisitorByUserId(userId);
+            Restaurant restaurant = this.GetRestaurantByRestaurantId(restaurantId);
+            rating.Visitor = visitor;
+            rating.Restaurant = restaurant;
+            visitor.Ratings.Add(rating);
+            restaurant.Ratings.Add(rating);
+            _dbContext.SaveChanges();
+
+            return true;
+        }
+
     }
 }
