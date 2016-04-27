@@ -52,6 +52,7 @@ namespace ImkStala.Web.Controllers.Api
         {
             Restaurant restaurant = _applicationService.GetRestaurantByRestaurantId(id);
             RestaurantModel model = RestaurantEntityToModelMapper.EntityToModel(restaurant);
+
             return model;
         }
 

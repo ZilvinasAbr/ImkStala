@@ -14,7 +14,8 @@ namespace ImkStala.Web.Helpers
             ReservationModel reservationModel = new ReservationModel()
             {
                 ReservationStartDateTime = entity.ReservationStartDateTime,
-                ReservationEndDateTime = entity.ReservationEndDateTime
+                ReservationEndDateTime = entity.ReservationEndDateTime,
+                VisitorMessage = entity.VisitorMessage
             };
 
             return reservationModel;
