@@ -124,7 +124,18 @@ namespace ImkStala.Web.Controllers
         [HttpGet]
         public IActionResult EditRestaurantProfile()
         {
-            return View();
+            string userId = HttpContext.User.GetUserId();
+            Restaurant restaurant = _applicationService.GetRestaurantByUserId(userId);
+            EditRestaurantProfileViewModel model = new EditRestaurantProfileViewModel()
+            {
+                Address = restaurant.Address,
+                Description = restaurant.Description,
+                PhoneNumber = restaurant.PhoneNumber,
+                RestaurantName = restaurant.RestaurantName,
+                Website = restaurant.Website
+            };
+
+            return View(model);
         }
 
         [HttpPost]
