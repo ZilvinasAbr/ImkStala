@@ -87,35 +87,31 @@ namespace ImkStala.Web.Controllers
             return View();
         }
 
-        //[HttpGet]
-        //[Authorize(Roles = "Visitor")]
-        //public IActionResult Rate(int id)
-        //{
-        //    ViewData["Id"] = id;
-        //    return Index();
-        //}
+        [HttpGet]
+        [Authorize(Roles = "Visitor")]
+        public IActionResult Rate(int id)
+        {
+            ViewData["Id"] = id;
+            return RedirectToAction(nameof(HomeController.Index), "Home");
+        }
 
         [HttpPost]
         [Authorize(Roles = "Visitor")]
-        public async Task<IActionResult> Rate(int id)
+        public async Task<IActionResult> Rate()
         {
             var user = await _userManager.FindByIdAsync(HttpContext.User.GetUserId());
             var radioValue = Request.Form["rating"];
             int restaurantId = int.Parse(Request.Form["id"]);
+            int ratingValue = int.Parse(radioValue);
 
-            Rating rating = new Rating()
-            {
-                RatingValue = int.Parse(radioValue),
-            };
-
-            bool succeeded = _applicationService.AddRating(rating, user.Id, restaurantId);
+            bool succeeded = _applicationService.AddRating(ratingValue, user.Id, restaurantId);
 
             if (succeeded)
             {
-                return RedirectToAction(nameof(HomeController.Index), "Home");
+                return Redirect(Request.Headers["Referer"]);
             }
 
-            return Index();
+            return RedirectToAction(nameof(HomeController.Index), "Home");
         }
 
         public IActionResult About()

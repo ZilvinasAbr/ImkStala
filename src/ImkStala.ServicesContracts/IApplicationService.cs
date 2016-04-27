@@ -34,7 +34,7 @@ namespace ImkStala.ServicesContracts
 
         bool AddReservation(Reservation reservation, string userId, int restaurantId, int reservationTableSeats);
 
-        bool AddRating(Rating rating, string userId, int restaurentId);
+        bool AddRating(int ratingValue, string userId, int restaurentId);
 
         bool EditRestaurantProfileByUserId(string userId, string restaurantName,
             string address, string phoneNumber, string website, string description);

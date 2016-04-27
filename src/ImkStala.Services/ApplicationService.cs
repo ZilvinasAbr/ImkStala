@@ -179,17 +179,32 @@ namespace ImkStala.Services
             return true;
         }
 
-        public bool AddRating(Rating rating, string userId, int restaurantId)
+        public bool AddRating(int ratingValue, string userId, int restaurantId)
         {
             Visitor visitor = this.GetVisitorByUserId(userId);
-            Restaurant restaurant = this.GetRestaurantByRestaurantId(restaurantId);
-            rating.Visitor = visitor;
-            rating.Restaurant = restaurant;
-            visitor.Ratings.Add(rating);
-            restaurant.Ratings.Add(rating);
-            _dbContext.SaveChanges();
-
-            return true;
+            if (visitor == null)
+                return false;
+            Rating find = _dbContext.Ratings.Where(r => r.Restaurant.Id == restaurantId && r.Visitor.Id == visitor.Id).SingleOrDefault();          
+            if(find != null)
+            {
+                find.RatingValue = ratingValue;
+                _dbContext.SaveChanges();
+                return true;
+            }
+            else
+            {
+                Restaurant restaurant = _dbContext.Restaurants.Where(r => r.Id == restaurantId).SingleOrDefault();
+                if (restaurant == null)
+                    return false;
+                Rating final = new Rating();
+                final.Visitor = visitor;
+                final.Restaurant = restaurant;
+                final.RatingValue = ratingValue;
+                visitor.Ratings.Add(final);
+                restaurant.Ratings.Add(final);
+                _dbContext.SaveChanges();
+                return true;
+            }
         }
 
         public bool EditRestaurantProfileByUserId(string userId, string restaurantName,
