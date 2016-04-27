@@ -200,13 +200,13 @@
         setDefaultDate: false,
 
         // first day of week (0: Sunday, 1: Monday etc)
-        firstDay: 0,
+        firstDay: 1,
 
         // the default flag for moment's strict date parsing
         formatStrict: false,
 
         // the minimum/earliest date that can be selected
-        minDate: null,
+        minDate: new Date(),
         // the maximum/latest date that can be selected
         maxDate: null,
 
@@ -248,11 +248,16 @@
 
         // internationalization
         i18n: {
-            previousMonth : 'Previous Month',
-            nextMonth     : 'Next Month',
-            months        : ['January','February','March','April','May','June','July','August','September','October','November','December'],
-            weekdays      : ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'],
-            weekdaysShort : ['Sun','Mon','Tue','Wed','Thu','Fri','Sat']
+            //previousMonth : 'Previous Month',
+            //nextMonth     : 'Next Month',
+            //months        : ['January','February','March','April','May','June','July','August','September','October','November','December'],
+            //weekdays      : ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'],
+            //weekdaysShort : ['Sun','Mon','Tue','Wed','Thu','Fri','Sat']
+            previousMonth: 'Ankstesnis mėnuo',
+            nextMonth: 'Sekantis mėnuo',
+            months: ['Sausis', 'Vasaris', 'Kovas', 'Balandis', 'Gegužė', 'Birželis', 'Liepa', 'Rugpjūtis', 'Rugsėjis', 'Spalis', 'Lapkritis', 'Gruodis'],
+            weekdays: ['Sekmadienis', 'Pirmadienis', 'Antradienis', 'Trečiadienis', 'Ketvirtadienis', 'Penktadienis', 'Šeštadienis'],
+            weekdaysShort: ['Sk', 'Pr', 'An', 'Tr', 'Kt', 'Pn', 'Št']
         },
 
         // Theme Classname

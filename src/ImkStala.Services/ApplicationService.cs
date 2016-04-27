@@ -72,7 +72,7 @@ namespace ImkStala.Services
 
         public IList<Restaurant> GetRestaurantsPage(int page, string searchKey)
         {
-            int skip = page * 5;
+            int skip = page * 4;
             int pageLength = 4;
 
             if (searchKey != "all")
@@ -179,6 +179,19 @@ namespace ImkStala.Services
             return true;
         }
 
+        public bool AddRating(Rating rating, string userId, int restaurantId)
+        {
+            Visitor visitor = this.GetVisitorByUserId(userId);
+            Restaurant restaurant = this.GetRestaurantByRestaurantId(restaurantId);
+            rating.Visitor = visitor;
+            rating.Restaurant = restaurant;
+            visitor.Ratings.Add(rating);
+            restaurant.Ratings.Add(rating);
+            _dbContext.SaveChanges();
+
+            return true;
+        }
+
         public bool EditRestaurantProfileByUserId(string userId, string restaurantName,
             string address, string phoneNumber, string website, string description)
         {
@@ -198,6 +211,7 @@ namespace ImkStala.Services
                 restaurant.Website = website;
             if(description != null)
                 restaurant.Description = description;
+
             _dbContext.SaveChanges();
 
             return true;

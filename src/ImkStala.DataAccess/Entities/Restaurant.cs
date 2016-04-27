@@ -22,7 +22,6 @@ namespace ImkStala.DataAccess.Entities
         public string Email { get; set; }
         public string Website { get; set; }
         public string Workhours { get; set; }
-        public double Rating { get; set; }
         public string Description { get; set; }
         public DateTime RegistrationDate { get; set; }
 
