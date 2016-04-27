@@ -410,3 +410,7 @@ hr
 {
     display: none !important;
 }
+
+.table td, th {
+   text-align: center;   
+}

@@ -71,7 +71,7 @@ namespace ImkStala.Services
 
         public IList<Restaurant> GetRestaurantsPage(int page, string searchKey)
         {
-            int skip = page * 5;
+            int skip = page * 4;
             int pageLength = 4;
 
             if (searchKey != "all")

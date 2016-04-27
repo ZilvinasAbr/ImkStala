@@ -10,6 +10,19 @@
 <script>
     getReservedTables(@ViewBag.Id);
 </script>
-<div class="restaurants" ng-app="restaurantApp" ng-controller="oneRestaurantController">
-    <p ng-repeat="table in reservedTables">{{ table.RestaurantTableSeats }} {{ table.Reservations }} {{ table.Reservations }}</p>
-</div>
+<table class="table" style="color:white; background-color:black;" ng-app="restaurantApp" ng-controller="oneRestaurantController">
+    <thead>
+        <tr>
+            <th>Staliuko vietu skaicius</th>
+            <th>Atvykimo data</th>
+            <th>Isvykimo data</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="table in reservedTables">
+            <td> {{ table.RestaurantTableSeats }}</td>
+            <td> {{ table.Reservations[0].ReservationStartDateTime }}</td>
+            <td> {{ table.Reservations[0].ReservationEndDateTime }}</td>
+        </tr>
+    </tbody>
+</table>
