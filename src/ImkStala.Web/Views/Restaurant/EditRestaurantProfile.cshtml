@@ -1,0 +1,66 @@
+﻿@using System.Threading.Tasks
+@using ImkStala.DataAccess.Entities
+
+@inject SignInManager<ApplicationUser> SignInManager
+
+@{
+    ViewData["Title"] = "Edit Restaurant Profile";
+}
+
+@model ImkStala.Web.ViewModels.Restaurant.EditRestaurantProfileViewModel
+@{
+    ViewData["Title"] = "Redaguoti restorano duomenis";
+}
+
+<h2 class="formInfo">@ViewData["Title"]</h2>
+
+<form asp-controller="Restaurant" asp-action="EditRestaurantProfile" method="post" class="form-horizontal registerForm" role="form">
+    <h4>Redaguoti restorano duomenis</h4>
+    <hr />
+    <div asp-validation-summary="ValidationSummary.All" class="text-danger"></div>
+    <div class="form-group">
+        <label asp-for="RestaurantName" class="col-md-2 control-label"></label>
+        <div class="col-md-5">
+            <input asp-for="RestaurantName" class="form-control" />
+            <span asp-validation-for="RestaurantName" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="Address" class="col-md-2 control-label"></label>
+        <div class="col-md-5">
+            <input asp-for="Address" class="form-control" />
+            <span asp-validation-for="Address" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="PhoneNumber" class="col-md-2 control-label"></label>
+        <div class="col-md-5">
+            <input asp-for="PhoneNumber" class="form-control" />
+            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="Website" class="col-md-2 control-label"></label>
+        <div class="col-md-5">
+            <input asp-for="Website" class="form-control" value="http://" />
+            <span asp-validation-for="Website" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="Description" class="col-md-2 control-label"></label>
+        <div class="col-md-5">
+            <input asp-for="Description" class="form-control" />
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <button type="submit" class="btn btn-default">Registruotis</button>
+        </div>
+    </div>
+    <p style="color: red">*- privalomi laukeliai</p>
+</form>
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}

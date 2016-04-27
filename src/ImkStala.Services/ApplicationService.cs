@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using ImkStala.DataAccess;
 using ImkStala.DataAccess.Entities;
 using ImkStala.ServicesContracts;
+using Microsoft.AspNet.Identity;
 using Microsoft.Data.Entity;
 
 namespace ImkStala.Services
@@ -173,6 +174,30 @@ namespace ImkStala.Services
             reservation.Visitor = visitor;
             visitor.VisitorReservations.Add(reservation);
             restaurantTable.Reservations.Add(reservation);
+            _dbContext.SaveChanges();
+
+            return true;
+        }
+
+        public bool EditRestaurantProfileByUserId(string userId, string restaurantName,
+            string address, string phoneNumber, string website, string description)
+        {
+            Restaurant restaurant = this.GetRestaurantByUserId(userId);
+            if (restaurant == null)
+            {
+                return false;
+            }
+
+            if(restaurantName != null)
+                restaurant.RestaurantName = restaurantName;
+            if(address != null)
+                restaurant.Address = address;
+            if(phoneNumber != null)
+                restaurant.PhoneNumber = phoneNumber;
+            if(website != null)
+                restaurant.Website = website;
+            if(description != null)
+                restaurant.Description = description;
             _dbContext.SaveChanges();
 
             return true;

@@ -113,6 +113,29 @@ namespace ImkStala.Web.Controllers
             return View(tableViewModel);
         }
 
+        [HttpGet]
+        public IActionResult EditRestaurantProfile()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditRestaurantProfile(EditRestaurantProfileViewModel model)
+        {
+            var user = await _userManager.FindByIdAsync(HttpContext.User.GetUserId());
+
+            Restaurant restaurant = _applicationService.GetRestaurantByUserId(user.Id);
+            if (ModelState.IsValid)
+            {
+                _applicationService.EditRestaurantProfileByUserId(user.Id, model.RestaurantName,
+                    model.Address, model.PhoneNumber, model.Website, model.Description);
+
+                return RedirectToAction("Index");
+            }
+
+            return View();
+        }
+
         /*[Authorize]
         public IActionResult ViewTables()
         {

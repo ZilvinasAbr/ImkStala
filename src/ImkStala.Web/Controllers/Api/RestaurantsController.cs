@@ -55,6 +55,12 @@ namespace ImkStala.Web.Controllers.Api
             return model;
         }
 
+        //somehow this http put method doesn't work, can't get data from body to value
+        [HttpPut("editrestaurantprofile/{id}")]
+        public void EditRestaurantProfile(int id, [FromBody]string value)
+        {
+        }
+
         // POST api/values
         [HttpPost]
         public void Post([FromBody]string value)
