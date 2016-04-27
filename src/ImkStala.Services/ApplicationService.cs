@@ -207,7 +207,7 @@ namespace ImkStala.Services
                 restaurant.Address = address;
             if(phoneNumber != null)
                 restaurant.PhoneNumber = phoneNumber;
-            if(website != null)
+            if(website != null && website != "http://")
                 restaurant.Website = website;
             if(description != null)
                 restaurant.Description = description;
