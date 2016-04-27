@@ -965,10 +965,10 @@ TimePicker.defaults = (function( prefix ) {
     return {
 
         // Clear
-        clear: 'Clear',
+        clear: 'Išvalyti',
 
         // The format to show on the `input` element
-        format: 'h:i A',
+        format: 'H:i',
 
         // The interval between each time
         interval: 30,
