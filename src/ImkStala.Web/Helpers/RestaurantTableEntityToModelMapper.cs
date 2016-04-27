@@ -25,11 +25,7 @@ namespace ImkStala.Web.Helpers
             }
             foreach (var reservation in entity.Reservations)
             {
-                ReservationModel reservationModel = new ReservationModel()
-                {
-                    ReservationStartDateTime = reservation.ReservationStartDateTime,
-                    ReservationEndDateTime = reservation.ReservationEndDateTime
-                };
+                ReservationModel reservationModel = ReservationMapper.EntityToModel(reservation);
                 model.Reservations.Add(reservationModel);
             }
             return model;

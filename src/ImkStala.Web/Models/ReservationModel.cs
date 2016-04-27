@@ -9,5 +9,6 @@ namespace ImkStala.Web.Models
     {
         public DateTime ReservationStartDateTime { get; set; }
         public DateTime ReservationEndDateTime { get; set; }
+        public string VisitorMessage { get; set; }
     }
 }
