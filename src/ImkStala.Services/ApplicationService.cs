@@ -197,6 +197,7 @@ namespace ImkStala.Services
                 visitor.Ratings.Add(rating);
                 restaurant.Ratings.Add(rating);
                 restaurant.RateAmount++;
+                _dbContext.SaveChanges();
             }
             List<Rating> findAll = _dbContext.Ratings.Where(r => r.Restaurant.Id == restaurantId).ToList();
             double sum = 0;
