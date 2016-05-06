@@ -2,3 +2,4 @@
 /.vs/*
 /src/ImkStala.Web/Migrations/*
 /src/ImkStala.DataAccess/Migrations/*
+/src/ImkStala.Web/project.lock.json
