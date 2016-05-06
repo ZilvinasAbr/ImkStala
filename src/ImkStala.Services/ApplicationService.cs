@@ -185,29 +185,30 @@ namespace ImkStala.Services
         public bool AddRating(int ratingValue, string userId, int restaurantId)
         {
             Visitor visitor = this.GetVisitorByUserId(userId);
-            if (visitor == null)
+            Restaurant restaurant = _dbContext.Restaurants.Where(r => r.Id == restaurantId).SingleOrDefault();
+            if (visitor == null || restaurant == null)
                 return false;
             Rating find = _dbContext.Ratings.Where(r => r.Restaurant.Id == restaurantId && r.Visitor.Id == visitor.Id).SingleOrDefault();          
             if(find != null)
-            {
                 find.RatingValue = ratingValue;
-                _dbContext.SaveChanges();
-                return true;
-            }
             else
             {
-                Restaurant restaurant = _dbContext.Restaurants.Where(r => r.Id == restaurantId).SingleOrDefault();
-                if (restaurant == null)
-                    return false;
-                Rating final = new Rating();
-                final.Visitor = visitor;
-                final.Restaurant = restaurant;
-                final.RatingValue = ratingValue;
-                visitor.Ratings.Add(final);
-                restaurant.Ratings.Add(final);
+                Rating rating = new Rating();
+                rating.Visitor = visitor;
+                rating.Restaurant = restaurant;
+                rating.RatingValue = ratingValue;
+                visitor.Ratings.Add(rating);
+                restaurant.Ratings.Add(rating);
+                restaurant.RateAmount++;
                 _dbContext.SaveChanges();
-                return true;
             }
+            List<Rating> findAll = _dbContext.Ratings.Where(r => r.Restaurant.Id == restaurantId).ToList();
+            double sum = 0;
+            foreach (var ratings in findAll)
+                sum += ratings.RatingValue;
+            restaurant.Rating = Math.Round((sum / restaurant.RateAmount), 1, MidpointRounding.AwayFromZero);
+            _dbContext.SaveChanges();
+            return true;
         }
 
         public bool EditRestaurantProfileByUserId(string userId, string restaurantName,

@@ -76,6 +76,8 @@
                 <p class="restaurantInfo"><span>Adresas:</span> {{ restaurant.Adress }} </p>
                 <p class="restaurantInfo"><span>Telefono numeris:</span> {{ restaurant.PhoneNumber }}</p>
                 <p class="restaurantInfo"><span>Elektroninis paštas:</span> {{ restaurant.Email }}</p>
+                <p class="restaurantInfo"><span>Įvertinimas:</span> {{ restaurant.Rating }}</p>
+                <p class="restaurantInfo"><span>Įvertinimų kiekis:</span> {{ restaurant.RateAmount }}</p>
                 <a href="{{ restaurant.Website }}" target="_blank"> Apsilankykite restorano svetainėje</a>
                 <div class="rating">
                     <form asp-controller="Home" asp-action="Rate" method="post" role="form">

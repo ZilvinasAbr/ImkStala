@@ -97,12 +97,11 @@ namespace ImkStala.Web.Controllers
 
         [HttpPost]
         [Authorize(Roles = "Visitor")]
-        public async Task<IActionResult> Rate()
+        public async Task<IActionResult> Rate(/*[FromBody]int restaurantId2*/)
         {
             var user = await _userManager.FindByIdAsync(HttpContext.User.GetUserId());
-            var radioValue = Request.Form["rating"];
+            int ratingValue = int.Parse(Request.Form["rating"]);
             int restaurantId = int.Parse(Request.Form["id"]);
-            int ratingValue = int.Parse(radioValue);
 
             bool succeeded = _applicationService.AddRating(ratingValue, user.Id, restaurantId);
 
