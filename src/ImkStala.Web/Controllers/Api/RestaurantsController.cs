@@ -4,8 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using ImkStala.DataAccess.Entities;
 using ImkStala.ServicesContracts;
-using ImkStala.Web.Helpers;
-using ImkStala.Web.Models;
 using Microsoft.AspNet.Mvc;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
@@ -56,7 +54,7 @@ namespace ImkStala.Web.Controllers.Api
 
         //somehow this http put method doesn't work, can't get data from body to value
         [HttpPut("{id}")]
-        public void EditRestaurantProfile(int id, [FromBody]RestaurantModel value)
+        public void EditRestaurantProfile(int id, [FromBody]Restaurant value)
         {
         }
 
