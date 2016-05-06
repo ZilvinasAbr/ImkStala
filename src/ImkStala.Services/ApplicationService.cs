@@ -77,10 +77,11 @@ namespace ImkStala.Services
 
             if (searchKey != "all")
             {
-                IList<Restaurant> restaurantsSearch = _dbContext.Restaurants
+                var restaurantsSearch = _dbContext.Restaurants
                     .Include(r => r.RestaurantTables)
                     .ThenInclude(t => t.Reservations)
-                    .Where(x => x.RestaurantName.StartsWith(searchKey))
+                    .ThenInclude(re => re.Visitor)
+                    .Where(x => x.RestaurantName.Contains(searchKey))
                     .OrderByDescending(x => x.RegistrationDate)
                     .Skip(skip)
                     .Take(pageLength)
@@ -88,9 +89,10 @@ namespace ImkStala.Services
                 return restaurantsSearch;
             }
 
-            IList<Restaurant> restaurants = _dbContext.Restaurants
+            var restaurants = _dbContext.Restaurants
                 .Include(r => r.RestaurantTables)
                 .ThenInclude(t => t.Reservations)
+                .ThenInclude(re => re.Visitor)
                 .OrderByDescending(x => x.RegistrationDate)
                 .Skip(skip)
                 .Take(pageLength)
@@ -115,6 +117,7 @@ namespace ImkStala.Services
             Restaurant restaurant = _dbContext.Restaurants
                 .Include(r => r.RestaurantTables)
                 .ThenInclude(t => t.Reservations)
+                .ThenInclude(re => re.Visitor)
                 .FirstOrDefault(x => x.Id == id);
             return restaurant;
         }

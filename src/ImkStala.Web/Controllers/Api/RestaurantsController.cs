@@ -24,53 +24,45 @@ namespace ImkStala.Web.Controllers.Api
 
         // GET: api/values
         [HttpGet]
-        public IEnumerable<RestaurantModel> GetAllRestaurants()
+        public IEnumerable<Restaurant> GetAllRestaurants()
         {
             List<Restaurant> restaurants = _applicationService.GetAllRestaurants().ToList();
-            //magical by Resharper generated line, just maps all the Resetaurant objects to RestaurantModel
-            IList<RestaurantModel> models = restaurants.Select(RestaurantEntityToModelMapper.EntityToModel).ToList(); 
-            return models;
+
+            return restaurants;
         }
         [HttpGet("pages/{page}/{searchKey}")]
-        public IEnumerable<RestaurantModel> GetRestaurantsPage(int page, string searchKey)
+        public IEnumerable<Restaurant> GetRestaurantsPage(int page, string searchKey)
         {
-            List<Restaurant> restaurants = _applicationService.GetRestaurantsPage(page, searchKey).ToList();
-            IList<RestaurantModel> models = restaurants.Select(RestaurantEntityToModelMapper.EntityToModel).ToList();
-            return models;
+           IList<Restaurant> restaurants = _applicationService.GetRestaurantsPage(page, searchKey);
+            return restaurants;
         }
 
         [HttpGet("favorites/{visitorId}")]
-        public IEnumerable<RestaurantModel> GetFavorites(int visitorId)
+        public IEnumerable<Restaurant> GetFavorites(int visitorId)
         {
             List<Restaurant> favorites = _applicationService.GetFavorites(visitorId).ToList();
-            IList<RestaurantModel> models = favorites.Select(RestaurantEntityToModelMapper.EntityToModel).ToList();
-            return models;
+
+            return favorites;
         }
 
         [HttpGet("{id}")]
-        public RestaurantModel GetRestaurantById(int id)
+        public Restaurant GetRestaurantById(int id)
         {
             Restaurant restaurant = _applicationService.GetRestaurantByRestaurantId(id);
-            RestaurantModel model = RestaurantEntityToModelMapper.EntityToModel(restaurant);
-
-            return model;
+            //RestaurantModel model = RestaurantEntityToModelMapper.EntityToModel(restaurant);
+            return restaurant;
+           // return model;
         }
 
         //somehow this http put method doesn't work, can't get data from body to value
-        [HttpPut("editrestaurantprofile/{id}")]
-        public void EditRestaurantProfile(int id, [FromBody]string value)
+        [HttpPut("{id}")]
+        public void EditRestaurantProfile(int id, [FromBody]RestaurantModel value)
         {
         }
 
         // POST api/values
         [HttpPost]
         public void Post([FromBody]string value)
-        {
-        }
-
-        // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
         {
         }
 

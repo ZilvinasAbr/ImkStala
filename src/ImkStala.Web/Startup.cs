@@ -15,6 +15,7 @@ using ImkStala.Services;
 using ImkStala.ServicesContracts;
 using ImkStala.Web.Services;
 using Microsoft.AspNet.Identity;
+using Newtonsoft.Json;
 
 namespace ImkStala.Web
 {
@@ -70,7 +71,8 @@ namespace ImkStala.Web
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
-            services.AddMvc();
+            services.AddMvc()
+                .AddJsonOptions(o => o.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
 
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();
