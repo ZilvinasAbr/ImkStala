@@ -26,6 +26,7 @@ namespace ImkStala.DataAccess.Entities
         public int RateAmount { get; set; }
         public string Description { get; set; }
         public DateTime RegistrationDate { get; set; }
+        public string LogoPath { get; set; }
 
         //Navigation properties
         public ApplicationUser ApplicationUser { get; set; }

@@ -1,4 +1,4 @@
-﻿    using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
@@ -15,6 +15,11 @@ using ImkStala.DataAccess.Entities;
 using ImkStala.DataAccess;
 using ImkStala.ServicesContracts;
 using ImkStala.Web.Services;
+using Microsoft.Extensions.PlatformAbstractions;
+using Microsoft.AspNet.Http;
+using Microsoft.Net.Http.Headers;
+using System.IO;
+using Microsoft.AspNet.Hosting;
 
 namespace ImkStala.Web.Controllers
 {
@@ -28,13 +33,15 @@ namespace ImkStala.Web.Controllers
         private readonly ILogger _logger;
         //private readonly ApplicationDbContext _context;
         private readonly IApplicationService _applicationService;
+        IHostingEnvironment _hostEnv;
 
         public AccountController(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             IEmailSender emailSender,
             ISmsSender smsSender,
-            ILoggerFactory loggerFactory, IApplicationService applicationService/*ApplicationDbContext context*/)
+            ILoggerFactory loggerFactory, IApplicationService applicationService,
+            IHostingEnvironment hostEnv /*ApplicationDbContext context*/)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -43,6 +50,7 @@ namespace ImkStala.Web.Controllers
             _logger = loggerFactory.CreateLogger<AccountController>();
             //_context = context;
             _applicationService = applicationService;
+            _hostEnv = hostEnv;
         }
 
         //
@@ -107,8 +115,23 @@ namespace ImkStala.Web.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> RegisterRestaurant(RegisterRestaurantViewModel model)
+        public async Task<IActionResult> RegisterRestaurant(RegisterRestaurantViewModel model, ICollection<IFormFile> files)
         {
+            var uploads = Path.Combine(_hostEnv.WebRootPath, "images");
+            string logoPath = "images/logo.jpg";
+            foreach(var file in files)
+            {
+                var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
+                var fnm = model.Email + ".png";
+                if (fileName.ToLower().EndsWith(".png") || fileName.ToLower().EndsWith(".jpg") || fileName.ToLower().EndsWith(".gif"))
+                {
+                    var filePath = Path.Combine(uploads, fileName) + fnm;
+                    await file.SaveAsAsync(filePath);
+                    logoPath = "images/" + fileName + fnm;
+                }
+                   
+            }
+
             if (ModelState.IsValid)
             {
                 Restaurant restaurant = new Restaurant()
@@ -119,7 +142,8 @@ namespace ImkStala.Web.Controllers
                     Address = model.Address,
                     PhoneNumber = model.PhoneNumber,
                     Website = model.Website,
-                    Description = model.Description
+                    Description = model.Description,
+                    LogoPath = logoPath
                 };
                 
                 //_context.Restaurants.Add(restaurant);
