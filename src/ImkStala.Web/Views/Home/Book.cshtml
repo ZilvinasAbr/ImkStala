@@ -32,10 +32,10 @@
                 <button class="form-control" type="submit">Užsakyti</button>
             </div>
             <div class="col-md-2">
-                <input asp-for="Date" placeholder="Jūsų pasirinkta data" type='text' class="form-control" id='datepicker'>
-                <input asp-for="Time" placeholder="Pasirinkite laiką" type="text" class="form-control" id="timepicker" />
-                <p style="color:white;"> Iš viso{{ data.selectedTable }}-iečių staliukų: {{ exactTableCount }}</p>
-                <p style="color:white;"> Laisvų skaičius:</p>
+                <input asp-for="Date" ng-model="data.date" ng-change="changed()" placeholder="Jūsų pasirinkta data" type='text' class="form-control" id='datepicker'>
+                <input asp-for="Time" ng-model="data.time" ng-change="changed()" placeholder="Pasirinkite laiką" type="text" class="form-control" id="timepicker" />
+                <p style="color:white;" ng-if="data.selectedTable"> Iš viso{{ data.selectedTable }}-iečių staliukų: {{ exactTableCount }}</p>
+                <p style="color:white;" ng-if="data.selectedTable"> Laisvų skaičius: {{ emptyTableCount }}</p>
             </div>
             <div class="col-md-3 zeroPadding">
                 <div id="container"></div>

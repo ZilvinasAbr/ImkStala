@@ -1,4 +1,6 @@
-﻿var restaurantApp = angular.module('restaurantApp', ['infinite-scroll']);
+﻿require('angular');
+
+var restaurantApp = angular.module('restaurantApp', ['infinite-scroll']);
 
 restaurantApp.controller('infiniteScrollRestaurants', function ($scope, $http) {
     var page = 0;
@@ -59,6 +61,8 @@ function getAllRestaurantData() {
 function getOneRestaurantData(id)
 {
     var url = "/api/restaurants/" + id;
+    var seats;
+    var count;
     console.log(url);
     restaurantApp.controller('oneRestaurantController', function ($scope, $http) {
         $http.get(url).success(function (data) {
@@ -75,11 +79,10 @@ function getOneRestaurantData(id)
                 }
             }
             $scope.restaurant = data;
-
             $scope.changed = function () {
-                var seats = parseInt($scope.data.selectedTable);
+                seats = parseInt($scope.data.selectedTable);
                 var tableArray = $scope.allTables;
-                var count = 0;
+                count = 0;
                 for (var i = 0; i < tableArray.length; i++)
                 {
                     if(tableArray[i]==seats)
@@ -88,7 +91,14 @@ function getOneRestaurantData(id)
                     }
                 }
                 $scope.exactTableCount = count;
+                var full = getHowManyFull(seats, data.RestaurantTables);
+                $scope.emptyTableCount = count - full;
             };
+
+            $('#timepicker, #datepicker').change(function () {
+                var full = getHowManyFull(seats, data.RestaurantTables);
+                $scope.emptyTableCount = count - full;
+            });
             
         }).error(function () {
         });
@@ -101,12 +111,13 @@ function getReservedTables(id)
     console.log(url);
     restaurantApp.controller('oneRestaurantController', function ($scope, $http) {
         $http.get(url).success(function (data) {
-            $scope.reservedTables = [];
+            $scope.reservations = [];
             for (var i = 0; i < data.RestaurantTables.length; i++) {
                 if (data.RestaurantTables[i].Reservations.length != 0)
                 {
                     var tables = data.RestaurantTables[i];
-                    $scope.reservedTables.push(tables);
+                    console.log(data.RestaurantTables[i]);
+                    $scope.reservations.push(data.RestaurantTables[i]);
                 }
             }
 
@@ -155,4 +166,28 @@ function getHowManyInArray(array,value)
         }
     }
     return value;
+}
+
+function getHowManyFull(seat,seatsArray)
+{
+    var full = 0;
+    for(var i=0; i<seatsArray.length; i++)
+    {
+        if (seat == seatsArray[i].RestaurantTableSeats)
+        {
+            var date = document.getElementById('datepicker').value;
+            var time = document.getElementById('timepicker').value;
+            for(var j=0; j<seatsArray[i].Reservations.length; j++)
+            {
+                var startTime = Date.parse(seatsArray[i].Reservations[j].ReservationStartDateTime);
+                var endTime = Date.parse(seatsArray[i].Reservations[j].ReservationEndDateTime);
+                var selectedTime = Date.parse(date + "T" + time);
+                if (startTime < selectedTime && endTime > selectedTime)
+                {
+                    full++;
+                }
+            }
+        }
+    }
+    return full;
 }
