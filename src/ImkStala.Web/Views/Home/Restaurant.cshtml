@@ -2,18 +2,12 @@
     ViewData["Title"] = "Apie restoraną";
 }
 <script src="~/assets/jquery.min.js"></script>
-<script src="~/assets/angular.min.js"></script>
-<script src="~/assets/ng-infinite-scroll.js"></script>
-<script src="~/js/restaurant-controller.js"></script>
+<script src="~/js/restaurant.js"></script>
 <link href="~/css/bookPageStyle.css" rel="stylesheet" />
 <script src="http://maps.googleapis.com/maps/api/js"></script>
-<script src="~/js/site.js"></script>
+<input type="hidden" id="restaurantId" value="@ViewBag.Id" />
 <script src="~/js/facebookPlugin.js"></script>
-<script>
-    getOneRestaurantData(@ViewBag.Id);
-    var address = getAdressById(@ViewBag.Id);
-    loadMapByAddress(address);
-</script>
+<script src="~/js/map.js"></script>
 
 <div class="row">
     <div class="col-md-3">
@@ -81,7 +75,7 @@
                 <a href="{{ restaurant.Website }}" target="_blank"> Apsilankykite restorano svetainėje</a>
                 <div class="rating">
                     <form asp-controller="Home" asp-action="Rate" method="post" role="form">
-                        <input type="text" style="display:none" name="id" value="{{ restaurant.Id }}" />
+                        <input type="text" style="display:none" name="id" value="@ViewBag.Id" />
                         <input type="radio" id="form_rating_4" required="required" class="radio_item" name="rating" value="1" />
                         <input type="radio" id="form_rating_3" required="required" class="radio_item" name="rating" value="2" />
                         <input type="radio" id="form_rating_2" required="required" class="radio_item" name="rating" value="3" />

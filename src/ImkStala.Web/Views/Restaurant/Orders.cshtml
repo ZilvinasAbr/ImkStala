@@ -2,15 +2,10 @@
 @{
     ViewData["Title"] = "Užsakymai";
 }
-<script src="~/assets/jquery.min.js"></script>
-<script src="~/assets/angular.min.js"></script>
-<script src="~/assets/ng-infinite-scroll.js"></script>
-<script src="~/js/restaurant-controller.js"></script>
+<script src="~/js/restaurant.js"></script>
 
-<script>
-    getReservedTables(@ViewBag.Id);
-</script>
-<table class="table" style="color:white; background-color:black;" ng-app="restaurantApp" ng-controller="oneRestaurantController">
+<input type="hidden" id="restaurantId" value="@ViewBag.Id" />
+<table class="table" style="color:white; background-color:black;" ng-app="restaurantApp" ng-controller="reservationController">
     <thead>
         <tr>
             <th>Staliuko vietu skaicius</th>

@@ -44,7 +44,8 @@
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(1);
+	__webpack_require__(2);
+	__webpack_require__(4);
 
 	var restaurantApp = angular.module('restaurantApp', ['infinite-scroll']);
 
@@ -71,20 +72,17 @@
 	            });
 	        }
 	    }
-	    $scope.searchChanged = function()
-	    {
+	    $scope.searchChanged = function () {
 	        var page = 0;
 	        value = document.getElementById('searchBar').value;
-	        if (value == "")
-	        {
+	        if (value == "") {
 	            var url = "/api/restaurants/pages/" + page + "/all";
 	            $http.get(url).success(function (data) {
 	                $scope.restaurants = data;
 	            }).error(function () {
 	            });
 	        }
-	        else
-	        {
+	        else {
 	            var url = "/api/restaurants/pages/" + page + "/" + value;
 	            $http.get(url).success(function (data) {
 	                $scope.restaurants = data;
@@ -104,132 +102,87 @@
 	    });
 	}
 
-	function getOneRestaurantData(id)
-	{
-	    var url = "/api/restaurants/" + id;
-	    var seats;
-	    var count;
-	    console.log(url);
-	    restaurantApp.controller('oneRestaurantController', function ($scope, $http) {
-	        $http.get(url).success(function (data) {
-	            $scope.uniqueTables = [];
-	            $scope.allTables = [];
-	            $scope.exactTableCount;
-	            for (var i = 0; i < data.RestaurantTables.length; i++)
-	            {
-	                var seats = data.RestaurantTables[i].RestaurantTableSeats;
-	                $scope.allTables.push(seats);
-	                if (!checkIfAlreadyIn($scope.uniqueTables, seats))
-	                {
-	                    $scope.uniqueTables.push(seats);
-	                }
+
+	restaurantApp.controller('oneRestaurantController', function ($scope, $http) {
+	    var url = "/api/restaurants/" + document.getElementById('restaurantId').value;
+	    $http.get(url).success(function (data) {
+	        $scope.uniqueTables = [];
+	        $scope.allTables = [];
+	        $scope.exactTableCount;
+	        for (var i = 0; i < data.RestaurantTables.length; i++) {
+	            var seats = data.RestaurantTables[i].RestaurantTableSeats;
+	            $scope.allTables.push(seats);
+	            if (!checkIfAlreadyIn($scope.uniqueTables, seats)) {
+	                $scope.uniqueTables.push(seats);
 	            }
-	            $scope.restaurant = data;
-	            $scope.changed = function () {
-	                seats = parseInt($scope.data.selectedTable);
-	                var tableArray = $scope.allTables;
-	                count = 0;
-	                for (var i = 0; i < tableArray.length; i++)
-	                {
-	                    if(tableArray[i]==seats)
-	                    {
-	                        count++;
-	                    }
-	                }
-	                $scope.exactTableCount = count;
-	                var full = getHowManyFull(seats, data.RestaurantTables);
-	                $scope.emptyTableCount = count - full;
-	            };
-
-	            $('#timepicker, #datepicker').change(function () {
-	                var full = getHowManyFull(seats, data.RestaurantTables);
-	                $scope.emptyTableCount = count - full;
-	            });
-	            
-	        }).error(function () {
-	        });
-	    });
-	}
-
-	function getReservedTables(id)
-	{
-	    var url = "/api/restaurants/" + id;
-	    console.log(url);
-	    restaurantApp.controller('oneRestaurantController', function ($scope, $http) {
-	        $http.get(url).success(function (data) {
-	            $scope.reservations = [];
-	            for (var i = 0; i < data.RestaurantTables.length; i++) {
-	                if (data.RestaurantTables[i].Reservations.length != 0)
-	                {
-	                    var tables = data.RestaurantTables[i];
-	                    console.log(data.RestaurantTables[i]);
-	                    $scope.reservations.push(data.RestaurantTables[i]);
-	                }
-	            }
-
-	        }).error(function () {
-	        });
-	    });
-	}
-
-	function getAdressById(id)
-	{
-	    var returnAdress;
-	    var url = "/api/restaurants/" + id;
-	    $.ajax({
-	        url: url,
-	        type: 'get',
-	        dataType: 'json',
-	        async: false,
-	        success: function (data) {
-	            returnAdress = data.Adress;
 	        }
-	    });
-	    return returnAdress;
-	}
 
-	function checkIfAlreadyIn(array,value)
-	{
-	    for(var i=0; i<array.length; i++)
-	    {
-	        if(array[i]==value)
-	        {
+	        $scope.restaurant = data;
+	        $scope.changed = function () {
+	            seats = parseInt($scope.data.selectedTable);
+	            var tableArray = $scope.allTables;
+	            count = 0;
+	            for (var i = 0; i < tableArray.length; i++) {
+	                if (tableArray[i] == seats) {
+	                    count++;
+	                }
+	            }
+	            $scope.exactTableCount = count;
+	            var full = getHowManyFull(seats, data.RestaurantTables);
+	            $scope.emptyTableCount = count - full;
+	        };
+	    }).error(function () {
+	    });
+	});
+
+	restaurantApp.controller('reservationController', function ($scope, $http) {
+	    var url = "/api/restaurants/" + document.getElementById('restaurantId').value;
+	    $http.get(url).success(function (data) {
+	        $scope.reservations = [];
+	        for (var i = 0; i < data.RestaurantTables.length; i++) {
+	            if (data.RestaurantTables[i].Reservations.length != 0) {
+	                var tables = data.RestaurantTables[i];
+	                console.log(data.RestaurantTables[i]);
+	                $scope.reservations.push(data.RestaurantTables[i]);
+	            }
+	        }
+
+	    }).error(function () {
+	    });
+	});
+
+
+	function checkIfAlreadyIn(array, value) {
+	    for (var i = 0; i < array.length; i++) {
+	        if (array[i] == value) {
 	            return true;
 	        }
 	    }
 	    return false;
 	}
 
-	function getHowManyInArray(array,value)
-	{
-	    var value=0;
-	    for(var i=0; i<array.length; i++)
-	    {
+	function getHowManyInArray(array, value) {
+	    var value = 0;
+	    for (var i = 0; i < array.length; i++) {
 	        console.log(array[i] + ' ' + value)
-	        if(array[i]==value)
-	        {
+	        if (array[i] == value) {
 	            value++;
 	        }
 	    }
 	    return value;
 	}
 
-	function getHowManyFull(seat,seatsArray)
-	{
+	function getHowManyFull(seat, seatsArray) {
 	    var full = 0;
-	    for(var i=0; i<seatsArray.length; i++)
-	    {
-	        if (seat == seatsArray[i].RestaurantTableSeats)
-	        {
+	    for (var i = 0; i < seatsArray.length; i++) {
+	        if (seat == seatsArray[i].RestaurantTableSeats) {
 	            var date = document.getElementById('datepicker').value;
 	            var time = document.getElementById('timepicker').value;
-	            for(var j=0; j<seatsArray[i].Reservations.length; j++)
-	            {
+	            for (var j = 0; j < seatsArray[i].Reservations.length; j++) {
 	                var startTime = Date.parse(seatsArray[i].Reservations[j].ReservationStartDateTime);
 	                var endTime = Date.parse(seatsArray[i].Reservations[j].ReservationEndDateTime);
 	                var selectedTime = Date.parse(date + "T" + time);
-	                if (startTime < selectedTime && endTime > selectedTime)
-	                {
+	                if (startTime < selectedTime && endTime > selectedTime) {
 	                    full++;
 	                }
 	            }
@@ -239,15 +192,16 @@
 	}
 
 /***/ },
-/* 1 */
+/* 1 */,
+/* 2 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(2);
+	__webpack_require__(3);
 	module.exports = angular;
 
 
 /***/ },
-/* 2 */
+/* 3 */
 /***/ function(module, exports) {
 
 	/**
@@ -31118,6 +31072,202 @@
 	})(window);
 
 	!window.angular.$$csp().noInlineStyle && window.angular.element(document.head).prepend('<style type="text/css">@charset "UTF-8";[ng\\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>');
+
+/***/ },
+/* 4 */
+/***/ function(module, exports) {
+
+	/* ng-infinite-scroll - v1.2.0 - 2015-12-02 */
+	var mod;
+
+	mod = angular.module('infinite-scroll', []);
+
+	mod.value('THROTTLE_MILLISECONDS', null);
+
+	mod.directive('infiniteScroll', [
+	  '$rootScope', '$window', '$interval', 'THROTTLE_MILLISECONDS', function($rootScope, $window, $interval, THROTTLE_MILLISECONDS) {
+	    return {
+	      scope: {
+	        infiniteScroll: '&',
+	        infiniteScrollContainer: '=',
+	        infiniteScrollDistance: '=',
+	        infiniteScrollDisabled: '=',
+	        infiniteScrollUseDocumentBottom: '=',
+	        infiniteScrollListenForEvent: '@'
+	      },
+	      link: function(scope, elem, attrs) {
+	        var changeContainer, checkInterval, checkWhenEnabled, container, handleInfiniteScrollContainer, handleInfiniteScrollDisabled, handleInfiniteScrollDistance, handleInfiniteScrollUseDocumentBottom, handler, height, immediateCheck, offsetTop, pageYOffset, scrollDistance, scrollEnabled, throttle, unregisterEventListener, useDocumentBottom, windowElement;
+	        windowElement = angular.element($window);
+	        scrollDistance = null;
+	        scrollEnabled = null;
+	        checkWhenEnabled = null;
+	        container = null;
+	        immediateCheck = true;
+	        useDocumentBottom = false;
+	        unregisterEventListener = null;
+	        checkInterval = false;
+	        height = function(elem) {
+	          elem = elem[0] || elem;
+	          if (isNaN(elem.offsetHeight)) {
+	            return elem.document.documentElement.clientHeight;
+	          } else {
+	            return elem.offsetHeight;
+	          }
+	        };
+	        offsetTop = function(elem) {
+	          if (!elem[0].getBoundingClientRect || elem.css('none')) {
+	            return;
+	          }
+	          return elem[0].getBoundingClientRect().top + pageYOffset(elem);
+	        };
+	        pageYOffset = function(elem) {
+	          elem = elem[0] || elem;
+	          if (isNaN(window.pageYOffset)) {
+	            return elem.document.documentElement.scrollTop;
+	          } else {
+	            return elem.ownerDocument.defaultView.pageYOffset;
+	          }
+	        };
+	        handler = function() {
+	          var containerBottom, containerTopOffset, elementBottom, remaining, shouldScroll;
+	          if (container === windowElement) {
+	            containerBottom = height(container) + pageYOffset(container[0].document.documentElement);
+	            elementBottom = offsetTop(elem) + height(elem);
+	          } else {
+	            containerBottom = height(container);
+	            containerTopOffset = 0;
+	            if (offsetTop(container) !== void 0) {
+	              containerTopOffset = offsetTop(container);
+	            }
+	            elementBottom = offsetTop(elem) - containerTopOffset + height(elem);
+	          }
+	          if (useDocumentBottom) {
+	            elementBottom = height((elem[0].ownerDocument || elem[0].document).documentElement);
+	          }
+	          remaining = elementBottom - containerBottom;
+	          shouldScroll = remaining <= height(container) * scrollDistance + 1;
+	          if (shouldScroll) {
+	            checkWhenEnabled = true;
+	            if (scrollEnabled) {
+	              if (scope.$$phase || $rootScope.$$phase) {
+	                return scope.infiniteScroll();
+	              } else {
+	                return scope.$apply(scope.infiniteScroll);
+	              }
+	            }
+	          } else {
+	            if (checkInterval) {
+	              $interval.cancel(checkInterval);
+	            }
+	            return checkWhenEnabled = false;
+	          }
+	        };
+	        throttle = function(func, wait) {
+	          var later, previous, timeout;
+	          timeout = null;
+	          previous = 0;
+	          later = function() {
+	            var context;
+	            previous = new Date().getTime();
+	            $interval.cancel(timeout);
+	            timeout = null;
+	            func.call();
+	            return context = null;
+	          };
+	          return function() {
+	            var now, remaining;
+	            now = new Date().getTime();
+	            remaining = wait - (now - previous);
+	            if (remaining <= 0) {
+	              clearTimeout(timeout);
+	              $interval.cancel(timeout);
+	              timeout = null;
+	              previous = now;
+	              return func.call();
+	            } else {
+	              if (!timeout) {
+	                return timeout = $interval(later, remaining, 1);
+	              }
+	            }
+	          };
+	        };
+	        if (THROTTLE_MILLISECONDS != null) {
+	          handler = throttle(handler, THROTTLE_MILLISECONDS);
+	        }
+	        scope.$on('$destroy', function() {
+	          container.unbind('scroll', handler);
+	          if (unregisterEventListener != null) {
+	            unregisterEventListener();
+	            return unregisterEventListener = null;
+	          }
+	        });
+	        handleInfiniteScrollDistance = function(v) {
+	          return scrollDistance = parseFloat(v) || 0;
+	        };
+	        scope.$watch('infiniteScrollDistance', handleInfiniteScrollDistance);
+	        handleInfiniteScrollDistance(scope.infiniteScrollDistance);
+	        handleInfiniteScrollDisabled = function(v) {
+	          scrollEnabled = !v;
+	          if (scrollEnabled && checkWhenEnabled) {
+	            checkWhenEnabled = false;
+	            return handler();
+	          }
+	        };
+	        scope.$watch('infiniteScrollDisabled', handleInfiniteScrollDisabled);
+	        handleInfiniteScrollDisabled(scope.infiniteScrollDisabled);
+	        handleInfiniteScrollUseDocumentBottom = function(v) {
+	          return useDocumentBottom = v;
+	        };
+	        scope.$watch('infiniteScrollUseDocumentBottom', handleInfiniteScrollUseDocumentBottom);
+	        handleInfiniteScrollUseDocumentBottom(scope.infiniteScrollUseDocumentBottom);
+	        changeContainer = function(newContainer) {
+	          if (container != null) {
+	            container.unbind('scroll', handler);
+	          }
+	          container = newContainer;
+	          if (newContainer != null) {
+	            return container.bind('scroll', handler);
+	          }
+	        };
+	        changeContainer(windowElement);
+	        if (scope.infiniteScrollListenForEvent) {
+	          unregisterEventListener = $rootScope.$on(scope.infiniteScrollListenForEvent, handler);
+	        }
+	        handleInfiniteScrollContainer = function(newContainer) {
+	          if ((newContainer == null) || newContainer.length === 0) {
+	            return;
+	          }
+	          if (newContainer instanceof HTMLElement) {
+	            newContainer = angular.element(newContainer);
+	          } else if (typeof newContainer.append === 'function') {
+	            newContainer = angular.element(newContainer[newContainer.length - 1]);
+	          } else if (typeof newContainer === 'string') {
+	            newContainer = angular.element(document.querySelector(newContainer));
+	          }
+	          if (newContainer != null) {
+	            return changeContainer(newContainer);
+	          } else {
+	            throw new Exception("invalid infinite-scroll-container attribute.");
+	          }
+	        };
+	        scope.$watch('infiniteScrollContainer', handleInfiniteScrollContainer);
+	        handleInfiniteScrollContainer(scope.infiniteScrollContainer || []);
+	        if (attrs.infiniteScrollParent != null) {
+	          changeContainer(angular.element(elem.parent()));
+	        }
+	        if (attrs.infiniteScrollImmediateCheck != null) {
+	          immediateCheck = scope.$eval(attrs.infiniteScrollImmediateCheck);
+	        }
+	        return checkInterval = $interval((function() {
+	          if (immediateCheck) {
+	            return handler();
+	          }
+	        }), 0);
+	      }
+	    };
+	  }
+	]);
+
 
 /***/ }
 /******/ ]);
