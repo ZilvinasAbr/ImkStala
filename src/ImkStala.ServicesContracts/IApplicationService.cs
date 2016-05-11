@@ -38,5 +38,7 @@ namespace ImkStala.ServicesContracts
 
         bool EditRestaurantProfileByUserId(string userId, string restaurantName,
             string address, string phoneNumber, string website, string description);
+
+        IEnumerable<Reservation> GetVisitorReservationsById(int visitorId);
     }
 }
