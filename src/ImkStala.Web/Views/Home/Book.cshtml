@@ -25,7 +25,7 @@
                     </select>
                 </div>
                 <textarea asp-for="VisitorMessage" class="form-control text" placeholder="Daugiau informacijos restoranui"></textarea>
-                <button class="form-control" type="submit">Užsakyti</button>
+                <button class="form-control" id="submitButton" type="submit">Užsakyti</button>
             </div>
             <div class="col-md-2">
                 <input asp-for="Date" ng-model="data.date" ng-change="changed()" placeholder="Jūsų pasirinkta data" type='text' class="form-control" id='datepicker'>

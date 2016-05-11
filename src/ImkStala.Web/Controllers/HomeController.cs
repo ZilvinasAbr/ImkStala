@@ -137,5 +137,13 @@ namespace ImkStala.Web.Controllers
             ViewBag.Id = id;
             return View();
         }
+
+        public async Task<IActionResult> History()
+        {
+            var user = await _userManager.FindByIdAsync(HttpContext.User.GetUserId());
+            Visitor visitor = _applicationService.GetVisitorByUserId(user.Id);
+            ViewBag.Id = visitor.Id;
+            return View();
+        }
     }
 }

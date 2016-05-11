@@ -1,0 +1,28 @@
+﻿<input type="hidden" id="visitorId" value="@ViewBag.Id" />
+<script src="~/js/visitor.js"></script>
+<h1> Rezervacijų istorija </h1>
+<div class="row" ng-app="visitorApp" ng-controller="history">
+    <div class="col-md-4" ng-repeat="restaurant in reservationHistory">
+        <div class="restaurants">
+            <div class="restaurant">
+                <h2 class="styledHeader"> {{ restaurant.Restaurant.RestaurantName }} </h2>
+                <hr />
+                <div class="description">
+                    <p>{{ restaurant.Restaurant.Description }}</p>
+                </div>
+                <div class="description">
+                    <p>Staliuko vietų skaičius: {{ restaurant.RestaurantTable.RestaurantTableSeats }}</p>
+                    <p>Rezervacijos laikas: {{ restaurant.ReservationStartDateTime | date:'yyyy-MM-dd HH:mm' }} - {{ restaurant.ReservationEndDateTime | date:'HH:mm'}}</p>
+                </div>
+                <hr />
+                <div class="row buttonRow">
+                    <div class="col-md-12">
+                        <a class="infoButton col-md-4" href="/Home/Restaurant/{{ restaurant.Restaurant.Id }}"> Informacija </a>
+                        <a class="bookButton col-md-4" href="/Home/Book/{{ restaurant.Restaurant.Id }}"> Rezervuoti </a>
+                        <a class="favoriteButton col-md-4" href="/Favorite/{{ restaurant.Restaurant.Id }}"> Pamėgti </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

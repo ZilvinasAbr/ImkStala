@@ -84,6 +84,14 @@ restaurantApp.controller('oneRestaurantController', function ($scope, $http) {
             $scope.exactTableCount = count;
             var full = getHowManyFull(seats, data.RestaurantTables);
             $scope.emptyTableCount = count - full;
+            if($scope.emptyTableCount==0)
+            {
+                document.getElementById('submitButton').disabled = true;
+            }
+            else
+            {
+                document.getElementById('submitButton').disabled = false;
+            }
         };
     }).error(function () {
     });
@@ -93,11 +101,19 @@ restaurantApp.controller('reservationController', function ($scope, $http) {
     var url = "/api/restaurants/" + document.getElementById('restaurantId').value;
     $http.get(url).success(function (data) {
         $scope.reservations = [];
+        $scope.tableCounts = [];
         for (var i = 0; i < data.RestaurantTables.length; i++) {
             if (data.RestaurantTables[i].Reservations.length != 0) {
-                var tables = data.RestaurantTables[i];
-                console.log(data.RestaurantTables[i]);
-                $scope.reservations.push(data.RestaurantTables[i]);
+                for (var j = 0; j < data.RestaurantTables[i].Reservations.length; j++)
+                {
+                    var tables = data.RestaurantTables[i];
+                    var currentdate = Date.parse(new Date());
+                    if (currentdate < Date.parse(data.RestaurantTables[i].Reservations[j].ReservationStartDateTime))
+                    {
+                        $scope.reservations.push(data.RestaurantTables[i].Reservations[j]);
+                        $scope.tableCounts.push(data.RestaurantTables[i].RestaurantTableSeats);
+                    }
+                }
             }
         }
 

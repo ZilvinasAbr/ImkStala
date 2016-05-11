@@ -2,22 +2,33 @@
 @{
     ViewData["Title"] = "Užsakymai";
 }
+<script src="~/assets/jquery.min.js"></script>
 <script src="~/js/restaurant.js"></script>
+<script src="~/assets/bootstrap.js"></script>
 
 <input type="hidden" id="restaurantId" value="@ViewBag.Id" />
 <table class="table" style="color:white; background-color:black;" ng-app="restaurantApp" ng-controller="reservationController">
     <thead>
         <tr>
             <th>Staliuko vietu skaicius</th>
+            <th>Klientas</th>
             <th>Atvykimo data</th>
             <th>Isvykimo data</th>
+            <th>Žinutė</th>
         </tr>
     </thead>
     <tbody>
-        <tr ng-repeat="table in reservations">
-            <td> {{ table.RestaurantTableSeats }}</td>
-            <td> {{ table.Reservations[0].ReservationStartDateTime }}</td>
-            <td> {{ table.Reservations[0].ReservationEndDateTime }}</td>
+        <tr ng-repeat="reservation in reservations | orderBy:'ReservationStartDateTime'">
+            <td> {{ tableCounts[$index] }} </td>
+            <td> {{ reservation.Visitor.FirstName }} {{ reservation.Visitor.LastName }} <button type="button" class="btn btn-lg btn-info" data-toggle="popover" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?"><span class="glyphicon glyphicon-exclamation-sign"></span></button></td>
+            <td> {{ reservation.ReservationStartDateTime | date:'yyyy-MM-dd HH:mm' }}</td>
+            <td> {{ reservation.ReservationEndDateTime | date:'yyyy-MM-dd HH:mm' }}</td>
+            <td> {{ reservation.VisitorMessage }}</td>
         </tr>
     </tbody>
 </table>
+<script>
+    $(document).ready(function () {
+        $("[data-toggle='tooltip']").tooltip();
+    });
+</script>
