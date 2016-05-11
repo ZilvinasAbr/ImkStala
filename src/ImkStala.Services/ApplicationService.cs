@@ -256,5 +256,15 @@ namespace ImkStala.Services
 
             return true;
         }
+        public IEnumerable<Reservation> GetVisitorReservationsById(int visitorId)
+        {
+            var reservations = _dbContext.Reservations
+                .Include(r => r.Restaurant)
+                .Include(r => r.RestaurantTable)
+                .Where(r => r.Visitor.Id == visitorId)
+                .ToList();
+
+            return reservations;
+        }
     }
 }
