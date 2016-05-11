@@ -43,7 +43,7 @@ namespace ImkStala.Web.Controllers
         public async Task<IActionResult> Index(ManageMessageId? message = null)
         {
             ViewData["StatusMessage"] =
-                message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
+                message == ManageMessageId.ChangePasswordSuccess ? "Jūsų slaptažodis pakeistas."
                 : message == ManageMessageId.SetPasswordSuccess ? "Your password has been set."
                 : message == ManageMessageId.SetTwoFactorSuccess ? "Your two-factor authentication provider has been set."
                 : message == ManageMessageId.Error ? "An error has occurred."
@@ -221,7 +221,8 @@ namespace ImkStala.Web.Controllers
                     _logger.LogInformation(3, "User changed their password successfully.");
                     return RedirectToAction(nameof(Index), new { Message = ManageMessageId.ChangePasswordSuccess });
                 }
-                AddErrors(result);
+                else
+                    ModelState.AddModelError(string.Empty, "Neteisingas esamas slaptažodis");
                 return View(model);
             }
             return RedirectToAction(nameof(Index), new { Message = ManageMessageId.Error });

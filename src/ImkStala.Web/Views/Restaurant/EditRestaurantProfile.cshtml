@@ -1,11 +1,6 @@
 ﻿@using System.Threading.Tasks
 @using ImkStala.DataAccess.Entities
 
-@inject SignInManager<ApplicationUser> SignInManager
-
-@{
-    ViewData["Title"] = "Edit Restaurant Profile";
-}
 
 @model ImkStala.Web.ViewModels.Restaurant.EditRestaurantProfileViewModel
 @{
@@ -15,7 +10,7 @@
 <h2 class="formInfo">@ViewData["Title"]</h2>
 
 <form asp-controller="Restaurant" asp-action="EditRestaurantProfile" method="post" class="form-horizontal registerForm" role="form">
-    <h4>Redaguoti restorano duomenis</h4>
+    <h4>Įveskite naujus duomenis</h4>
     <hr />
     <div asp-validation-summary="ValidationSummary.All" class="text-danger"></div>
     <div class="form-group">
@@ -59,6 +54,7 @@
         </div>
     </div>
     <p style="color: red">*- privalomi laukeliai</p>
+    <a href="/Manage/ChangePassword">Pakeisti slaptažodį</a>
 </form>
 
 @section Scripts {

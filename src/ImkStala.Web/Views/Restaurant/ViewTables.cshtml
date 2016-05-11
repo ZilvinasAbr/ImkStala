@@ -8,9 +8,77 @@
 @inject SignInManager<ApplicationUser> SignInManager
 
 @{
-    ViewData["Title"] = "View Tables";
+    ViewData["Title"] = "Staliukų valdymas";
 }
-<h2> Informacija apie dabartinę staliukų padėti jūsų restorane</h2>
+<h1 class="formInfo"> Pridėkite naują staliuką į jūsų restoraną</h1>
+
+<div class='tableSeats row'>
+    <div class="col-md-2 info" style="float:left">
+        <h4> Vietų skaičius:</h4>
+    </div>
+    @*<div class="col-md-2 selectTableSeat" style="float:left">
+        <select asp-for="TableSeats" class="number">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4" selected="selected">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+        </select>
+    </div>*@
+    <form asp-controller="Restaurant" asp-action="AddTable" method="post" class="form-horizontal" role="form">
+        <div class="form-horizontal">
+            <div asp-validation-summary="ValidationSummary.All" class="text-danger"></div>
+            @*<div class="form-group">
+                <label asp-for="TableSeats" class="col-md-2 control-label">Vietų skaičius</label>
+                <div class="col-md-10">
+                    <input asp-for="TableSeats" class="form-control" />
+                    <span asp-validation-for="TableSeats" class="text-danger"></span>
+                </div>
+            </div>*@
+            <div class="col-md-2 selectTableSeat" style="float:left">
+                <select asp-for="TableSeats" class="number">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4" selected="selected">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <div class="col-md-1 submitTables" style="float:right">
+                    <input type="submit" value="Išsaugoti" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    </form>
+    @*<div class='info col-md-2'>
+        <h4> Staliukų kiekis:</h4>
+    </div>
+    <div class='input col-md-1'>
+        <input type="number" onkeypress="return keyValidation(event);" min="0" id="1">
+    </div>
+    <div class='interface col-md-2'>
+        <div class="arrowUp" onclick="addToType(1)"></div>
+        <div class="arrowDown" onclick="downToType(1)"></div>
+    </div>
+    <div class="info col-md-2">
+        <h4> Is viso: {{ bind skaiciu}}</h4>
+    </div>
+    <div class="col-md-1 submitTables" style="float:right">
+        <input type="submit" value="Išsaugoti" class="btn btn-default" />
+    </div>*@
+</div>
+<hr>
+
+<h2 class="formInfo"> Informacija apie dabartinę staliukų padėtį jūsų restorane</h2>
 <div class="infoAboutTables">
     <table>
         <thead>
@@ -26,43 +94,6 @@
         }
     </table>
 </div>
-<h1> Pasirinkite, kiek staliukų yra jūsų restorane</h1>
-
-<div class='tableSeats row'>
-    <div class="col-md-2 info" >
-        <h4> Vietų skaičius:</h4>
-    </div>
-    <div class="col-md-2 selectTableSeat">
-        <select class="number">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4" selected="selected">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-            <option value="9">9</option>
-        </select>
-    </div>
-    <div class='info col-md-2'>
-        <h4> Staliukų kiekis:</h4>
-    </div>
-    <div class='input col-md-1'>
-        <input type="number" onkeypress="return keyValidation(event);" min="0" id="1">
-    </div>
-    <div class='interface col-md-2'>
-        <div class="arrowUp" onclick="addToType(1)"></div>
-        <div class="arrowDown" onclick="downToType(1)"></div>
-    </div>
-    <div class="info col-md-2">
-        <h4> Is viso: {{ bind skaiciu}}</h4>
-    </div>
-    <div class="col-md-1 submitTables">
-        <input type="submit" value="Išsaugoti" />
-    </div>
-</div>
-<hr>
 
 @section Scripts
 {   

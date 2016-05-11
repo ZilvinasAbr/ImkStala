@@ -114,7 +114,7 @@ namespace ImkStala.Web.Controllers
                     _applicationService.AddTableByRestaurantId(table, restaurant.Id);
                     //restaurant.RestaurantTables.Add(table);
                     //_context.SaveChanges();
-                    return RedirectToAction("Index");
+                    return RedirectToAction("ViewTables");
                 }
             //}
             

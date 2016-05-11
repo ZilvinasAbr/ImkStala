@@ -24,7 +24,7 @@ namespace ImkStala.Web.ViewModels.Account
         [Compare("Password", ErrorMessage = "Slaptažodžiai nesutampa!")]
         public string ConfirmPassword { get; set; }
 
-        [Display(Name ="Restorano pavadinimas")]
+        [Display(Name = "Restorano pavadinimas")]
         public string RestaurantName { get; set; }
 
         [Display(Name = "Adresas")]

@@ -3,3 +3,7 @@
 /src/ImkStala.Web/Migrations/*
 /src/ImkStala.DataAccess/Migrations/*
 /src/ImkStala.Web/project.lock.json
+.vs/ImkStala/v14/.suo
+.vs/ImkStala/v14/.suo
+src/ImkStala.DataAccess/Entities/Migrations/20160511083654_FirstMigration.cs
+src/ImkStala.DataAccess/Entities/Migrations/ApplicationDbContextModelSnapshot.cs

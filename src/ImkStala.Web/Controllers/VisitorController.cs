@@ -59,5 +59,37 @@ namespace ImkStala.Web.Controllers
             //}
             return View(model);
         }
+
+        [HttpGet]
+        public IActionResult EditVisitorProfile()
+        {
+            string userId = HttpContext.User.GetUserId();
+            Visitor visitor = _applicationService.GetVisitorByUserId(userId);
+            EditVisitorProfileViewModel model = new EditVisitorProfileViewModel()
+            {
+                FirstName = visitor.FirstName,
+                LastName = visitor.LastName,
+                PhoneNumber = visitor.PhoneNumber
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditVisitorProfile(EditVisitorProfileViewModel model)
+        {
+            var user = await _userManager.FindByIdAsync(HttpContext.User.GetUserId());
+
+            Visitor visitor = _applicationService.GetVisitorByUserId(user.Id);
+            if (ModelState.IsValid)
+            {
+                _applicationService.EditVisitorProfileByUserId(user.Id, model.FirstName,
+                    model.LastName, model.PhoneNumber);
+
+                return RedirectToAction("Index");
+            }
+
+            return View();
+        }
     }
 }

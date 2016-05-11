@@ -235,5 +235,26 @@ namespace ImkStala.Services
 
             return true;
         }
+
+        public bool EditVisitorProfileByUserId(string userId, string firstName,
+            string lastName, string phoneNumber)
+        {
+            Visitor visitor = this.GetVisitorByUserId(userId);
+            if (visitor == null)
+            {
+                return false;
+            }
+
+            if (firstName != null)
+                visitor.FirstName = firstName;
+            if (lastName != null)
+                visitor.LastName = lastName;
+            if (phoneNumber != null)
+                visitor.PhoneNumber = phoneNumber;
+
+            _dbContext.SaveChanges();
+
+            return true;
+        }
     }
 }

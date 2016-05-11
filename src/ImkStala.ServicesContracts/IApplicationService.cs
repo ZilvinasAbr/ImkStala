@@ -38,5 +38,8 @@ namespace ImkStala.ServicesContracts
 
         bool EditRestaurantProfileByUserId(string userId, string restaurantName,
             string address, string phoneNumber, string website, string description);
+
+        bool EditVisitorProfileByUserId(string userId, string firstName,
+            string lastName, string phoneNumber);
     }
 }

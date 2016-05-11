@@ -9,7 +9,7 @@ namespace ImkStala.Web.ViewModels.Account
     public class LoginViewModel
     {
         [Required(ErrorMessage = "Elektroninis paštas yra privalomas")]
-        [EmailAddress]
+        [EmailAddress(ErrorMessage = "{0} turi būti teisingo formato.")]
         [Display(Name = "El. paštas")]
         public string Email { get; set; }
 

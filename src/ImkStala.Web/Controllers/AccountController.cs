@@ -92,7 +92,7 @@ namespace ImkStala.Web.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                    ModelState.AddModelError(string.Empty, "Neteisingi prisijungimo duomenys");
                     return View(model);
                 }
             }
