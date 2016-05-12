@@ -47,6 +47,7 @@
 	__webpack_require__(1);
 
 	var address;
+	var data;
 	var url = "/api/restaurants/" + document.getElementById('restaurantId').value;
 
 	$.ajax({
@@ -56,6 +57,7 @@
 	    async: false,
 	    success: function (data) {
 	        address = data.Address;
+	        title = data.RestaurantName;
 	    }
 	});
 
@@ -73,20 +75,26 @@
 	});
 
 	function initialize() {
+	    directionsService = new google.maps.DirectionsService();
+	    directionsDisplay = new google.maps.DirectionsRenderer();
 	    var mapProp = {
 	        center: LatLng,
 	        zoom: 17,
+	        scrollwheel: false,
 	        mapTypeControl: false,
 	        mapTypeId: google.maps.MapTypeId.ROADMAP
 	    };
-	    var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
-
-	    var marker = new google.maps.Marker({
+	    map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
+	    directionsDisplay.setMap(map);
+	    restaurantMarker = new google.maps.Marker({
 	        position: LatLng,
-	        map: map
+	        map: map,
+	        title: title
 	    });
 	}
+
 	google.maps.event.addDomListener(window, 'load', initialize);
+
 
 /***/ },
 /* 1 */
