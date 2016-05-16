@@ -3,21 +3,12 @@
 }
 
 <script src="~/js/restaurant.js"></script>
+<script src="~/assets/jquery.min.js"></script>
+<script src="http://maps.googleapis.com/maps/api/js"></script>
+<script src="~/js/indexmap.js"></script>
 
 <div class="row">
     <div class="col-md-3">
-        <div class="profileInfo">
-            <h1 class="styledHeader"> Profilis </h1>
-            <hr />
-            <nav>
-                <ul>
-                    <li><a href="/Home/History">Mano rezervacijų istorija</a></li>
-                    <li><a href="">Mano mėgstami restoranai</a></li>
-                    <li><a href="">Mano įvertinti restoranai</a></li>
-                    <li><a href="">Rezervuoti</a></li>
-                </ul>
-            </nav>
-        </div>
         <div class="topRest">
             <h1 class="infoHeader"> Top 3</h1>
             <hr />
@@ -53,9 +44,9 @@
             </div>
         </div>
     </div>
-    <div class="col-md-8">
+    <div class="col-md-5">
         <div class="restaurants" ng-app="restaurantApp" ng-controller="infiniteScrollRestaurants">
-            <input style="width:100%" id="searchBar" type="text" ng-change="searchChanged()" ng-model="searchKey" />
+            <input style="width:100%" class="search" id="searchBar" type="text" ng-change="searchChanged()" placeholder="Paieška pagal pavadinimą" ng-model="searchKey" />
             <div infinite-scroll='loadMore()' infinite-scroll-distance='0'>
                 <div class="restaurant" ng-repeat="restaurant in restaurants">
                     <h2 class="styledHeader"> {{ restaurant.RestaurantName }} </h2>
@@ -74,5 +65,8 @@
                 </div>
             </div>
          </div>
+    </div>
+    <div class="col-md-4">
+        <div id="googleMap" class="map"></div>
     </div>
 </div>

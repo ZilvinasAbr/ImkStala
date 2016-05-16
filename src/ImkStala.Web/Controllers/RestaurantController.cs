@@ -121,6 +121,34 @@ namespace ImkStala.Web.Controllers
             return View(tableViewModel);
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddMenu(AddMenuViewModel menuViewModel)
+        {
+            var user = await _userManager.FindByIdAsync(HttpContext.User.GetUserId());
+            //ApplicationUser applicationUser = await _context.ApplicationUsers.FirstOrDefaultAsync(w => w.Id == user.Id);
+            //Restaurant restaurantData = await _context.Restaurants.FirstOrDefaultAsync(w => w.ApplicationUser.Id == user.Id);
+            //if (user.AccountType == "Restaurant")
+            //{
+            Restaurant restaurant = _applicationService.GetRestaurantByUserId(user.Id);
+            if (ModelState.IsValid)
+            {
+                MenuItem item = new MenuItem()
+                {
+                    Name = menuViewModel.Name,
+                    Price = menuViewModel.Price
+                };
+                //_context.RestaurantTables.Add(table);
+                _applicationService.AddMenuItemByRestaurantId(item, restaurant.Id);
+                //restaurant.RestaurantTables.Add(table);
+                //_context.SaveChanges();
+                return RedirectToAction("AddMenu");
+            }
+            //}
+
+            return View(menuViewModel);
+        }
+
         [HttpGet]
         public IActionResult EditRestaurantProfile()
         {

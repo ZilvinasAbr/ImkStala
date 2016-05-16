@@ -44,6 +44,24 @@ namespace ImkStala.Services
             return true;
         }
 
+        public bool AddMenuItemByRestaurantId(MenuItem item, int id)
+        {
+            Restaurant restaurant = _dbContext
+                .Restaurants
+                //.Include(x => x.RestaurantTables)
+                .FirstOrDefault(r => r.Id == id);
+
+            if (restaurant == null)
+            {
+                return false;
+            }
+
+            restaurant.Meals.Add(item);
+            _dbContext.SaveChanges();
+
+            return true;
+        }
+
         public void AddVisitor(Visitor visitor)
         {
             _dbContext.Visitors.Add(visitor);
@@ -65,6 +83,7 @@ namespace ImkStala.Services
             IList<Restaurant> restaurants = _dbContext.Restaurants
                 .Include(r => r.RestaurantTables)
                 .ThenInclude(t => t.Reservations)
+                .Include(x => x.Meals)
                 .ToList();
 
             return restaurants;
@@ -118,6 +137,7 @@ namespace ImkStala.Services
                 .Include(r => r.RestaurantTables)
                 .ThenInclude(t => t.Reservations)
                 .ThenInclude(re => re.Visitor)
+                .Include(x => x.Meals)
                 .FirstOrDefault(x => x.Id == id);
             return restaurant;
         }

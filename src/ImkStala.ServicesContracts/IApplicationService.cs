@@ -14,6 +14,8 @@ namespace ImkStala.ServicesContracts
 
         bool AddTableByRestaurantId(RestaurantTable restaurantTable, int id);
 
+        bool AddMenuItemByRestaurantId(MenuItem item, int id);
+
         bool AddFavorite(string userId, int restaurantId);
 
         IList<RestaurantTable> GetRestaurantTablesByRestaurantId(int resetaurantId);
