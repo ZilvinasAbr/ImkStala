@@ -1,0 +1,48 @@
+﻿@using System.Collections.Generic
+@using System.Threading.Tasks
+@using ImkStala.DataAccess.Entities
+@using Microsoft.AspNet.Http
+@using Microsoft.AspNet.Http.Authentication
+@using ImkStala.Web.ViewModels.Restaurant
+@model ImkStala.Web.ViewModels.Restaurant.ViewMenuViewModel
+@inject SignInManager<ApplicationUser> SignInManager
+
+@{
+    ViewData["Title"] = "View Menu";
+}
+<div class="col-md-6">
+    <form asp-controller="Restaurant" asp-action="AddMenu" method="post" class="form-horizontal" role="form">
+        <div class="form-horizontal">
+            <div asp-validation-summary="ValidationSummary.All" class="text-danger"></div>
+            <div class="form-group">
+                <label style="color:white;" asp-for="Name" class="col-md-3 control-label"></label>
+                <input style="height:50px; padding:0px;" asp-for="Name" class="col-md-3" />
+                <label style="color:white;" asp-for="Price" class="col-md-3 control-label"></label>
+                <input style="padding:0px;" asp-for="Price" type="number" step="0.01" class="col-md-3" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-3 col-md-10">
+                    <input type="submit" value="Pridėti" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="col-md-6">
+    <div class="infoAboutTables">
+        <table>
+            <thead>
+            <td>Pavadinimas</td>
+            <td>Kaina</td>
+            </thead>
+            @foreach (var menu in Model.Meals)
+            {
+                <tr>
+                    <td>@menu.Name</td>
+                    <td>@menu.Price</td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>

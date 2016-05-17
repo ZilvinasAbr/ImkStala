@@ -163,6 +163,15 @@ namespace ImkStala.Services
             return restaurantTables;
         }
 
+        public IList<MenuItem> GetRestaurantMenuByRestaurantId(int restaurantId)
+        {
+            IList<MenuItem> meals = _dbContext.Meals
+                .Where(r => r.Restaurant.Id == restaurantId)
+                .ToList();
+
+            return meals;
+        }
+
         public IList<RestaurantTable> GetRestaurantTablesByUserId(string userId)
         {
             Restaurant restaurant = GetRestaurantByUserId(userId);
@@ -175,6 +184,20 @@ namespace ImkStala.Services
             IList<RestaurantTable> restaurantTables = GetRestaurantTablesByRestaurantId(restaurant.Id);//TODO
 
             return restaurantTables;
+        }
+
+        public IList<MenuItem> GetRestaurantMenuByUserId(string userId)
+        {
+            Restaurant restaurant = GetRestaurantByUserId(userId);
+
+            if (restaurant == null)
+            {
+                return null;
+            }
+
+            IList<MenuItem> meals = GetRestaurantMenuByRestaurantId(restaurant.Id);//TODO
+
+            return meals;
         }
 
         public bool AddReservation(Reservation reservation, string userId, int restaurantId, int reservationTableSeats)

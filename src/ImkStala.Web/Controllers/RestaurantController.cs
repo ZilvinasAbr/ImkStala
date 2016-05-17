@@ -80,6 +80,26 @@ namespace ImkStala.Web.Controllers
             return View(viewTablesViewModel);
         }
 
+        public async Task<IActionResult> ViewMenu()
+        {
+            var user = await _userManager.FindByIdAsync(HttpContext.User.GetUserId());
+            //Restaurant restaurantData = await _context.Restaurants.FirstOrDefaultAsync(w => w.ApplicationUser.Id == user.Id);
+            //List<RestaurantTable> tables = await _context.RestaurantTables.Where(w => w.Restaurant.Id == restaurantData.Id).ToListAsync();
+            IList<MenuItem> meals =
+                _applicationService.GetRestaurantMenuByUserId(user.Id);
+
+            ViewMenuViewModel viewMenuViewModel = null;
+            //IEnumerable<Table> tables = GetTablesEnumeration();
+            //if (user.AccountType == "Restaurant")
+            //{
+            viewMenuViewModel = new ViewMenuViewModel()
+            {
+                Meals = meals
+            };
+            //}
+            return View(viewMenuViewModel);
+        }
+
         [HttpGet]
         public IActionResult AddTable()
         {
@@ -142,7 +162,7 @@ namespace ImkStala.Web.Controllers
                 _applicationService.AddMenuItemByRestaurantId(item, restaurant.Id);
                 //restaurant.RestaurantTables.Add(table);
                 //_context.SaveChanges();
-                return RedirectToAction("AddMenu");
+                return RedirectToAction("ViewMenu");
             }
             //}
 

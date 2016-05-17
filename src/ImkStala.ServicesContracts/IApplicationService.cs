@@ -22,6 +22,10 @@ namespace ImkStala.ServicesContracts
 
         IList<RestaurantTable> GetRestaurantTablesByUserId(string userId);
 
+        IList<MenuItem> GetRestaurantMenuByUserId(string userId);
+
+        IList<MenuItem> GetRestaurantMenuByRestaurantId(int restaurantId);
+
         IList<Restaurant> GetFavorites(int visitorId);
 
         IList<Restaurant> GetAllRestaurants();
