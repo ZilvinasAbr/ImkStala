@@ -8,5 +8,6 @@ namespace ImkStala.Web.ViewModels.Restaurant
     public class AddTableViewModel
     {
         public int TableSeats { get; set; }
+        public int TableCount { get; set; }
     }
 }

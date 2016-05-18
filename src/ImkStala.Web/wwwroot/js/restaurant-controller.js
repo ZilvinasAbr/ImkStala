@@ -152,7 +152,7 @@ function getHowManyFull(seat, seatsArray) {
                 var startTime = Date.parse(seatsArray[i].Reservations[j].ReservationStartDateTime);
                 var endTime = Date.parse(seatsArray[i].Reservations[j].ReservationEndDateTime);
                 var selectedTime = Date.parse(date + "T" + time);
-                if (startTime < selectedTime && endTime > selectedTime) {
+                if (startTime <= selectedTime && endTime => selectedTime) {
                     full++;
                 }
             }

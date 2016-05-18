@@ -10,5 +10,6 @@ namespace ImkStala.Web.ViewModels.Restaurant
     {
         public IEnumerable<RestaurantTable> Tables { get; set; }
         public int TableSeats { get; set; }
+        public int TableCount { get; set; }
     }
 }

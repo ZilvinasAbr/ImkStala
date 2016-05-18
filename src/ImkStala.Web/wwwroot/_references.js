@@ -1,5 +1,4 @@
 ﻿/// <autosync enabled="true" />
-/// <reference path="../gulpfile.js" />
 /// <reference path="../webpack.config.js" />
 /// <reference path="assets/angular.min.js" />
 /// <reference path="assets/bootstrap.js" />

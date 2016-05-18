@@ -126,12 +126,15 @@ namespace ImkStala.Web.Controllers
                 Restaurant restaurant = _applicationService.GetRestaurantByUserId(user.Id);
                 if (ModelState.IsValid)
                 {
-                    RestaurantTable table = new RestaurantTable()
+                //_context.RestaurantTables.Add(table);
+                    for (int i = 0; i < tableViewModel.TableCount; i++)
                     {
-                        RestaurantTableSeats = tableViewModel.TableSeats
-                    };
-                    //_context.RestaurantTables.Add(table);
-                    _applicationService.AddTableByRestaurantId(table, restaurant.Id);
+                        RestaurantTable table = new RestaurantTable()
+                        {
+                            RestaurantTableSeats = tableViewModel.TableSeats
+                        };
+                        _applicationService.AddTableByRestaurantId(table, restaurant.Id);
+                    }
                     //restaurant.RestaurantTables.Add(table);
                     //_context.SaveChanges();
                     return RedirectToAction("ViewTables");
