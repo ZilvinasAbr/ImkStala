@@ -14,33 +14,65 @@
     <div class="jumbotron">
         <h2>Jūs rezervuojate staliuką "{{ restaurant.RestaurantName }}" restorane!</h2>
     </div>
-    <div class="row margin_left">
         <form asp-controller="Home" asp-action="Book" method="post" role="form">
-            <div class="tableChooser col-md-5">
-                <input asp-for="RestaurantId" style="display: none" value="{{ restaurant.Id}}" />
-                <h3 class="inline"> Staliuko vietų skaičius: </h3>
-                <div class="selectTableSeat inline">
-                    <select asp-for="RestaurantTableSeats" class="number" ng-model="data.selectedTable" ng-change="changed()">
-                        <option selected ng-repeat="table in uniqueTables | orderBy"> {{ table }} </option>
-                    </select>
+            <div class="row margin_left">
+                <div class="tableChooser col-md-4">
+                    <input asp-for="RestaurantId" style="display: none" value="{{ restaurant.Id}}" />
+                    <h3 class="inline"> Staliuko vietų skaičius: </h3>
+                    <div class="selectTableSeat inline">
+                        <select asp-for="RestaurantTableSeats" class="number" ng-model="data.selectedTable" ng-change="changed()">
+                            <option selected ng-repeat="table in uniqueTables | orderBy"> {{ table }} </option>
+                        </select>
+                    </div>
+                    <textarea asp-for="VisitorMessage" class="form-control text" placeholder="Daugiau informacijos restoranui"></textarea>
                 </div>
-                <textarea asp-for="VisitorMessage" class="form-control text" placeholder="Daugiau informacijos restoranui"></textarea>
-                <button class="form-control" id="submitButton" type="submit">Užsakyti</button>
+                <div class="col-md-2">
+                    <input asp-for="Date" ng-model="data.date" ng-change="changed()" placeholder="Jūsų pasirinkta data" type='text' class="form-control" id='datepicker'>
+                    <input asp-for="Time" ng-model="data.time" ng-change="changed()" placeholder="Pasirinkite laiką" type="text" class="form-control" id="timepicker" />
+                    <p style="color:white;" ng-if="data.selectedTable"> Iš viso{{ data.selectedTable }}-iečių staliukų: {{ exactTableCount }}</p>
+                    <p style="color:white;" ng-if="data.selectedTable"> Laisvų skaičius: {{ emptyTableCount }}</p>
+                </div>
+                <div class="col-md-3 zeroPadding">
+                    <div id="container"></div>
+                </div>
+                <div class="col-md-3 zeroPadding">
+                    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Užsisakyti patiekalą</button>
+                </div>
             </div>
-            <div class="col-md-2">
-                <input asp-for="Date" ng-model="data.date" ng-change="changed()" placeholder="Jūsų pasirinkta data" type='text' class="form-control" id='datepicker'>
-                <input asp-for="Time" ng-model="data.time" ng-change="changed()" placeholder="Pasirinkite laiką" type="text" class="form-control" id="timepicker" />
-                <p style="color:white;" ng-if="data.selectedTable"> Iš viso{{ data.selectedTable }}-iečių staliukų: {{ exactTableCount }}</p>
-                <p style="color:white;" ng-if="data.selectedTable"> Laisvų skaičius: {{ emptyTableCount }}</p>
+            <div class="row">
+                <div class="col-md-3">
+                </div>
+                <div class="col-md-6">
+                    <button style="width:100%; margin-top:10px;" class="btn btn-primary" id="submitButton" type="submit">Užsakyti</button>
+                </div>
             </div>
-            <div class="col-md-3 zeroPadding">
-                <div id="container"></div>
+            <div class="modal fade" id="myModal" role="dialog">
+                <div class="modal-dialog">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Restorano meniu</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div ng-repeat="meal in restaurant.Meals" id="menuList">
+                                <input ng-init="restaurant.Meals[$index].checked=false" ng-model="restaurant.Meals[$index].checked" type="checkbox" id="{{ $index }}" value="{{ meal }}" /> <label class="restaurantMenu" for="{{ $index }}"> {{ meal.Name }} ....... {{ meal.Price }} </label>  &euro;
+                            </div>
+                            <div> Pasirinkti patiekalai:</div>
+                            <div id="selectedDishes" ng-repeat="selectedMeal in restaurant.Meals">
+                                <span ng-if="restaurant.Meals[$index].checked"> {{ restaurant.Meals[$index].Name }} </span>
+                            </div>
+                            <div> Suma: {{ calcTotal() }} &euro;</div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+
+                </div>
             </div>
         </form>
-
-
-
-    </div>
 </div>
 <script src="~/assets/picker.js"></script>
 <script src="~/assets/moment/moment.js"></script>

@@ -3,6 +3,23 @@ require('ng-infinite-scroll');
 
 var restaurantApp = angular.module('restaurantApp', ['infinite-scroll']);
 
+restaurantApp.filter('sumByKey', function() {
+    return function(data, key) {
+        if (typeof(data) === 'undefined' || typeof(key) === 'undefined') {
+            return 0;
+        }
+
+        var sum = 0;
+        for (var i = data.length - 1; i >= 0; i--) {
+            if (data.checked != false) {
+                sum += parseInt(data[i][key]);
+            }
+        }
+
+        return sum;
+    };
+});
+
 restaurantApp.controller('infiniteScrollRestaurants', function ($scope, $http) {
     var page = 0;
     var value = "all";
@@ -93,6 +110,16 @@ restaurantApp.controller('oneRestaurantController', function ($scope, $http) {
                 document.getElementById('submitButton').disabled = false;
             }
         };
+
+        $scope.calcTotal = function () {
+            var total = 0;
+            angular.forEach($scope.restaurant.Meals, function (meal) {
+                if (meal.checked != false) {
+                    total += meal.Price;
+                }
+            })
+            return total;
+        }
     }).error(function () {
     });
 });
@@ -152,7 +179,7 @@ function getHowManyFull(seat, seatsArray) {
                 var startTime = Date.parse(seatsArray[i].Reservations[j].ReservationStartDateTime);
                 var endTime = Date.parse(seatsArray[i].Reservations[j].ReservationEndDateTime);
                 var selectedTime = Date.parse(date + "T" + time);
-                if (startTime <= selectedTime && endTime => selectedTime) {
+                if (startTime <= selectedTime && endTime >= selectedTime) {
                     full++;
                 }
             }

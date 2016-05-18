@@ -109,6 +109,12 @@ function showPosition(position) {
     });
 }
 
+function handleChange(cb) {
+    $('input', $('#menuList')).each(function () {
+        console.log($(this)); //log every element found to console output
+    });
+}
+
 $('input[type=radio]').on('change', function () {
     $(this).closest("form").submit();
 });

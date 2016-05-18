@@ -1,4 +1,9 @@
-﻿body {
+﻿@font-face {
+    font-family: menu;
+    src: url("/images/hotpizza.ttf");
+}
+
+body {
     background-image: url("/images/hamburger.jpg");
     background-size: cover;
     background-position: center; 
@@ -437,4 +442,50 @@ hr
 {
     height: 100vh; /* For 100% screen height */
     position:fixed;
+}
+
+.restaurantMenu
+{
+    font-family:menu;
+    font-size:30px;
+}
+
+.checkbox-custom, .radio-custom {
+    opacity: 0;
+    position: absolute;   
+}
+
+.checkbox-custom, .checkbox-custom-label, .radio-custom, .radio-custom-label {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 5px;
+    cursor: pointer;
+}
+
+.checkbox-custom-label, .radio-custom-label {
+    position: relative;
+}
+
+.checkbox-custom + .checkbox-custom-label:before, .radio-custom + .radio-custom-label:before {
+    content: '';
+    background: #fff;
+    border: 2px solid #ddd;
+    display: inline-block;
+    vertical-align: middle;
+    width: 20px;
+    height: 20px;
+    padding: 2px;
+    margin-right: 10px;
+    text-align: center;
+}
+
+.checkbox-custom:checked + .checkbox-custom-label:before {
+    content: "\f00c";
+    font-family: 'FontAwesome';
+    background: rebeccapurple;
+    color: #fff;
+}
+
+.radio-custom + .radio-custom-label:before {
+    border-radius: 50%;
 }
