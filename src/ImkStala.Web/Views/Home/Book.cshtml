@@ -2,12 +2,6 @@
 @{
     ViewData["Title"] = "Rezervacija";
 }
-<script src="~/assets/jquery.min.js"></script>
-<script src="~/js/restaurant.js"></script>
-<link href="~/css/bookPageStyle.css" rel="stylesheet" />
-<link href="~/css/default.css" rel="stylesheet" />
-<link href="~/css/default.time.css" rel="stylesheet" />
-<link href="~/css/pikaday.css" rel="stylesheet" />
 
 <input type="hidden" id="restaurantId" value="@ViewBag.Id" />
 <div class="container" ng-app="restaurantApp" ng-controller="oneRestaurantController">
@@ -74,8 +68,12 @@
             </div>
         </form>
 </div>
-<script src="~/assets/picker.js"></script>
-<script src="~/assets/moment/moment.js"></script>
-<script src="~/assets/pikaday.js"></script>
-<script src="~/assets/picker.time.js"></script>
-<script src="~/js/calendarcall.js"></script>
+@section scripts {
+    <script src="~/assets/jquery.min.js"></script>
+    <script src="~/assets/picker.js"></script>
+    <script src="~/assets/moment/moment.js"></script>
+    <script src="~/assets/pikaday.js"></script>
+    <script src="~/assets/picker.time.js"></script>
+    <script src="~/js/restaurant.js"></script>
+    <script src="~/js/calendarcall.js"></script>
+}

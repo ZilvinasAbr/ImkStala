@@ -1,11 +1,7 @@
-﻿@{
+﻿@using System.Security.Claims
+@{
     ViewData["Title"] = "Home Page";
 }
-
-<script src="~/js/restaurant.js"></script>
-<script src="~/assets/jquery.min.js"></script>
-<script src="http://maps.googleapis.com/maps/api/js"></script>
-<script src="~/js/indexmap.js"></script>
 
 <div class="row">
     <div class="col-md-3">
@@ -57,9 +53,19 @@
                     <hr />
                     <div class="row buttonRow">
                         <div class="col-md-12">
-                            <a class="infoButton col-md-4" href="/Home/Restaurant/{{ restaurant.Id }}"> Informacija </a>
-                            <a class="bookButton col-md-4" href="/Home/Book/{{ restaurant.Id }}"> Rezervuoti </a>
-                            <a class="favoriteButton col-md-4" href="/Favorite/{{ restaurant.Id }}"> Pamėgti </a>
+                            @if (User.IsSignedIn() && User.IsInRole("Visitor"))
+                            {
+                                <a class="infoButton col-md-4" href="/Home/Restaurant/{{ restaurant.Id }}"> Informacija </a>
+                            }
+                            else
+                            {
+                                <a class="infoButton col-md-12" href="/Home/Restaurant/{{ restaurant.Id }}"> Informacija </a>
+                            }
+                            @if (User.IsSignedIn() && User.IsInRole("Visitor"))
+                            {
+                                <a class="bookButton col-md-4" href="/Home/Book/{{ restaurant.Id }}"> Rezervuoti </a>
+                                <a class="favoriteButton col-md-4" href="/Favorite/{{ restaurant.Id }}"> Pamėgti </a>
+                            }
                         </div>
                     </div>
                 </div>
@@ -73,3 +79,10 @@
         <div id="googleMap" class="map"></div>
     </div>
 </div>
+
+@section scripts {
+    <script src="~/js/restaurant.js"></script>
+    <script src="~/assets/jquery.min.js"></script>
+    <script src="http://maps.googleapis.com/maps/api/js"></script>
+    <script src="~/js/indexmap.js"></script>
+}

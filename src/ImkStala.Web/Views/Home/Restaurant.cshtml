@@ -1,28 +1,10 @@
-﻿@{
+﻿@using System.Security.Claims
+@{
     ViewData["Title"] = "Apie restoraną";
 }
-<script src="~/assets/jquery.min.js"></script>
-<script src="~/js/restaurant.js"></script>
-<link href="~/css/bookPageStyle.css" rel="stylesheet" />
-<script src="http://maps.googleapis.com/maps/api/js"></script>
-<input type="hidden" id="restaurantId" value="@ViewBag.Id" />
-<script src="~/js/facebookPlugin.js"></script>
-<script src="~/js/map.js"></script>
 
 <div class="row">
     <div class="col-md-3">
-        <div class="profileInfo">
-            <h1 class="styledHeader"> Profilis </h1>
-            <hr />
-            <nav>
-                <ul>
-                    <li><a href="">Mano rezervacijų istorija</a></li>
-                    <li><a href="">Mano mėgstami restoranai</a></li>
-                    <li><a href="">Mano įvertinti restoranai</a></li>
-                    <li><a href="">Rezervuoti</a></li>
-                </ul>
-            </nav>
-        </div>
         <div class="topRest">
             <h1 class="infoHeader"> Top 3</h1>
             <hr />
@@ -97,15 +79,26 @@
 
                 </div>
                 <hr />
-                <div class="row buttonRow">
-                    <div class="col-md-12">
-                        <a class="bookButton col-md-6" asp-controller="Home" asp-action="Book" asp-route-id="@ViewBag.Id"> Rezervuoti </a>
-                        <a class="favoriteButton col-md-6" href="Favorite/{{ restaurant.Id }}"> Pamėgti </a>
+                @if (User.IsSignedIn() && User.IsInRole("Visitor"))
+                {
+                    <div class="row buttonRow">
+                        <div class="col-md-12">
+                            <a class="bookButton col-md-6" asp-controller="Home" asp-action="Book" asp-route-id="@ViewBag.Id"> Rezervuoti </a>
+                            <a class="favoriteButton col-md-6" href="Favorite/{{ restaurant.Id }}"> Pamėgti </a>
+                        </div>
                     </div>
-                </div>
+                }
                 <div style="margin-top:20px;" class="fb-like" data-href="http://localhost:16994/Home/Restaurant/@ViewBag.Id" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
                 <div class="fb-comments" data-href="http://localhost:16994/Home/Restaurant/@ViewBag.Id" data-width="100%" data-numposts="5"></div>
             </div>
         </div>
     </div>
 </div>
+
+@section scripts {
+    <script src="~/js/restaurant.js"></script>
+    <script src="http://maps.googleapis.com/maps/api/js"></script>
+    <input type="hidden" id="restaurantId" value="@ViewBag.Id" />
+    <script src="~/js/facebookPlugin.js"></script>
+    <script src="~/js/map.js"></script>
+}
