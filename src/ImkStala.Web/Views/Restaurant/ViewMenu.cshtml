@@ -30,12 +30,14 @@
     </form>
 </div>
 <div class="col-md-6">
-    <div class="infoAboutTables">
-        <table>
-            <thead>
-            <td>Pavadinimas</td>
-            <td>Kaina</td>
-            </thead>
+    <table class="table" style="color:white; border-radius:10px; background-color:black;">
+        <thead>
+            <tr>
+                <th>Pavadinimas</th>
+                <th>Kaina</th>
+            </tr>
+        </thead>
+        <tbody>
             @foreach (var menu in Model.Meals)
             {
                 <tr>
@@ -43,6 +45,6 @@
                     <td>@menu.Price</td>
                 </tr>
             }
-        </table>
-    </div>
+        </tbody>
+    </table>
 </div>

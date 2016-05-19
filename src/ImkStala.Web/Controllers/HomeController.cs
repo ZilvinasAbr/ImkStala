@@ -12,6 +12,7 @@ using Microsoft.AspNet.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNet.Authorization;
 using Microsoft.AspNet.Http.Features;
+using Newtonsoft.Json;
 
 namespace ImkStala.Web.Controllers
 {
@@ -60,12 +61,18 @@ namespace ImkStala.Web.Controllers
                 model.Date.Month, model.Date.Day, model.Time.Hour + 2, model.Time.Minute, 0);
 
             var user = await _userManager.FindByIdAsync(HttpContext.User.GetUserId());
-
+            string joinedMeals=null;
+            if (model.Selected != null)
+            {
+                var meals = model.Selected;
+                joinedMeals = string.Join(", ", meals);
+            }
             Reservation reservation = new Reservation()
             {
                 ReservationStartDateTime = reservationStartDateTime,
                 ReservationEndDateTime = reservationEndDateTime,
                 VisitorMessage = model.VisitorMessage,
+                Meals = joinedMeals
             };
 
             bool succeeded = _applicationService.AddReservation(reservation, user.Id, model.RestaurantId, model.RestaurantTableSeats);

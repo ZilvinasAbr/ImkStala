@@ -5,30 +5,48 @@
 <script src="~/assets/jquery.min.js"></script>
 <script src="~/js/restaurant.js"></script>
 <script src="~/assets/bootstrap.js"></script>
+<div ng-app="restaurantApp" ng-controller="reservationController">
+    <input type="hidden" id="restaurantId" value="@ViewBag.Id" />
+    <table class="table" style="color:white; background-color:black;">
+        <thead>
+            <tr>
+                <th>Staliuko vietu skaicius</th>
+                <th>Klientas</th>
+                <th>Atvykimo data</th>
+                <th>Isvykimo data</th>
+                <th>Žinutė</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="reservation in reservations | orderBy:'ReservationStartDateTime'">
+                <td> {{ tableCounts[$index] }} </td>
+                <td> {{ reservation.Visitor.FirstName }} {{ reservation.Visitor.LastName }} <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#{{ reservation.ReservationId }}"> <span class="glyphicon glyphicon-info-sign"></span></button></td>
+                <td> {{ reservation.ReservationStartDateTime | date:'yyyy-MM-dd HH:mm' }}</td>
+                <td> {{ reservation.ReservationEndDateTime | date:'yyyy-MM-dd HH:mm' }}</td>
+                <td> {{ reservation.VisitorMessage }}</td>
+            </tr>
+        </tbody>
+    </table>
+    <div ng-repeat="reservation in reservations" id="{{ reservation.ReservationId }}" class="modal fade" role="dialog">
+        <div class="modal-dialog">
 
-<input type="hidden" id="restaurantId" value="@ViewBag.Id" />
-<table class="table" style="color:white; background-color:black;" ng-app="restaurantApp" ng-controller="reservationController">
-    <thead>
-        <tr>
-            <th>Staliuko vietu skaicius</th>
-            <th>Klientas</th>
-            <th>Atvykimo data</th>
-            <th>Isvykimo data</th>
-            <th>Žinutė</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr ng-repeat="reservation in reservations | orderBy:'ReservationStartDateTime'">
-            <td> {{ tableCounts[$index] }} </td>
-            <td> {{ reservation.Visitor.FirstName }} {{ reservation.Visitor.LastName }} <button type="button" class="btn btn-lg btn-info" data-toggle="popover" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?"><span class="glyphicon glyphicon-exclamation-sign"></span></button></td>
-            <td> {{ reservation.ReservationStartDateTime | date:'yyyy-MM-dd HH:mm' }}</td>
-            <td> {{ reservation.ReservationEndDateTime | date:'yyyy-MM-dd HH:mm' }}</td>
-            <td> {{ reservation.VisitorMessage }}</td>
-        </tr>
-    </tbody>
-</table>
-<script>
-    $(document).ready(function () {
-        $("[data-toggle='tooltip']").tooltip();
-    });
-</script>
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">{{ reservation.Visitor.FirstName }} {{ reservation.Visitor.LastName }}</h4>
+                </div>
+                <div class="modal-body">
+                    <p> <span class="glyphicon glyphicon-earphone"></span>{{ reservation.Visitor.PhoneNumber }}</p>
+                    <p> <span class="glyphicon glyphicon-envelope"></span> {{ reservation.Visitor.Email }}</p>
+                    <p ng-if="reservation.Meals">Užsisakyti patiekalai: {{ reservation.Meals }}</p>
+                    <p ng-if="reservation.VisitorMessage">Žinutė: {{ reservation.VisitorMessage }}</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

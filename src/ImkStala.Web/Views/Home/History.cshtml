@@ -2,24 +2,25 @@
 <script src="~/js/visitor.js"></script>
 <h1> Rezervacijų istorija </h1>
 <div class="row" ng-app="visitorApp" ng-controller="history">
-    <div class="col-md-4" ng-repeat="restaurant in reservationHistory">
+    <div class="col-md-4" ng-repeat="history in reservationHistory">
         <div class="restaurants">
             <div class="restaurant">
-                <h2 class="styledHeader"> {{ restaurant.Restaurant.RestaurantName }} </h2>
+                <h2 class="styledHeader"> {{ history.Restaurant.RestaurantName }} </h2>
                 <hr />
                 <div class="description">
-                    <p>{{ restaurant.Restaurant.Description }}</p>
+                    <p>{{ history.Restaurant.Description }}</p>
                 </div>
                 <div class="description">
-                    <p>Staliuko vietų skaičius: {{ restaurant.RestaurantTable.RestaurantTableSeats }}</p>
-                    <p>Rezervacijos laikas: {{ restaurant.ReservationStartDateTime | date:'yyyy-MM-dd HH:mm' }} - {{ restaurant.ReservationEndDateTime | date:'HH:mm'}}</p>
+                    <p>Staliuko vietų skaičius: {{ history.RestaurantTable.RestaurantTableSeats }}</p>
+                    <p>Rezervacijos laikas: {{ history.ReservationStartDateTime | date:'yyyy-MM-dd HH:mm' }} - {{ history.ReservationEndDateTime | date:'HH:mm'}}</p>
+                    <p ng-if="history.Meals">Užsisakyti patiekalai: {{ history.Meals }}</p>
                 </div>
                 <hr />
                 <div class="row buttonRow">
                     <div class="col-md-12">
-                        <a class="infoButton col-md-4" href="/Home/Restaurant/{{ restaurant.Restaurant.Id }}"> Informacija </a>
-                        <a class="bookButton col-md-4" href="/Home/Book/{{ restaurant.Restaurant.Id }}"> Rezervuoti </a>
-                        <a class="favoriteButton col-md-4" href="/Favorite/{{ restaurant.Restaurant.Id }}"> Pamėgti </a>
+                        <a class="infoButton col-md-4" href="/Home/Restaurant/{{ history.Restaurant.Id }}"> Informacija </a>
+                        <a class="bookButton col-md-4" href="/Home/Book/{{ history.Restaurant.Id }}"> Rezervuoti </a>
+                        <a class="favoriteButton col-md-4" href="/Favorite/{{ history.Restaurant.Id }}"> Pamėgti </a>
                     </div>
                 </div>
             </div>

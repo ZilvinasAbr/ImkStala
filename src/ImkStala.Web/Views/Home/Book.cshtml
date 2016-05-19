@@ -57,7 +57,7 @@
                         </div>
                         <div class="modal-body">
                             <div ng-repeat="meal in restaurant.Meals" id="menuList">
-                                <input ng-init="restaurant.Meals[$index].checked=false" ng-model="restaurant.Meals[$index].checked" type="checkbox" id="{{ $index }}" value="{{ meal }}" /> <label class="restaurantMenu" for="{{ $index }}"> {{ meal.Name }} ....... {{ meal.Price }} </label>  &euro;
+                                <input name="Selected" ng-init="restaurant.Meals[$index].checked=false" ng-model="restaurant.Meals[$index].checked" type="checkbox" id="{{ $index }}" value="{{ meal.Name }}" /> <label class="restaurantMenu" for="{{ $index }}"> {{ meal.Name }} ....... {{ meal.Price }} </label>  &euro;
                             </div>
                             <div> Pasirinkti patiekalai:</div>
                             <div id="selectedDishes" ng-repeat="selectedMeal in restaurant.Meals">
