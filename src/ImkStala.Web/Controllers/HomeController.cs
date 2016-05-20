@@ -114,6 +114,7 @@ namespace ImkStala.Web.Controllers
 
             if (succeeded)
             {
+                TempData["Success"] = "Sėkmingai įvertintas! Jūsų įvertinimas: " + ratingValue.ToString();
                 return Redirect(Request.Headers["Referer"]);
             }
 

@@ -14,6 +14,10 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Mvc;
 using Microsoft.Data.Entity;
 using Microsoft.Extensions.Logging;
+using System.IO;
+using Microsoft.AspNet.Hosting;
+using Microsoft.AspNet.Http;
+using Microsoft.Net.Http.Headers;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -28,13 +32,15 @@ namespace ImkStala.Web.Controllers
         private readonly ISmsSender _smsSender;
         private readonly ILogger _logger;
         private readonly IApplicationService _applicationService;
+        IHostingEnvironment _hostEnv;
         //private readonly ApplicationDbContext _context;
 
         public RestaurantController(UserManager<ApplicationUser> userManager,
         SignInManager<ApplicationUser> signInManager,
         IEmailSender emailSender,
         ISmsSender smsSender,
-        ILoggerFactory loggerFactory, IApplicationService applicationService)
+        ILoggerFactory loggerFactory, IApplicationService applicationService,
+        IHostingEnvironment hostEnv)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -42,6 +48,7 @@ namespace ImkStala.Web.Controllers
             _smsSender = smsSender;
             _logger = loggerFactory.CreateLogger<ManageController>();
             _applicationService = applicationService;
+            _hostEnv = hostEnv;
         }
 
         // GET: /<controller>/
@@ -183,24 +190,46 @@ namespace ImkStala.Web.Controllers
                 Description = restaurant.Description,
                 PhoneNumber = restaurant.PhoneNumber,
                 RestaurantName = restaurant.RestaurantName,
-                Website = restaurant.Website
+                Website = restaurant.Website,
+                LogoPath = restaurant.LogoPath
             };
 
             return View(model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> EditRestaurantProfile(EditRestaurantProfileViewModel model)
+        public async Task<IActionResult> EditRestaurantProfile(EditRestaurantProfileViewModel model, ICollection<IFormFile> logo, ICollection<IFormFile> files)
         {
-            var user = await _userManager.FindByIdAsync(HttpContext.User.GetUserId());
-
-            Restaurant restaurant = _applicationService.GetRestaurantByUserId(user.Id);
             if (ModelState.IsValid)
             {
-                _applicationService.EditRestaurantProfileByUserId(user.Id, model.RestaurantName,
-                    model.Address, model.PhoneNumber, model.Website, model.Description);
+                var uploads = Path.Combine(_hostEnv.WebRootPath, "images\\logos\\");
+                string logoPath = null;
+                var user = await _userManager.FindByIdAsync(HttpContext.User.GetUserId());
+                Restaurant restaurant = _applicationService.GetRestaurantByUserId(user.Id);
+                foreach (var file in logo)
+                {
+                    var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
+                    var fnm = restaurant.Email + ".png";
+                    if (fileName.ToLower().EndsWith(".png") || fileName.ToLower().EndsWith(".jpg") || fileName.ToLower().EndsWith(".gif"))
+                    {
+                        var filePath = Path.Combine(uploads, fnm);
+                        var directory = new DirectoryInfo(uploads);
+                        if (directory.Exists == false)
+                        {
+                            directory.Create();
+                        }
+                        await file.SaveAsAsync(filePath);
+                        logoPath = "images/logos/" + fnm;
+                    }
 
-                return RedirectToAction("Index");
+                }
+
+                _applicationService.EditRestaurantProfileByUserId(user.Id, model.RestaurantName,
+                    model.Address, model.PhoneNumber, model.Website, model.Description, logoPath);
+
+                TempData["Success"] = "Atnaujinta sėkmingai!";
+
+                return RedirectToAction("EditRestaurantProfile");
             }
 
             return View();

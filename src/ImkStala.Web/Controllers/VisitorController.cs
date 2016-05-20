@@ -86,7 +86,9 @@ namespace ImkStala.Web.Controllers
                 _applicationService.EditVisitorProfileByUserId(user.Id, model.FirstName,
                     model.LastName, model.PhoneNumber);
 
-                return RedirectToAction("Index");
+                TempData["Success"] = "Atnaujinta sėkmingai!";
+
+                return RedirectToAction("EditVisitorProfile");
             }
 
             return View();

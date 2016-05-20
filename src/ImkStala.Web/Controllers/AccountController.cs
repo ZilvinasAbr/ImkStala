@@ -115,25 +115,30 @@ namespace ImkStala.Web.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> RegisterRestaurant(RegisterRestaurantViewModel model, ICollection<IFormFile> files)
+        public async Task<IActionResult> RegisterRestaurant(RegisterRestaurantViewModel model, ICollection<IFormFile> logo, ICollection<IFormFile> files)
         {
-            var uploads = Path.Combine(_hostEnv.WebRootPath, "images");
-            string logoPath = "images/logo.jpg";
-            foreach(var file in files)
-            {
-                var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
-                var fnm = model.Email + ".png";
-                if (fileName.ToLower().EndsWith(".png") || fileName.ToLower().EndsWith(".jpg") || fileName.ToLower().EndsWith(".gif"))
-                {
-                    var filePath = Path.Combine(uploads, fileName) + fnm;
-                    await file.SaveAsAsync(filePath);
-                    logoPath = "images/" + fileName + fnm;
-                }
-                   
-            }
-
             if (ModelState.IsValid)
             {
+                var uploads = Path.Combine(_hostEnv.WebRootPath, "images\\logos\\");
+                string logoPath = "images/logos/logo.jpg";
+                foreach (var file in logo)
+                {
+                    var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
+                    var fnm = model.Email + ".png";
+                    if (fileName.ToLower().EndsWith(".png") || fileName.ToLower().EndsWith(".jpg") || fileName.ToLower().EndsWith(".gif"))
+                    {
+                        var filePath = Path.Combine(uploads, fnm);
+                        var directory = new DirectoryInfo(uploads);
+                        if (directory.Exists == false)
+                        {
+                            directory.Create();
+                        }
+                        await file.SaveAsAsync(filePath);
+                        logoPath = "images/logos/" + fnm;
+                    }
+
+                }
+
                 Restaurant restaurant = new Restaurant()
                 {
                     Email = model.Email,

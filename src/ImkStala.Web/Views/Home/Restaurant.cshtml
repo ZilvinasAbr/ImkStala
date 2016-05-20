@@ -43,9 +43,13 @@
     <div class="col-md-8">
         <div class="restaurants" ng-app="restaurantApp" ng-controller="oneRestaurantController">
             <div class="restaurant">
+                @if (TempData["Success"] != null)
+                {
+                    <p class="alert alert-success" id="successMessage">@TempData["Success"]</p>
+                }
                 <h2 class="styledHeader"> {{ restaurant.RestaurantName }} </h2>
                 <hr />
-                <p><img src="../../{{restaurant.LogoPath}}" height="100" width="100" alt="{{restaurant.RestaurantName}} Logo" title="{{restaurant.RestaurantName}}" /></p>
+                <p><img src="~/{{restaurant.LogoPath}}" height="100" width="100" alt="{{restaurant.RestaurantName}} Logo" title="{{restaurant.RestaurantName}}" /></p>
                 <div class="description">
                     <p><span>Apie restoraną:</span></p>
                     <p class="restaurantInfo">{{ restaurant.Description }}</p>

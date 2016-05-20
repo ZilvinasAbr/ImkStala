@@ -27,5 +27,9 @@ namespace ImkStala.Web.ViewModels.Restaurant
 
         [Display(Name = "Aprašymas")]
         public string Description { get; set; }
+
+        [Display(Name = "Logotipas")]
+        public string LogoPath { get; set; }
+
     }
 }

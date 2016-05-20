@@ -9,6 +9,10 @@
 <h2 class="formInfo">@ViewData["Title"]</h2>
 
 <form asp-controller="Visitor" asp-action="EditVisitorProfile" method="post" class="form-horizontal registerForm" role="form">
+    @if (TempData["Success"] != null)
+    {
+        <p class="alert alert-success" id="successMessage">@TempData["Success"]</p>
+    }
     <h4>Įveskite naujus duomenis</h4>
     <hr />
     <div asp-validation-summary="ValidationSummary.All" class="text-danger"></div>

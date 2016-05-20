@@ -1,6 +1,5 @@
 ﻿@using System.Security.Claims
 
-
 @if (User.IsSignedIn())
 {
     <form asp-controller="Account" asp-action="LogOff" method="post" id="logoutForm" class="navbar-right">
@@ -9,11 +8,11 @@
                 @*<a asp-controller="Manage" asp-action="Index" title="Manage">Sveiki, @User.GetUserName()!</a>*@
                 @if (User.IsInRole("Visitor"))
                 {
-                    <li><a asp-controller="Visitor" asp-action="EditVisitorProfile">Sveiki, @User.GetUserName()!</a></li>
+                    <li><a asp-controller="Visitor" asp-action="EditVisitorProfile" title="Redaguoti profilį">Sveiki, @User.GetUserName()!</a></li>
                 }
                 else if (User.IsInRole("Restaurant"))
                 {
-                    <li><a asp-controller="Restaurant" asp-action="EditRestaurantProfile" title="Manage">Sveiki, @User.GetUserName()!</a></li>
+                    <li><a asp-controller="Restaurant" asp-action="EditRestaurantProfile" title="Redaguoti profilį">Sveiki, @User.GetUserName()!</a></li>
                 }
             @*</li>*@
             <li>

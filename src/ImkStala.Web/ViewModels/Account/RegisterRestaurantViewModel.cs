@@ -42,5 +42,9 @@ namespace ImkStala.Web.ViewModels.Account
 
         [Display(Name = "Aprašymas")]
         public string Description { get; set; }
+
+        [Display(Name = "Logotipas")]
+        public string LogoPath { get; set; }
+
     }
 }

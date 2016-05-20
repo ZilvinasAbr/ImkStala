@@ -255,7 +255,7 @@ namespace ImkStala.Services
         }
 
         public bool EditRestaurantProfileByUserId(string userId, string restaurantName,
-            string address, string phoneNumber, string website, string description)
+            string address, string phoneNumber, string website, string description, string logoPath)
         {
             Restaurant restaurant = this.GetRestaurantByUserId(userId);
             if (restaurant == null)
@@ -273,6 +273,8 @@ namespace ImkStala.Services
                 restaurant.Website = website;
             if(description != null)
                 restaurant.Description = description;
+            if (logoPath != null)
+                restaurant.LogoPath = logoPath;
 
             _dbContext.SaveChanges();
 
