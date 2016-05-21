@@ -138,6 +138,8 @@ namespace ImkStala.Services
                 .ThenInclude(t => t.Reservations)
                 .ThenInclude(re => re.Visitor)
                 .Include(x => x.Meals)
+                .Include(z => z.Interiors)
+                .Include(c => c.Ratings)
                 .FirstOrDefault(x => x.Id == id);
             return restaurant;
         }
@@ -146,6 +148,7 @@ namespace ImkStala.Services
         {
             return _dbContext.Restaurants
                 .Include(x => x.RestaurantTables)
+                .Include(z => z.Interiors)
                 .FirstOrDefault(r => r.ApplicationUser.Id == userId);
         }
 
@@ -255,7 +258,7 @@ namespace ImkStala.Services
         }
 
         public bool EditRestaurantProfileByUserId(string userId, string restaurantName,
-            string address, string phoneNumber, string website, string description, string logoPath)
+            string address, string phoneNumber, string website, string description, string logoPath, List<Interior> interiors)
         {
             Restaurant restaurant = this.GetRestaurantByUserId(userId);
             if (restaurant == null)
@@ -275,6 +278,8 @@ namespace ImkStala.Services
                 restaurant.Description = description;
             if (logoPath != null)
                 restaurant.LogoPath = logoPath;
+            if (interiors.Count != 0)
+                restaurant.Interiors = interiors;
 
             _dbContext.SaveChanges();
 
@@ -311,5 +316,6 @@ namespace ImkStala.Services
 
             return reservations;
         }
+
     }
 }

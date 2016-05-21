@@ -43,7 +43,7 @@ namespace ImkStala.ServicesContracts
         bool AddRating(int ratingValue, string userId, int restaurentId);
 
         bool EditRestaurantProfileByUserId(string userId, string restaurantName,
-            string address, string phoneNumber, string website, string description, string logoPath);
+            string address, string phoneNumber, string website, string description, string logoPath, List<Interior> interiors);
 
         bool EditVisitorProfileByUserId(string userId, string firstName,
             string lastName, string phoneNumber);

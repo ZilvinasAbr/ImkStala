@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using ImkStala.DataAccess.Entities;
 
 namespace ImkStala.Web.ViewModels.Restaurant
 {
@@ -30,6 +31,9 @@ namespace ImkStala.Web.ViewModels.Restaurant
 
         [Display(Name = "Logotipas")]
         public string LogoPath { get; set; }
+
+        [Display(Name = "Interjeras")]
+        public ICollection<Interior> Interiors { get; set; }
 
     }
 }

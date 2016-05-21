@@ -139,6 +139,32 @@ namespace ImkStala.Web.Controllers
 
                 }
 
+                uploads = Path.Combine(_hostEnv.WebRootPath, "images\\interior\\");
+                List<Interior> interiors = new List<Interior>();
+                int x = 1;
+                foreach (var file in files)
+                {
+                    var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
+                    var fnm = model.Email + x + ".png";
+                    if (fileName.ToLower().EndsWith(".png") || fileName.ToLower().EndsWith(".jpg") || fileName.ToLower().EndsWith(".gif"))
+                    {
+                        var filePath = Path.Combine(uploads, fnm);
+                        var directory = new DirectoryInfo(uploads);
+                        if (directory.Exists == false)
+                        {
+                            directory.Create();
+                        }
+                        await file.SaveAsAsync(filePath);
+                        Interior interior = new Interior()
+                        {
+                            InteriorPath = "images/interior/" + fnm
+                        };
+                        interiors.Add(interior);
+                        x++;
+                    }
+
+                }
+
                 Restaurant restaurant = new Restaurant()
                 {
                     Email = model.Email,
@@ -148,7 +174,8 @@ namespace ImkStala.Web.Controllers
                     PhoneNumber = model.PhoneNumber,
                     Website = model.Website,
                     Description = model.Description,
-                    LogoPath = logoPath
+                    LogoPath = logoPath,
+                    Interiors = interiors
                 };
                 
                 //_context.Restaurants.Add(restaurant);

@@ -193,7 +193,8 @@ namespace ImkStala.Web.Controllers
                 PhoneNumber = restaurant.PhoneNumber,
                 RestaurantName = restaurant.RestaurantName,
                 Website = restaurant.Website,
-                LogoPath = restaurant.LogoPath
+                LogoPath = restaurant.LogoPath,
+                Interiors = restaurant.Interiors
             };
 
             return View(model);
@@ -226,8 +227,34 @@ namespace ImkStala.Web.Controllers
 
                 }
 
+                uploads = Path.Combine(_hostEnv.WebRootPath, "images\\interior\\");
+                List<Interior> interiors = new List<Interior>();
+                int x = 1;
+                foreach (var file in files)
+                {
+                    var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
+                    var fnm = restaurant.Email + x + ".png";
+                    if (fileName.ToLower().EndsWith(".png") || fileName.ToLower().EndsWith(".jpg") || fileName.ToLower().EndsWith(".gif"))
+                    {
+                        var filePath = Path.Combine(uploads, fnm);
+                        var directory = new DirectoryInfo(uploads);
+                        if (directory.Exists == false)
+                        {
+                            directory.Create();
+                        }
+                        await file.SaveAsAsync(filePath);
+                        Interior interior = new Interior()
+                        {
+                            InteriorPath = "images/interior/" + fnm
+                        };
+                        interiors.Add(interior);
+                        x++;
+                    }
+
+                }
+
                 _applicationService.EditRestaurantProfileByUserId(user.Id, model.RestaurantName,
-                    model.Address, model.PhoneNumber, model.Website, model.Description, logoPath);
+                    model.Address, model.PhoneNumber, model.Website, model.Description, logoPath, interiors);
 
                 TempData["Success"] = "Atnaujinta sėkmingai!";
 

@@ -57,6 +57,7 @@
                 <p class="restaurantInfo"><span>Adresas:</span> {{ restaurant.Address }} </p>
                 <p class="restaurantInfo"><span class="glyphicon glyphicon-earphone"></span> {{ restaurant.PhoneNumber }}</p>
                 <p class="restaurantInfo"><span class="glyphicon glyphicon-envelope"></span> {{ restaurant.Email }}</p>
+                <p><img ng-repeat="image in restaurant.Interiors" src="~/{{image.InteriorPath}}" height="200" alt="{{restaurant.RestaurantName}} Interior" title="{{restaurant.RestaurantName}}" style="border:3px solid white"></p>
                 <p class="restaurantInfo"><span>Įvertinimas:</span> {{ restaurant.Rating }}</p>
                 <p class="restaurantInfo"><span>Įvertinimų kiekis:</span> {{ restaurant.RateAmount }}</p>
                 <a href="{{ restaurant.Website }}" target="_blank"> Apsilankykite restorano svetainėje</a>
