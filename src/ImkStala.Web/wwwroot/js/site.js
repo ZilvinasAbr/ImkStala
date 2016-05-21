@@ -71,8 +71,6 @@ function getLocation() {
 }
 
 function showPosition(position) {
-    x.innerHTML = "Latitude: " + position.coords.latitude +
-    "<br>Longitude: " + position.coords.longitude;
     var latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
     var userMarker = new google.maps.Marker({
         position: latlng,
@@ -101,7 +99,7 @@ function showPosition(position) {
                 x.innerHTML = 'Atstumas iki restorano: ' + Math.round(distance / 1000) + ' km';
             }
             else {
-                x.innerHTML = 'Atstumas iki restorano: ' + distance + ' m';
+                x.innerHTML = 'Atstumas iki restorano: ' + Math.round(distance) + ' m';
             }
         } else {
             alert("Directions Request from " + start.toUrlValue(6) + " to " + end.toUrlValue(6) + " failed: " + status);

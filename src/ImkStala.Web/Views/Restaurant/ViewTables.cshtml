@@ -10,6 +10,10 @@
 @{
     ViewData["Title"] = "Staliukų valdymas";
 }
+@if (TempData["Success"] != null)
+{
+    <p class="alert alert-success" id="successMessage">@TempData["Success"]</p>
+}
 <h1 class="formInfo"> Pridėkite naują staliuką į jūsų restoraną</h1>
 
 <div class='tableSeats row'>

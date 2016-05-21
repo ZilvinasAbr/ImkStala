@@ -1,6 +1,4 @@
-﻿require('jquery');
-
-var address;
+﻿var address;
 var data;
 var url = "/api/restaurants/" + document.getElementById('restaurantId').value;
 

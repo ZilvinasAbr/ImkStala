@@ -142,9 +142,10 @@ namespace ImkStala.Web.Controllers
                         };
                         _applicationService.AddTableByRestaurantId(table, restaurant.Id);
                     }
-                    //restaurant.RestaurantTables.Add(table);
-                    //_context.SaveChanges();
-                    return RedirectToAction("ViewTables");
+                    TempData["Success"] = "Sėkmingai idejote " + tableViewModel.TableCount.ToString() + " staliukus!";
+                //restaurant.RestaurantTables.Add(table);
+                //_context.SaveChanges();
+                return RedirectToAction("ViewTables");
                 }
             //}
             
@@ -170,6 +171,7 @@ namespace ImkStala.Web.Controllers
                 };
                 //_context.RestaurantTables.Add(table);
                 _applicationService.AddMenuItemByRestaurantId(item, restaurant.Id);
+                TempData["Success"] = "Sėkmingai idejote " + menuViewModel.Name + " patiekalą!";
                 //restaurant.RestaurantTables.Add(table);
                 //_context.SaveChanges();
                 return RedirectToAction("ViewMenu");

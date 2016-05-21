@@ -92,6 +92,10 @@
                         </div>
                     </div>
                 }
+                else
+                {
+                    <h3>Norėdami rezervuoti staliuką šiame restorane turite <a href="/Account/Login">prisijungti!</a> </h3>
+                }
                 <div style="margin-top:20px;" class="fb-like" data-href="http://localhost:16994/Home/Restaurant/@ViewBag.Id" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
                 <div class="fb-comments" data-href="http://localhost:16994/Home/Restaurant/@ViewBag.Id" data-width="100%" data-numposts="5"></div>
             </div>
@@ -104,5 +108,5 @@
     <script src="http://maps.googleapis.com/maps/api/js"></script>
     <input type="hidden" id="restaurantId" value="@ViewBag.Id" />
     <script src="~/js/facebookPlugin.js"></script>
-    <script src="~/js/map.js"></script>
+    <script src="~/js/loadMap.js"></script>
 }

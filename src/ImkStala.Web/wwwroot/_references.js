@@ -14,7 +14,6 @@
 /// <reference path="js/facebookplugin.js" />
 /// <reference path="js/indexmap.js" />
 /// <reference path="js/loadMap.js" />
-/// <reference path="js/map.js" />
 /// <reference path="js/restaurant.js" />
 /// <reference path="js/restaurant-controller.js" />
 /// <reference path="js/site.js" />

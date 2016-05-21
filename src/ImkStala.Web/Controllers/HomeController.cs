@@ -76,9 +76,10 @@ namespace ImkStala.Web.Controllers
             };
 
             bool succeeded = _applicationService.AddReservation(reservation, user.Id, model.RestaurantId, model.RestaurantTableSeats);
-
+            Restaurant rest = _applicationService.GetRestaurantByRestaurantId(model.RestaurantId);
             if (succeeded)
             {
+                TempData["Success"] = "Sėkmingai užsirezervavote staliuką " + rest.RestaurantName + " restorane! Jūs esate laukiamas " + reservationStartDateTime.ToString("yyyy-MM-dd H:mm");
                 return RedirectToAction(nameof(HomeController.Index), "Home");
             }
 
