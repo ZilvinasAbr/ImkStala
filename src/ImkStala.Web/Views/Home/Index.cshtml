@@ -3,29 +3,29 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="row">
+<div class="row" ng-app="restaurantApp">
     @if (TempData["Success"] != null)
     {
         <p class="alert alert-success" id="successMessage">@TempData["Success"]</p>
     }
-    <div class="col-md-3">
+    <div class="col-md-3" ng-controller="topRestaurantsController">
         <div class="topRest">
             <h1 class="infoHeader"> Top 3</h1>
             <hr />
-            <div class="miniRestaurant">
-                <h2 class="styledHeader"> {{toprestaurant.RestaurantName}}</h2>
+            <div class="miniRestaurant" ng-repeat="restaurant in toprestaurants">
+                <h2 class="styledHeader"> {{restaurant.RestaurantName}}</h2>
                 <div class="row buttonRow">
                     <div class="col-md-12">
-                        <a class="infoButton col-md-4" href="{{ toprestaurant.Id }}"> Informacija </a>
-                        <a class="bookButton col-md-4" href="book/{{ toprestaurant.Id }}"> Rezervuoti </a>
-                        <a class="favoriteButton col-md-4" href="favorite/{{ toprestaurant.Id }}"> Pamėgti </a>
+                        <a class="infoButton col-md-4" href="/Home/Restaurant/{{ restaurant.Id }}"> Informacija </a>
+                        <a class="bookButton col-md-4" href="/Home/Book/{{ restaurant.Id }}"> Rezervuoti </a>
+                        <a class="favoriteButton col-md-4" href="/Favorite/{{ restaurant.Id }}"> Pamėgti </a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <div class="col-md-5">
-        <div class="restaurants" ng-app="restaurantApp" ng-controller="infiniteScrollRestaurants">
+        <div class="restaurants" ng-controller="infiniteScrollRestaurants">
             <input style="width:100%" class="search" id="searchBar" type="text" ng-change="searchChanged()" placeholder="Paieška pagal pavadinimą" ng-model="searchKey" />
             <div infinite-scroll='loadMore()' infinite-scroll-distance='0'>
                 <div class="restaurant" ng-repeat="restaurant in restaurants">

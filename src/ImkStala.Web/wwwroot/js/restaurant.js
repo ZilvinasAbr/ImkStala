@@ -44,8 +44,8 @@
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(2);
-	__webpack_require__(4);
+	__webpack_require__(1);
+	__webpack_require__(3);
 
 	var restaurantApp = angular.module('restaurantApp', ['infinite-scroll']);
 
@@ -194,6 +194,14 @@
 	    });
 	});
 
+	restaurantApp.controller('topRestaurantsController', function ($scope, $http) {
+	    var url = "/api/restaurants/top";
+	    $http.get(url).success(function (data) {
+	        $scope.toprestaurants = data;
+	    }).error(function () {
+	    });
+	});
+
 
 	function checkIfAlreadyIn(array, value) {
 	    for (var i = 0; i < array.length; i++) {
@@ -235,16 +243,15 @@
 	}
 
 /***/ },
-/* 1 */,
-/* 2 */
+/* 1 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(3);
+	__webpack_require__(2);
 	module.exports = angular;
 
 
 /***/ },
-/* 3 */
+/* 2 */
 /***/ function(module, exports) {
 
 	/**
@@ -31117,7 +31124,7 @@
 	!window.angular.$$csp().noInlineStyle && window.angular.element(document.head).prepend('<style type="text/css">@charset "UTF-8";[ng\\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>');
 
 /***/ },
-/* 4 */
+/* 3 */
 /***/ function(module, exports) {
 
 	/* ng-infinite-scroll - v1.2.0 - 2015-12-02 */
