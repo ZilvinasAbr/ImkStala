@@ -100,7 +100,11 @@ namespace ImkStala.Web.Controllers
             // If we got this far, something failed, redisplay form
             return View(model);
         }
-
+        [HttpGet]
+        public IActionResult AccessDenied()
+        {
+            return View();
+        }
         //
         // GET: /Account/RegisterRestaurant
         [HttpGet]
