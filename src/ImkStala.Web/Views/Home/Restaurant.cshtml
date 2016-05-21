@@ -29,57 +29,87 @@
                 }
                 <h2 class="styledHeader"> {{ restaurant.RestaurantName }} </h2>
                 <hr />
-                <p><img src="~/{{restaurant.LogoPath}}" height="100" width="100" alt="{{restaurant.RestaurantName}} Logo" title="{{restaurant.RestaurantName}}" /></p>
-                <div class="description">
-                    <p><span>Apie restoraną:</span></p>
-                    <p class="restaurantInfo">{{ restaurant.Description }}</p>
-                </div>
-                <p class="restaurantInfo"><span>Adresas:</span> {{ restaurant.Address }} </p>
-                <p class="restaurantInfo"><span class="glyphicon glyphicon-earphone"></span> {{ restaurant.PhoneNumber }}</p>
-                <p class="restaurantInfo"><span class="glyphicon glyphicon-envelope"></span> {{ restaurant.Email }}</p>
-                <p><img ng-repeat="image in restaurant.Interiors" src="~/{{image.InteriorPath}}" height="200" alt="{{restaurant.RestaurantName}} Interior" title="{{restaurant.RestaurantName}}" style="border:3px solid white"></p>
-                <p class="restaurantInfo"><span>Įvertinimas:</span> {{ restaurant.Rating }}</p>
-                <p class="restaurantInfo"><span>Įvertinimų kiekis:</span> {{ restaurant.RateAmount }}</p>
-                <a href="{{ restaurant.Website }}" target="_blank"> Apsilankykite restorano svetainėje</a>
-                <div class="rating">
-                    <form asp-controller="Home" asp-action="Rate" method="post" role="form">
-                        <input type="text" style="display:none" name="id" value="@ViewBag.Id" />
-                        <input type="radio" id="form_rating_4" required="required" class="radio_item" name="rating" value="1" />
-                        <input type="radio" id="form_rating_3" required="required" class="radio_item" name="rating" value="2" />
-                        <input type="radio" id="form_rating_2" required="required" class="radio_item" name="rating" value="3" />
-                        <input type="radio" id="form_rating_1" required="required" class="radio_item" name="rating" value="4" />
-                        <input type="radio" id="form_rating_0" required="required" class="radio_item" name="rating" value="5" />
-                        @{
-                            for (int i = 1; i <= 5 ; i++)
-                            {
-                                int k = i - 1;
-                                <label id="@i " class="label_item" for="form_rating_@k"> <span>&#9734</span> </label>
-                            }
-                        }
-                    </form>
-                </div>
-                <button onclick="getLocation()"> Rodyti atstumą iki restorano </button>
-                <p id="demo"></p>
-                <div id="googleMap" style="height:300px;">
-
-                </div>
-                <hr />
-                @if (User.IsSignedIn() && User.IsInRole("Visitor"))
-                {
-                    <div class="row buttonRow">
-                        <div class="col-md-12">
-                            <a class="bookButton col-md-6" asp-controller="Home" asp-action="Book" asp-route-id="@ViewBag.Id"> Rezervuoti </a>
-                            <a class="favoriteButton col-md-6" href="Favorite/{{ restaurant.Id }}"> Pamėgti </a>
-                        </div>
+                <div class="col-md-5">
+                    <p><img src="~/{{restaurant.LogoPath}}" height="100" width="100" alt="{{restaurant.RestaurantName}} Logo" title="{{restaurant.RestaurantName}}" /></p>
+                    <div class="description">
+                        <p><span>Apie restoraną:</span></p>
+                        <p class="restaurantInfo">{{ restaurant.Description }}</p>
                     </div>
-                }
-                else
-                {
-                    <h3>Norėdami rezervuoti staliuką šiame restorane turite <a href="/Account/Login">prisijungti!</a> </h3>
-                }
-                <div style="margin-top:20px;" class="fb-like" data-href="http://localhost:16994/Home/Restaurant/@ViewBag.Id" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
-                <div class="fb-comments" data-href="http://localhost:16994/Home/Restaurant/@ViewBag.Id" data-width="100%" data-numposts="5"></div>
-            </div>
+                    <p class="restaurantInfo"><span>Adresas:</span> {{ restaurant.Address }} </p>
+                    <p class="restaurantInfo"><span class="glyphicon glyphicon-earphone"></span> {{ restaurant.PhoneNumber }}</p>
+                    <p class="restaurantInfo"><span class="glyphicon glyphicon-envelope"></span> {{ restaurant.Email }}</p>
+                    <p class="restaurantInfo"><span>Įvertinimas:</span> {{ restaurant.Rating }}</p>
+                    <p class="restaurantInfo"><span>Įvertinimų kiekis:</span> {{ restaurant.RateAmount }}</p>
+                    <a href="{{ restaurant.Website }}" target="_blank"> Apsilankykite restorano svetainėje</a>
+                 </div>
+                <div class="col-md-7">
+                    <div ng-if="restaurant.Interiors.length!=0" id="myCarousel" class="carousel slide" data-ride="carousel">
+                        <!-- Indicators -->
+                        <ol class="carousel-indicators">
+                            <li ng-repeat="image in restaurant.Interiors" data-target="#myCarousel" data-target-to="{{ $index }}"></li>
+                        </ol>
+
+                        <!-- Wrapper for slides -->
+                        <div class="carousel-inner" role="listbox">
+                            <div class="item active">
+                                <img src="~/{{ restaurant.Interiors[0].InteriorPath }}" alt="{{ restaurant.RestaurantName }}" title="{{ restaurant.RestaurantName }}">
+                            </div>
+                            <div ng-repeat="image in restaurant.Interiors" ng-if="!$first" class="item">
+                                <img src="~/{{image.InteriorPath}}" alt="{{restaurant.RestaurantName}} Interior" title="{{restaurant.RestaurantName}}">
+                            </div>
+                        </div>
+
+                        <!-- Left and right controls -->
+                        <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+                </div>
+                     <div class="rating">
+                         <h2> Įvertinkite restoraną </h2>
+                        <form asp-controller="Home" asp-action="Rate" method="post" role="form">
+                            <input type="text" style="display:none" name="id" value="@ViewBag.Id" />
+                            <input type="radio" id="form_rating_4" required="required" class="radio_item" name="rating" value="1" />
+                            <input type="radio" id="form_rating_3" required="required" class="radio_item" name="rating" value="2" />
+                            <input type="radio" id="form_rating_2" required="required" class="radio_item" name="rating" value="3" />
+                            <input type="radio" id="form_rating_1" required="required" class="radio_item" name="rating" value="4" />
+                            <input type="radio" id="form_rating_0" required="required" class="radio_item" name="rating" value="5" />
+                            @{
+                                for (int i = 1; i <= 5; i++)
+                                {
+                                    int k = i - 1;
+                                    <label id="@i " class="label_item" for="form_rating_@k"> <span>&#9734</span> </label>
+                                }
+                            }
+                        </form>
+                    </div>
+                    <button onclick="getLocation()"> Rodyti atstumą iki restorano </button>
+                    <p id="demo"></p>
+                    <div id="googleMap" style="height:300px;">
+
+                    </div>
+                    <hr />
+                    @if (User.IsSignedIn() && User.IsInRole("Visitor"))
+                    {
+                        <div class="row buttonRow">
+                            <div class="col-md-12">
+                                <a class="bookButton col-md-6" asp-controller="Home" asp-action="Book" asp-route-id="@ViewBag.Id"> Rezervuoti </a>
+                                <a class="favoriteButton col-md-6" href="Favorite/{{ restaurant.Id }}"> Pamėgti </a>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <h3>Norėdami rezervuoti staliuką šiame restorane turite <a href="/Account/Login">prisijungti!</a> </h3>
+                    }
+                    <div style="margin-top:20px;" class="fb-like" data-href="http://localhost:16994/Home/Restaurant/@ViewBag.Id" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
+                    <div class="fb-comments" data-href="http://localhost:16994/Home/Restaurant/@ViewBag.Id" data-width="100%" data-numposts="5"></div>
+                </div>
         </div>
     </div>
 </div>
