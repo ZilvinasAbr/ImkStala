@@ -13,32 +13,12 @@
             <h1 class="infoHeader"> Top 3</h1>
             <hr />
             <div class="miniRestaurant">
-                <h2 class="styledHeader"> Pavadinimas</h2>
+                <h2 class="styledHeader"> {{toprestaurant.RestaurantName}}</h2>
                 <div class="row buttonRow">
                     <div class="col-md-12">
-                        <a class="infoButton col-md-4" href="{{ restaurant.Id }}"> Informacija </a>
-                        <a class="bookButton col-md-4" href="book/{{ restaurant.Id }}"> Rezervuoti </a>
-                        <a class="favoriteButton col-md-4" href="favorite/{{ restaurant.Id }}"> Pamėgti </a>
-                    </div>
-                </div>
-            </div>
-            <div class="miniRestaurant">
-                <h2 class="styledHeader"> Pavadinimas</h2>
-                <div class="row buttonRow">
-                    <div class="col-md-12">
-                        <a class="infoButton col-md-4" href="Restaurant/{{ restaurant.Id }}"> Informacija </a>
-                        <a class="bookButton col-md-4" href="Book/{{ restaurant.Id }}"> Rezervuoti </a>
-                        <a class="favoriteButton col-md-4" href="Favorite/{{ restaurant.Id }}"> Pamėgti </a>
-                    </div>
-                </div>
-            </div>
-            <div class="miniRestaurant">
-                <h2 class="styledHeader"> Pavadinimas</h2>
-                <div class="row buttonRow">
-                    <div class="col-md-12">
-                        <a class="infoButton col-md-4" href="Restaurant/{{ restaurant.Id }}"> Informacija </a>
-                        <a class="bookButton col-md-4" href="Book/{{ restaurant.Id }}"> Rezervuoti </a>
-                        <a class="favoriteButton col-md-4" href="Favorite/{{ restaurant.Id }}"> Pamėgti </a>
+                        <a class="infoButton col-md-4" href="{{ toprestaurant.Id }}"> Informacija </a>
+                        <a class="bookButton col-md-4" href="book/{{ toprestaurant.Id }}"> Rezervuoti </a>
+                        <a class="favoriteButton col-md-4" href="favorite/{{ toprestaurant.Id }}"> Pamėgti </a>
                     </div>
                 </div>
             </div>

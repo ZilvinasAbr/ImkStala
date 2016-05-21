@@ -148,6 +148,14 @@ restaurantApp.controller('reservationController', function ($scope, $http) {
     });
 });
 
+restaurantApp.controller('topRestaurantsController', function ($scope, $http) {
+    var url = "/api/restaurants/top";
+    $http.get(url).success(function (data) {
+        $scope.toprestaurants = data;
+    }).error(function () {
+    });
+});
+
 
 function checkIfAlreadyIn(array, value) {
     for (var i = 0; i < array.length; i++) {

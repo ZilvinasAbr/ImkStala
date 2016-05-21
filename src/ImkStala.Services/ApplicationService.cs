@@ -89,6 +89,15 @@ namespace ImkStala.Services
             return restaurants;
         }
 
+        public IList<Restaurant> GetTopRestaurants()
+        {
+            IList<Restaurant> restaurants = _dbContext.Restaurants
+                .OrderByDescending(x => x.Rating)
+                .Take(3)
+                .ToList();
+            return restaurants;
+        }
+
         public IList<Restaurant> GetRestaurantsPage(int page, string searchKey)
         {
             int skip = page * 4;

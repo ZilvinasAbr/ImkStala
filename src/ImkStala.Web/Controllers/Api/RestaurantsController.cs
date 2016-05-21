@@ -28,6 +28,15 @@ namespace ImkStala.Web.Controllers.Api
 
             return restaurants;
         }
+
+        [HttpGet("top")]
+        public IEnumerable<Restaurant> GetTopRestaurants()
+        {
+            List<Restaurant> restaurants = _applicationService.GetTopRestaurants().ToList();
+
+            return restaurants;
+        }
+
         [HttpGet("pages/{page}/{searchKey}")]
         public IEnumerable<Restaurant> GetRestaurantsPage(int page, string searchKey)
         {

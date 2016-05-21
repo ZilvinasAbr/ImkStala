@@ -30,6 +30,8 @@ namespace ImkStala.ServicesContracts
 
         IList<Restaurant> GetAllRestaurants();
 
+        IList<Restaurant> GetTopRestaurants();
+
         IList<Restaurant> GetRestaurantsPage(int page, string searchKey);
 
         Restaurant GetRestaurantByRestaurantId(int id);
