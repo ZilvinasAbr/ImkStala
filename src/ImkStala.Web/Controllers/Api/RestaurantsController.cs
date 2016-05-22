@@ -44,14 +44,6 @@ namespace ImkStala.Web.Controllers.Api
             return restaurants;
         }
 
-        [HttpGet("favorites/{visitorId}")]
-        public IEnumerable<Restaurant> GetFavorites(int visitorId)
-        {
-            List<Restaurant> favorites = _applicationService.GetFavorites(visitorId).ToList();
-
-            return favorites;
-        }
-
         [HttpGet("{id}")]
         public Restaurant GetRestaurantById(int id)
         {

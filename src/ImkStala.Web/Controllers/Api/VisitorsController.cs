@@ -27,5 +27,13 @@ namespace ImkStala.Web.Controllers.Api
 
             return reservations;
         }
+
+        [HttpGet("favorites/{visitorId}")]
+        public IEnumerable<Restaurant> GetFavorites(int visitorId)
+        {
+            List<Restaurant> favorites = _applicationService.GetFavorites(visitorId).ToList();
+
+            return favorites;
+        }
     }
 }

@@ -9,3 +9,11 @@ visitorApp.controller('history', function ($scope, $http) {
     }).error(function () {
     });
 });
+
+visitorApp.controller('favorites', function ($scope, $http) {
+    var url = "/api/visitors/favorites/" + document.getElementById('visitorId').value;
+    $http.get(url).success(function (data) {
+        $scope.favoriteRestaurants = data;
+    }).error(function () {
+    });
+});
