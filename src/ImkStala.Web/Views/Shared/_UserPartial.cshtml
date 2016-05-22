@@ -6,6 +6,7 @@
     {
         <li><a asp-controller="Visitor" asp-action="EditVisitorProfile">Profilis</a></li>
         <li><a asp-controller="Home" asp-action="History">Rezervacijų istorija</a></li>
+        <li><a asp-controller="Visitor" asp-action="GetVisitorFavorites">Pamėgti restoranai</a></li>
     }
     else if (User.IsInRole("Restaurant"))
     {

@@ -35,5 +35,12 @@ namespace ImkStala.Web.Controllers.Api
 
             return favorites;
         }
+
+        // POST api/values
+        [HttpPost]
+        public void Post([FromBody]string value)
+        {
+            
+        }
     }
 }
