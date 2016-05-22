@@ -87,37 +87,21 @@ namespace ImkStala.Web.Controllers
             return View(viewTablesViewModel);
         }
 
-        public async Task<IActionResult> ViewMenu()
-        {
-            var user = await _userManager.FindByIdAsync(HttpContext.User.GetUserId());
-            //Restaurant restaurantData = await _context.Restaurants.FirstOrDefaultAsync(w => w.ApplicationUser.Id == user.Id);
-            //List<RestaurantTable> tables = await _context.RestaurantTables.Where(w => w.Restaurant.Id == restaurantData.Id).ToListAsync();
-            IList<MenuItem> meals =
-                _applicationService.GetRestaurantMenuByUserId(user.Id);
+        
 
-            ViewMenuViewModel viewMenuViewModel = null;
-            //IEnumerable<Table> tables = GetTablesEnumeration();
-            //if (user.AccountType == "Restaurant")
-            //{
-            viewMenuViewModel = new ViewMenuViewModel()
-            {
-                Meals = meals
-            };
-            //}
-            return View(viewMenuViewModel);
-        }
-
-        [HttpGet]
-        public IActionResult AddTable()
-        {
-            return View();
-        }
+        
 
         public async Task<IActionResult> Orders()
         {
             var user = await _userManager.FindByIdAsync(HttpContext.User.GetUserId());
             Restaurant restaurant = _applicationService.GetRestaurantByUserId(user.Id);
             ViewBag.Id = restaurant.Id;
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult AddTable()
+        {
             return View();
         }
 
@@ -152,6 +136,27 @@ namespace ImkStala.Web.Controllers
             return View(tableViewModel);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> ViewMenu()
+        {
+            var user = await _userManager.FindByIdAsync(HttpContext.User.GetUserId());
+            //Restaurant restaurantData = await _context.Restaurants.FirstOrDefaultAsync(w => w.ApplicationUser.Id == user.Id);
+            //List<RestaurantTable> tables = await _context.RestaurantTables.Where(w => w.Restaurant.Id == restaurantData.Id).ToListAsync();
+            IList<MenuItem> meals =
+                _applicationService.GetRestaurantMenuByUserId(user.Id);
+
+            ViewMenuViewModel viewMenuViewModel = null;
+            //IEnumerable<Table> tables = GetTablesEnumeration();
+            //if (user.AccountType == "Restaurant")
+            //{
+            viewMenuViewModel = new ViewMenuViewModel()
+            {
+                Meals = meals
+            };
+            //}
+            return View(viewMenuViewModel);
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddMenu(AddMenuViewModel menuViewModel)
@@ -174,11 +179,10 @@ namespace ImkStala.Web.Controllers
                 TempData["Success"] = "Sėkmingai idejote " + menuViewModel.Name + " patiekalą!";
                 //restaurant.RestaurantTables.Add(table);
                 //_context.SaveChanges();
-                return RedirectToAction("ViewMenu");
             }
             //}
 
-            return View(menuViewModel);
+            return RedirectToAction("ViewMenu");
         }
 
         [HttpGet]
