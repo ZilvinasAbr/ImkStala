@@ -52,21 +52,25 @@
     </form>
 </div>
 <div class="col-md-6">
-    <table class="table" style="color:black; border-radius:10px; background-color:white;">
-        <thead>
-            <tr>
-                <th>Pavadinimas</th>
-                <th>Kaina</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var menu in Model.Meals)
-            {
+    @foreach (IGrouping<MenuItemType, MenuItem> grouping in Model.Meals)
+    {
+        <table class="table" style="color: black; border-radius: 10px; background-color: white;">
+            <thead>
                 <tr>
-                    <td>@menu.Name</td>
-                    <td>@menu.Price</td>
+                    <th>@grouping.Key.TypeName</th>
+                    <th>Kaina</th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach (var menuItem in grouping)
+                {
+                    <tr>
+                        <td>@menuItem.Name</td>
+                        <td>@menuItem.Price</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    
 </div>

@@ -145,13 +145,15 @@ namespace ImkStala.Web.Controllers
             IList<MenuItem> meals =
                 _applicationService.GetRestaurantMenuByUserId(user.Id);
 
+            var groupedMeals = meals.GroupBy(m => m.Type);
+
             ViewMenuViewModel viewMenuViewModel = null;
             //IEnumerable<Table> tables = GetTablesEnumeration();
             //if (user.AccountType == "Restaurant")
             //{
             viewMenuViewModel = new ViewMenuViewModel()
             {
-                Meals = meals,
+                Meals = groupedMeals,
                 MenuItemTypes = _applicationService.GetMenuItemTypesByUserId(user.Id)
             };
             //}
