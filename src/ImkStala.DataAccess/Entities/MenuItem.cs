@@ -5,10 +5,6 @@ using System.Threading.Tasks;
 
 namespace ImkStala.DataAccess.Entities
 {
-    /*public enum MenuItemType
-    {
-        HotDish, ColdDish, Refreshment, NonAlcoholDrink, AlcoholDrink
-    }*/
 
     public class MenuItem
     {
