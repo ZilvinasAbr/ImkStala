@@ -358,5 +358,28 @@ namespace ImkStala.Services
 
             return true;
         }
+
+        public Dictionary<int, int> GetRestaurantTablesByUserIdCounted(string userId)
+        {
+            Restaurant restaurant = _dbContext.Restaurants.FirstOrDefault(r => r.ApplicationUser.Id == userId);
+
+            Dictionary<int, int> result = new Dictionary<int, int>();
+
+            var query = _dbContext.RestaurantTables
+                .Where(r => r.Restaurant.Id == restaurant.Id)
+                .GroupBy(r => r.RestaurantTableSeats)
+                .Select(g => new {
+                    g.Key,
+                    Count = g.Count()
+                })
+                .OrderBy(e => e.Key);
+
+            foreach (var entry in query)
+            {
+                result.Add(entry.Key, entry.Count);
+            }
+
+            return result;
+        }
     }
 }

@@ -71,25 +71,13 @@ namespace ImkStala.Web.Controllers
         public async Task<IActionResult> ViewTables()
         {
             var user = await _userManager.FindByIdAsync(HttpContext.User.GetUserId());
-            //Restaurant restaurantData = await _context.Restaurants.FirstOrDefaultAsync(w => w.ApplicationUser.Id == user.Id);
-            //List<RestaurantTable> tables = await _context.RestaurantTables.Where(w => w.Restaurant.Id == restaurantData.Id).ToListAsync();
-            IList<RestaurantTable> tables =
-                _applicationService.GetRestaurantTablesByUserId(user.Id);
-            //IEnumerable<Table> tables = GetTablesEnumeration();
-            ViewTablesViewModel viewTablesViewModel = null;
-            //if (user.AccountType == "Restaurant")
-            //{
-                viewTablesViewModel = new ViewTablesViewModel()
-                {
-                    Tables = tables
-                };
-            //}
+            var restaurantTablesCounted = _applicationService.GetRestaurantTablesByUserIdCounted(user.Id);
+            ViewTablesViewModel viewTablesViewModel = new ViewTablesViewModel()
+            {
+                    TablesCounted = restaurantTablesCounted
+            };
             return View(viewTablesViewModel);
         }
-
-        
-
-        
 
         public async Task<IActionResult> Orders()
         {

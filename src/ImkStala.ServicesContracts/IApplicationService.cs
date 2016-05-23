@@ -54,5 +54,6 @@ namespace ImkStala.ServicesContracts
         IEnumerable<MenuItemType> GetMenuItemTypesByUserId(string id);
         MenuItemType GetMenuItemTypeByRestaurantIdTypeName(int restaurantId, string selectedMenuItemType);
         bool AddMenuItemType(MenuItemType menuItemType);
+        Dictionary<int, int> GetRestaurantTablesByUserIdCounted(string userId);
     }
 }
