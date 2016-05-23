@@ -151,7 +151,8 @@ namespace ImkStala.Web.Controllers
             //{
             viewMenuViewModel = new ViewMenuViewModel()
             {
-                Meals = meals
+                Meals = meals,
+                MenuItemTypes = _applicationService.GetMenuItemTypesByUserId(user.Id)
             };
             //}
             return View(viewMenuViewModel);
@@ -162,10 +163,7 @@ namespace ImkStala.Web.Controllers
         public async Task<IActionResult> AddMenu(AddMenuViewModel menuViewModel)
         {
             var user = await _userManager.FindByIdAsync(HttpContext.User.GetUserId());
-            //ApplicationUser applicationUser = await _context.ApplicationUsers.FirstOrDefaultAsync(w => w.Id == user.Id);
-            //Restaurant restaurantData = await _context.Restaurants.FirstOrDefaultAsync(w => w.ApplicationUser.Id == user.Id);
-            //if (user.AccountType == "Restaurant")
-            //{
+
             Restaurant restaurant = _applicationService.GetRestaurantByUserId(user.Id);
             if (ModelState.IsValid)
             {
@@ -174,13 +172,42 @@ namespace ImkStala.Web.Controllers
                     Name = menuViewModel.Name,
                     Price = menuViewModel.Price
                 };
-                //_context.RestaurantTables.Add(table);
+
+                MenuItemType menuItemType = new MenuItemType();
+
+                if (menuViewModel.SelectedMenuItemType == "-1" && !string.IsNullOrEmpty(menuViewModel.NewTypeName))
+                {
+                    //Pridedame nauja MenuItemType
+                    menuItemType.Restaurant = restaurant;
+                    menuItemType.TypeName = menuViewModel.NewTypeName;
+                    bool success = _applicationService.AddMenuItemType(menuItemType);
+
+                    if (!success)
+                    {
+                        //redirectina i pradzia, nepavyko prideti
+                        //TODO: kazkaip isvesti nesekmes teksta
+                        return RedirectToAction("ViewMenu");
+                    }
+                    TempData["Success"] = "Sėkmingai įdėjote" + menuViewModel.Name + " patiekalą!";
+
+                }
+                else
+                {
+                    menuItemType = _applicationService.GetMenuItemTypeByRestaurantIdTypeName(
+                        restaurant.Id, menuViewModel.SelectedMenuItemType);
+
+                    if (menuItemType == null)
+                    {
+                        //redirectina i pradzia, nepavyko prideti
+                        //TODO: kazkaip isvesti nesekmes teksta
+                        return RedirectToAction("ViewMenu");
+                    }
+                }
+
+                item.Type = menuItemType;
                 _applicationService.AddMenuItemByRestaurantId(item, restaurant.Id);
-                TempData["Success"] = "Sėkmingai idejote " + menuViewModel.Name + " patiekalą!";
-                //restaurant.RestaurantTables.Add(table);
-                //_context.SaveChanges();
+                TempData["Success"] = "Sėkmingai įdėjote" + menuViewModel.Name + " patiekalą!";
             }
-            //}
 
             return RedirectToAction("ViewMenu");
         }

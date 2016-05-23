@@ -11,5 +11,8 @@ namespace ImkStala.Web.ViewModels.Restaurant
         public IEnumerable<MenuItem> Meals { get; set; }
         public string Name { get; set; }
         public decimal Price { get; set; }
+        public string SelectedMenuItemType { get; set; }
+        public IEnumerable<MenuItemType> MenuItemTypes { get; set; }
+        public string NewTypeName { get; set; }
     }
 }

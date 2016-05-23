@@ -326,5 +326,37 @@ namespace ImkStala.Services
             return reservations;
         }
 
+        public IEnumerable<MenuItemType> GetMenuItemTypesByUserId(string id)
+        {
+            Restaurant restaurant = this.GetRestaurantByUserId(id);
+            IEnumerable<MenuItemType> menuItemTypes = _dbContext.MenuItemTypes
+                .Where(m => m.Restaurant.Id == restaurant.Id);
+
+            return menuItemTypes;
+        }
+
+        public MenuItemType GetMenuItemTypeByRestaurantIdTypeName(int restaurantId, string selectedMenuItemType)
+        {
+            MenuItemType menuItemType = _dbContext.MenuItemTypes
+                .SingleOrDefault(m => m.Restaurant.Id == restaurantId && m.TypeName == selectedMenuItemType);
+
+            return menuItemType;
+        }
+
+        public bool AddMenuItemType(MenuItemType menuItemType)
+        {
+            MenuItemType withSameTypeName = _dbContext.MenuItemTypes
+                .SingleOrDefault(m => m.TypeName == menuItemType.TypeName);
+
+            if (withSameTypeName != null)
+            {
+                return false;
+            }
+
+            _dbContext.MenuItemTypes.Add(menuItemType);
+            _dbContext.SaveChanges();
+
+            return true;
+        }
     }
 }

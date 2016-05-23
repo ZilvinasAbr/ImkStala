@@ -51,5 +51,8 @@ namespace ImkStala.ServicesContracts
             string lastName, string phoneNumber);
 
         IEnumerable<Reservation> GetVisitorReservationsById(int visitorId);
+        IEnumerable<MenuItemType> GetMenuItemTypesByUserId(string id);
+        MenuItemType GetMenuItemTypeByRestaurantIdTypeName(int restaurantId, string selectedMenuItemType);
+        bool AddMenuItemType(MenuItemType menuItemType);
     }
 }

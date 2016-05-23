@@ -9,5 +9,7 @@ namespace ImkStala.Web.ViewModels.Restaurant
     {
         public string Name { get; set; }
         public decimal Price { get; set; }
+        public string SelectedMenuItemType { get; set; }
+        public string NewTypeName { get; set; }
     }
 }

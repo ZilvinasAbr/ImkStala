@@ -5,19 +5,13 @@ using System.Threading.Tasks;
 
 namespace ImkStala.DataAccess.Entities
 {
-    /*public enum MenuItemType
-    {
-        HotDish, ColdDish, Refreshment, NonAlcoholDrink, AlcoholDrink
-    }*/
-
-    public class MenuItem
+    public class MenuItemType
     {
         //Navigation properties
         public Restaurant Restaurant { get; set; }
-        public MenuItemType Type { get; set; }
+
         //Data of the entity
         public int Id { get; set; }
-        public string Name { get; set; }
-        public decimal Price { get; set; }
+        public string TypeName { get; set; }
     }
 }
