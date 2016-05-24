@@ -12,8 +12,6 @@ namespace ImkStala.ServicesContracts
 
         void AddVisitor(Visitor visitor);
 
-        bool AddTableByRestaurantId(RestaurantTable restaurantTable, int id);
-
         bool AddMenuItemByRestaurantId(MenuItem item, int id);
 
         bool AddFavorite(string userId, int restaurantId);

@@ -26,24 +26,6 @@ namespace ImkStala.Services
             _dbContext.SaveChanges();
         }
 
-        public bool AddTableByRestaurantId(RestaurantTable restaurantTable, int id)
-        {
-            Restaurant restaurant = _dbContext
-                .Restaurants
-                //.Include(x => x.RestaurantTables)
-                .FirstOrDefault(r => r.Id == id);
-
-            if (restaurant == null)
-            {
-                return false;
-            }
-                
-            restaurant.RestaurantTables.Add(restaurantTable);
-            _dbContext.SaveChanges();
-
-            return true;
-        }
-
         public bool AddMenuItemByRestaurantId(MenuItem item, int id)
         {
             Restaurant restaurant = _dbContext
