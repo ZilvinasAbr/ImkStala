@@ -147,6 +147,7 @@ namespace ImkStala.Services
                 .ThenInclude(t => t.Reservations)
                 .ThenInclude(re => re.Visitor)
                 .Include(x => x.Meals)
+                .ThenInclude(ke => ke.Type)
                 .Include(z => z.Interiors)
                 .Include(c => c.Ratings)
                 .FirstOrDefault(x => x.Id == id);

@@ -26,7 +26,7 @@
                 <span asp-validation-for="Price" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <select asp-for="SelectedMenuItemType" style="background: #404040; color: white; width: 220px; padding: 5px; font-size: 16px; line-height: 1; border: 0; border-radius: 0; height: 34px; -webkit-appearance: none; border-radius: 10px;">
+                <select id="typeSelect" asp-for="SelectedMenuItemType" style="background: #404040; color: white; width: 220px; padding: 5px; font-size: 16px; line-height: 1; border: 0; border-radius: 0; height: 34px; -webkit-appearance: none; border-radius: 10px;">
                     <option value="-1">Sukurti naują patiekalo tipą</option>
                     @{
                         foreach (var menuItemType in Model.MenuItemTypes)
@@ -36,7 +36,7 @@
                     }
                 </select>
             </div>
-            <div class="form-group">
+            <div id="newType" class="form-group">
                 <label asp-for="NewTypeName" class="col-md-2 control-label" style="color: white;">Naujas patiekalo tipas</label>
                 <div class="col-md-5">
                     <input asp-for="NewTypeName" class="form-control" value=@Model.SelectedMenuItemType />
