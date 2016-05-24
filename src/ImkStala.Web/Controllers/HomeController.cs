@@ -122,6 +122,21 @@ namespace ImkStala.Web.Controllers
             return RedirectToAction(nameof(HomeController.Index), "Home");
         }
 
+        [HttpPost]
+        [Authorize(Roles = "Visitor")]
+        public async Task<IActionResult> Favorite()
+        {
+            var user = await _userManager.FindByIdAsync(HttpContext.User.GetUserId());
+            int restaurantId = int.Parse(Request.Form["id"]);
+            bool succeeded =  _applicationService.AddFavorite(user.Id, restaurantId);
+            Restaurant restaurant = _applicationService.GetRestaurantByRestaurantId(restaurantId);
+            if (succeeded)
+            {
+                TempData["Success"] = "Restoranas " + restaurant.RestaurantName +" sėkmingai įdėtas i megstamų sąrašą!";
+                return Redirect(Request.Headers["Referer"]);
+            }
+            return RedirectToAction(nameof(HomeController.Index), "Home");
+        }
         public IActionResult About()
         {
             ViewData["Message"] = "Your application description page.";

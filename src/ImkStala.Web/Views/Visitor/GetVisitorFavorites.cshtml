@@ -1,20 +1,20 @@
 <input type="hidden" id="visitorId" value="@ViewBag.Id" />
 <script src="~/js/visitor.js"></script>
-<h1> Pamëgti restoranai </h1>
+<h1> Pam?gti restoranai </h1>
 <div class="row" ng-app="visitorApp" ng-controller="favorites">
     <div class="col-md-4" ng-repeat="favorites in favoriteRestaurants">
         <div class="restaurants">
             <div class="restaurant">
-                <h2 class="styledHeader"> {{ favorites.Restaurant.RestaurantName }} </h2>
+                <h2 class="styledHeader"> {{ favorites.RestaurantName }} </h2>
                 <hr />
                 <div class="description">
-                    <p>{{ favorites.Restaurant.Description }}</p>
+                    <p>{{ favorites.Description }}</p>
                 </div>
                 <hr />
                 <div class="row buttonRow">
                     <div class="col-md-12">
-                        <a class="infoButton col-md-4" href="/Home/Restaurant/{{ favorites.Restaurant.Id }}"> Informacija </a>
-                        <a class="bookButton col-md-4" href="/Home/Book/{{ favorites.Restaurant.Id }}"> Rezervuoti </a>
+                        <a class="infoButton col-md-6" href="/Home/Restaurant/{{ favorites.Id }}"> Informacija </a>
+                        <a class="bookButton col-md-6" href="/Home/Book/{{ favorites.Id }}"> Rezervuoti </a>
                     </div>
                 </div>
             </div>

@@ -93,5 +93,15 @@ namespace ImkStala.Web.Controllers
 
             return View();
         }
+        public async Task<IActionResult> GetVisitorFavorites()
+        {
+            var user = await _userManager.FindByIdAsync(HttpContext.User.GetUserId());
+
+            Visitor visitor = _applicationService.GetVisitorByUserId(user.Id);
+
+            ViewData["Id"] = visitor.Id;
+
+            return View();
+        }
     }
 }
