@@ -172,10 +172,10 @@ namespace ImkStala.Web.Controllers
                     if (!success)
                     {
                         //redirectina i pradzia, nepavyko prideti
-                        //TODO: kazkaip isvesti nesekmes teksta
+                        TempData["Unsuccess"] = menuItemType.TypeName + " tipas jau egzistuoja!";
                         return RedirectToAction("ViewMenu");
                     }
-                    TempData["Success"] = "Sėkmingai įdėjote" + menuViewModel.Name + " patiekalą!";
+                    TempData["Success"] = "Sėkmingai įdėjote " + menuViewModel.Name + " patiekalą!";
 
                 }
                 else
@@ -186,15 +186,17 @@ namespace ImkStala.Web.Controllers
                     if (menuItemType == null)
                     {
                         //redirectina i pradzia, nepavyko prideti
-                        //TODO: kazkaip isvesti nesekmes teksta
+                        TempData["Unsuccess"] = "Nepavyko pridėti patiekalo!";
                         return RedirectToAction("ViewMenu");
                     }
                 }
 
                 item.Type = menuItemType;
                 _applicationService.AddMenuItemByRestaurantId(item, restaurant.Id);
-                TempData["Success"] = "Sėkmingai įdėjote" + menuViewModel.Name + " patiekalą!";
+                TempData["Success"] = "Sėkmingai įdėjote " + menuViewModel.Name + " patiekalą!";
             }
+            else
+                TempData["Unsuccess"] = "Nepavyko pridėti patiekalo!";
 
             return RedirectToAction("ViewMenu");
         }
