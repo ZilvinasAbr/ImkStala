@@ -50,7 +50,11 @@
                             <h4 class="modal-title">Restorano meniu</h4>
                         </div>
                         <div class="modal-body">
-                            <div ng-repeat="meal in restaurant.Meals" id="menuList">
+                            <div class="tabContent" style="text-align:center">
+                                <input disabled type="button" class="tab" id="all" value="Visi" ng-click="filterMenu($event)" />
+                                <input style="margin-right:4px;" ng-repeat="meal in uniqueMenu" type="button" id="type{{ meal.Id }}" class="tab" value="{{ meal.TypeName }}" ng-click="filterMenu($event)">
+                            </div>
+                            <div class="inputs" ng-repeat="meal in restaurant.Meals" id="type{{ meal.Type.Id }}">
                                 <input name="Selected" ng-init="restaurant.Meals[$index].checked=false" ng-model="restaurant.Meals[$index].checked" type="checkbox" id="{{ $index }}" value="{{ meal.Name }}" /> <label class="restaurantMenu" for="{{ $index }}"> {{ meal.Name }} ....... {{ meal.Price }} </label>  &euro;
                             </div>
                             <div> Pasirinkti patiekalai:</div>
@@ -58,7 +62,7 @@
                                 <span ng-if="restaurant.Meals[$index].checked"> {{ restaurant.Meals[$index].Name }} </span>
                             </div>
                             <div> Suma: {{ calcTotal() }} &euro;</div>
-                        </div>
+                        </a>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                         </div>
@@ -66,6 +70,7 @@
 
                 </div>
             </div>
+                </div>
         </form>
 </div>
 @section scripts {

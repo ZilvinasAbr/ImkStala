@@ -125,12 +125,21 @@
 	    $http.get(url).success(function (data) {
 	        $scope.uniqueTables = [];
 	        $scope.allTables = [];
+	        $scope.uniqueMenu = [];
 	        $scope.exactTableCount;
 	        for (var i = 0; i < data.RestaurantTables.length; i++) {
 	            var seats = data.RestaurantTables[i].RestaurantTableSeats;
 	            $scope.allTables.push(seats);
 	            if (!checkIfAlreadyIn($scope.uniqueTables, seats)) {
 	                $scope.uniqueTables.push(seats);
+	            }
+	        }
+	        var meals = [];
+	        for (var i = 0; i < data.Meals.length; i++) {
+	            var mealType = data.Meals[i].Type;
+	            if (!checkIfAlreadyIn(meals, mealType.Id)) {
+	                meals.push(mealType.Id);
+	                $scope.uniqueMenu.push(mealType);
 	            }
 	        }
 
@@ -165,6 +174,32 @@
 	                }
 	            })
 	            return total;
+	        }
+
+	        $scope.filterMenu = function (event)
+	        {
+	            var clickedTab = event.target.id;
+	            $(".tab").each(function (index) {
+	                $(this).prop('disabled', false);
+	            });
+	            $("#" + clickedTab).prop('disabled', true);
+	            if (clickedTab != "all") {
+	                $(".inputs").each(function (index) {
+	                    if (clickedTab != $(this).attr("id")) {
+	                        console.log($(this));
+	                        $(this).css("display", "none");
+	                    }
+	                    else {
+	                        $(this).css("display", "");
+	                    }
+	                });
+	            }
+	            else
+	            {
+	                $(".inputs").each(function (index) {
+	                    $(this).css("display", "");
+	                });
+	            }
 	        }
 	    }).error(function () {
 	    });
@@ -201,7 +236,6 @@
 	    }).error(function () {
 	    });
 	});
-
 
 	function checkIfAlreadyIn(array, value) {
 	    for (var i = 0; i < array.length; i++) {

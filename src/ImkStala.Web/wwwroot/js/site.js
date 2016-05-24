@@ -116,3 +116,33 @@ function handleChange(cb) {
 $('input[type=radio]').on('change', function () {
     $(this).closest("form").submit();
 });
+
+$("#typeSelect").change(function () {
+    if(this.value != -1)
+    {
+        $("#newType").hide("slow");
+    }
+    else
+    {
+        $("#newType").show("slow");
+    }
+});
+
+$(".tab").click(function () {
+
+    var clickedTab = $(this).attr("value");
+    if (clickedTab == "all") {
+        $(".inputs").each(function (index) {
+            console.log($(this).attr("id"))
+            $(this).css("display", "");
+        });
+    }
+    else {
+        $(".inputs").each(function (index) {
+            if (clickedTab != $(this).attr("id"))
+            {
+                $(this).css("display", "none");
+            }
+        });
+    }
+});
