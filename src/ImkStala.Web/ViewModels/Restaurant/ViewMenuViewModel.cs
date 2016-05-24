@@ -8,7 +8,7 @@ namespace ImkStala.Web.ViewModels.Restaurant
 {
     public class ViewMenuViewModel
     {
-        public IEnumerable<MenuItem> Meals { get; set; }
+        public IEnumerable<IGrouping<MenuItemType, MenuItem>> Meals { get; set; }
         public string Name { get; set; }
         public decimal Price { get; set; }
         public string SelectedMenuItemType { get; set; }

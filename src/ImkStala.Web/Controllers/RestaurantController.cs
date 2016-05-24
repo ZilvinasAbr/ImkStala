@@ -71,25 +71,13 @@ namespace ImkStala.Web.Controllers
         public async Task<IActionResult> ViewTables()
         {
             var user = await _userManager.FindByIdAsync(HttpContext.User.GetUserId());
-            //Restaurant restaurantData = await _context.Restaurants.FirstOrDefaultAsync(w => w.ApplicationUser.Id == user.Id);
-            //List<RestaurantTable> tables = await _context.RestaurantTables.Where(w => w.Restaurant.Id == restaurantData.Id).ToListAsync();
-            IList<RestaurantTable> tables =
-                _applicationService.GetRestaurantTablesByUserId(user.Id);
-            //IEnumerable<Table> tables = GetTablesEnumeration();
-            ViewTablesViewModel viewTablesViewModel = null;
-            //if (user.AccountType == "Restaurant")
-            //{
-                viewTablesViewModel = new ViewTablesViewModel()
-                {
-                    Tables = tables
-                };
-            //}
+            var restaurantTablesCounted = _applicationService.GetRestaurantTablesByUserIdCounted(user.Id);
+            ViewTablesViewModel viewTablesViewModel = new ViewTablesViewModel()
+            {
+                    TablesCounted = restaurantTablesCounted
+            };
             return View(viewTablesViewModel);
         }
-
-        
-
-        
 
         public async Task<IActionResult> Orders()
         {
@@ -110,29 +98,26 @@ namespace ImkStala.Web.Controllers
         public async Task<IActionResult> AddTable(AddTableViewModel tableViewModel)
         {
             var user = await _userManager.FindByIdAsync(HttpContext.User.GetUserId());
-            //ApplicationUser applicationUser = await _context.ApplicationUsers.FirstOrDefaultAsync(w => w.Id == user.Id);
-            //Restaurant restaurantData = await _context.Restaurants.FirstOrDefaultAsync(w => w.ApplicationUser.Id == user.Id);
-            //if (user.AccountType == "Restaurant")
-            //{
-                Restaurant restaurant = _applicationService.GetRestaurantByUserId(user.Id);
-                if (ModelState.IsValid)
+
+            if (ModelState.IsValid)
+            {
+                bool success = _applicationService.AddTablesByUserId(tableViewModel.TableSeats,
+                    tableViewModel.TableCount, user.Id);
+                /*for (int i = 0; i < tableViewModel.TableCount; i++)
                 {
-                //_context.RestaurantTables.Add(table);
-                    for (int i = 0; i < tableViewModel.TableCount; i++)
+                    RestaurantTable table = new RestaurantTable()
                     {
-                        RestaurantTable table = new RestaurantTable()
-                        {
-                            RestaurantTableSeats = tableViewModel.TableSeats
-                        };
-                        _applicationService.AddTableByRestaurantId(table, restaurant.Id);
-                    }
+                        RestaurantTableSeats = tableViewModel.TableSeats
+                    };
+                    _applicationService.AddTableByRestaurantId(table, restaurant.Id);
+                }*/
+                if (success)
+                {
                     TempData["Success"] = "Sėkmingai idejote " + tableViewModel.TableCount.ToString() + " staliukus!";
-                //restaurant.RestaurantTables.Add(table);
-                //_context.SaveChanges();
-                return RedirectToAction("ViewTables");
                 }
-            //}
-            
+                
+                return RedirectToAction("ViewTables");
+            }
             return View(tableViewModel);
         }
 
@@ -145,13 +130,15 @@ namespace ImkStala.Web.Controllers
             IList<MenuItem> meals =
                 _applicationService.GetRestaurantMenuByUserId(user.Id);
 
+            var groupedMeals = meals.GroupBy(m => m.Type);
+
             ViewMenuViewModel viewMenuViewModel = null;
             //IEnumerable<Table> tables = GetTablesEnumeration();
             //if (user.AccountType == "Restaurant")
             //{
             viewMenuViewModel = new ViewMenuViewModel()
             {
-                Meals = meals,
+                Meals = groupedMeals,
                 MenuItemTypes = _applicationService.GetMenuItemTypesByUserId(user.Id)
             };
             //}

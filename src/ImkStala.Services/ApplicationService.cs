@@ -106,9 +106,9 @@ namespace ImkStala.Services
             if (searchKey != "all")
             {
                 var restaurantsSearch = _dbContext.Restaurants
-                    .Include(r => r.RestaurantTables)
-                    .ThenInclude(t => t.Reservations)
-                    .ThenInclude(re => re.Visitor)
+                    //.Include(r => r.RestaurantTables)
+                    //.ThenInclude(t => t.Reservations)
+                    //.ThenInclude(re => re.Visitor)
                     .Where(x => x.RestaurantName.Contains(searchKey))
                     .OrderByDescending(x => x.RegistrationDate)
                     .Skip(skip)
@@ -118,9 +118,9 @@ namespace ImkStala.Services
             }
 
             var restaurants = _dbContext.Restaurants
-                .Include(r => r.RestaurantTables)
-                .ThenInclude(t => t.Reservations)
-                .ThenInclude(re => re.Visitor)
+                //.Include(r => r.RestaurantTables)
+                //.ThenInclude(t => t.Reservations)
+                //.ThenInclude(re => re.Visitor)
                 .OrderByDescending(x => x.RegistrationDate)
                 .Skip(skip)
                 .Take(pageLength)
@@ -201,14 +201,16 @@ namespace ImkStala.Services
 
         public IList<MenuItem> GetRestaurantMenuByUserId(string userId)
         {
-            Restaurant restaurant = GetRestaurantByUserId(userId);
+            Restaurant restaurant = _dbContext
+                .Restaurants
+                .FirstOrDefault(r => r.ApplicationUser.Id == userId);
 
             if (restaurant == null)
             {
                 return null;
             }
 
-            IList<MenuItem> meals = GetRestaurantMenuByRestaurantId(restaurant.Id);//TODO
+            IList<MenuItem> meals = GetRestaurantMenuByRestaurantId(restaurant.Id);
 
             return meals;
         }
@@ -329,7 +331,15 @@ namespace ImkStala.Services
 
         public IEnumerable<MenuItemType> GetMenuItemTypesByUserId(string id)
         {
-            Restaurant restaurant = this.GetRestaurantByUserId(id);
+            Restaurant restaurant = _dbContext
+                .Restaurants
+                .FirstOrDefault(r => r.ApplicationUser.Id == id);
+
+            if (restaurant == null)
+            {
+                return null;
+            }
+
             IEnumerable<MenuItemType> menuItemTypes = _dbContext.MenuItemTypes
                 .Where(m => m.Restaurant.Id == restaurant.Id);
 
@@ -355,6 +365,54 @@ namespace ImkStala.Services
             }
 
             _dbContext.MenuItemTypes.Add(menuItemType);
+            _dbContext.SaveChanges();
+
+            return true;
+        }
+
+        public Dictionary<int, int> GetRestaurantTablesByUserIdCounted(string userId)
+        {
+            Restaurant restaurant = _dbContext.Restaurants.FirstOrDefault(r => r.ApplicationUser.Id == userId);
+
+            Dictionary<int, int> result = new Dictionary<int, int>();
+
+            var query = _dbContext.RestaurantTables
+                .Where(r => r.Restaurant.Id == restaurant.Id)
+                .GroupBy(r => r.RestaurantTableSeats)
+                .Select(g => new {
+                    g.Key,
+                    Count = g.Count()
+                })
+                .OrderBy(e => e.Key);
+
+            foreach (var entry in query)
+            {
+                result.Add(entry.Key, entry.Count);
+            }
+
+            return result;
+        }
+
+        public bool AddTablesByUserId(int tableSeats, int tableCount, string userId)
+        {
+            Restaurant restaurant = _dbContext
+                .Restaurants
+                .FirstOrDefault(r => r.ApplicationUser.Id == userId);
+
+            if (restaurant == null)
+            {
+                return false;
+            }
+
+            for (int i = 0; i < tableCount; i++)
+            {
+                RestaurantTable table = new RestaurantTable();
+                table.Restaurant = restaurant;
+                table.RestaurantTableSeats = tableSeats;
+
+                _dbContext.RestaurantTables.Add(table);
+            }
+
             _dbContext.SaveChanges();
 
             return true;
