@@ -98,29 +98,26 @@ namespace ImkStala.Web.Controllers
         public async Task<IActionResult> AddTable(AddTableViewModel tableViewModel)
         {
             var user = await _userManager.FindByIdAsync(HttpContext.User.GetUserId());
-            //ApplicationUser applicationUser = await _context.ApplicationUsers.FirstOrDefaultAsync(w => w.Id == user.Id);
-            //Restaurant restaurantData = await _context.Restaurants.FirstOrDefaultAsync(w => w.ApplicationUser.Id == user.Id);
-            //if (user.AccountType == "Restaurant")
-            //{
-                Restaurant restaurant = _applicationService.GetRestaurantByUserId(user.Id);
-                if (ModelState.IsValid)
+
+            if (ModelState.IsValid)
+            {
+                bool success = _applicationService.AddTablesByUserId(tableViewModel.TableSeats,
+                    tableViewModel.TableCount, user.Id);
+                /*for (int i = 0; i < tableViewModel.TableCount; i++)
                 {
-                //_context.RestaurantTables.Add(table);
-                    for (int i = 0; i < tableViewModel.TableCount; i++)
+                    RestaurantTable table = new RestaurantTable()
                     {
-                        RestaurantTable table = new RestaurantTable()
-                        {
-                            RestaurantTableSeats = tableViewModel.TableSeats
-                        };
-                        _applicationService.AddTableByRestaurantId(table, restaurant.Id);
-                    }
+                        RestaurantTableSeats = tableViewModel.TableSeats
+                    };
+                    _applicationService.AddTableByRestaurantId(table, restaurant.Id);
+                }*/
+                if (success)
+                {
                     TempData["Success"] = "Sėkmingai idejote " + tableViewModel.TableCount.ToString() + " staliukus!";
-                //restaurant.RestaurantTables.Add(table);
-                //_context.SaveChanges();
-                return RedirectToAction("ViewTables");
                 }
-            //}
-            
+                
+                return RedirectToAction("ViewTables");
+            }
             return View(tableViewModel);
         }
 
