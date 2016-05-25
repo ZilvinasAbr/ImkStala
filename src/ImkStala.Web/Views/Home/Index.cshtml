@@ -4,6 +4,7 @@
 }
 
 <div class="row" ng-app="restaurantApp">
+    <input type="hidden" id="visitorId" value="@ViewBag.Id" />
     @if (TempData["Success"] != null)
     {
         <p class="alert alert-success" id="successMessage">@TempData["Success"]</p>
@@ -49,7 +50,8 @@
                         <div class="col-md-12">
                             @if (User.IsSignedIn() && User.IsInRole("Visitor"))
                             {
-                                <a class="infoButton col-md-4" href="/Home/Restaurant/{{ restaurant.Id }}"> Informacija </a>
+                                <a ng-show="!getIfAlreadyInFav(restaurant.Id)" class="infoButton col-md-4" href="/Home/Restaurant/{{ restaurant.Id }}"> Informacija </a>
+                                <a ng-show="getIfAlreadyInFav(restaurant.Id)" class="infoButton col-md-6" href="/Home/Restaurant/{{ restaurant.Id }}"> Informacija </a>
                             }
                             else
                             {
@@ -57,8 +59,9 @@
                             }
                             @if (User.IsSignedIn() && User.IsInRole("Visitor"))
                             {
-                                <a class="bookButton col-md-4" href="/Home/Book/{{ restaurant.Id }}"> Rezervuoti </a>
-                                <form asp-controller="Home" asp-action="Favorite" method="post" role="form">
+                                <a ng-show="!getIfAlreadyInFav(restaurant.Id)" class="bookButton col-md-4" href="/Home/Book/{{ restaurant.Id }}"> Rezervuoti </a>
+                                <a ng-show="getIfAlreadyInFav(restaurant.Id)" class="bookButton col-md-6" href="/Home/Book/{{ restaurant.Id }}"> Rezervuoti </a>
+                                <form asp-controller="Home" asp-action="Favorite" method="post" role="form" ng-show="!getIfAlreadyInFav(restaurant.Id)">
                                     <input type="hidden" name="id" value="{{ restaurant.Id }}" />
                                     <input type="submit" class="favoriteButton col-md-4" value="Pamėgti"> 
                                 </form>

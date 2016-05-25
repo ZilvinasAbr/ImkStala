@@ -39,8 +39,14 @@ namespace ImkStala.Web.Controllers
             _applicationService = applicationService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            var user = await _userManager.FindByIdAsync(HttpContext.User.GetUserId());
+            if (User.IsInRole("Visitor"))
+            {
+                Visitor visitor = _applicationService.GetVisitorByUserId(user.Id);
+                ViewData["Id"] = visitor.Id;
+            }
             return View();
         }
 

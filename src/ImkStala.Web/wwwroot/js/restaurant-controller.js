@@ -23,12 +23,24 @@ restaurantApp.filter('sumByKey', function() {
 restaurantApp.controller('infiniteScrollRestaurants', function ($scope, $http) {
     var page = 0;
     var value = "all";
+    var favoriteIds = [];
+    var value2 = document.getElementById('visitorId').value;
     var url = "/api/restaurants/pages/" + page + "/" + value;
     $http.get(url).success(function (data) {
         $scope.restaurants = data;
     }).error(function () {
     });
-
+    if (value2 != "")
+    {
+        var url2 = "/api/Visitors/favorites/" + value2;
+        $http.get(url2).success(function (data) {
+            console.log(data);
+            for (var i = 0; i < data.length; i++) {
+                favoriteIds.push(data[i].Id);
+            }
+        }).error(function () {
+        });
+    }
     $scope.loadMore = function () {
         var scrollTop = (window.pageYOffset !== undefined) ? window.pageYOffset : (document.documentElement || document.body.parentNode || document.body).scrollTop;
         if (scrollTop != 0) {
@@ -60,6 +72,14 @@ restaurantApp.controller('infiniteScrollRestaurants', function ($scope, $http) {
             }).error(function () {
             });
         }
+    }
+    $scope.getIfAlreadyInFav = function (restaurantId) {
+        for (var i = 0; i < favoriteIds.length; i++)
+        {
+            if (favoriteIds[i] == restaurantId)
+                return true
+        }
+        return false;
     }
 });
 
