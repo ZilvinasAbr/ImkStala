@@ -19,6 +19,7 @@
     <p class="alert alert-danger" id="unsuccessMessage">@TempData["Unsuccess"]</p>
 }
 <div class="col-md-8">
+    <h1 class="formInfo">Naujas patiekalas</h1>
     <form asp-controller="Restaurant" asp-action="AddMenu" method="post" class="form-horizontal registerForm" role="form">
             <div asp-validation-summary="ValidationSummary.All" class="text-danger"></div>
             <div class="form-group">
@@ -63,14 +64,16 @@
             </div>
     </form>
 </div>
-<div class="col-md-4 form-horizontal">
+<div class="col-md-4 form-horizontal" style="padding-top: 20px">
+    <h1 class="formInfo">Restorano meniu</h1>
     @foreach (IGrouping<MenuItemType, MenuItem> grouping in Model.Meals)
     {
         <table class="table" style="color: black; border-radius: 10px; background-color: white;">
             <thead>
                 <tr>
                     <th>@grouping.Key.TypeName</th>
-                    <th>Kaina</th>
+                    <th>Kaina, &#8364;</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -79,6 +82,7 @@
                     <tr>
                         <td>@menuItem.Name</td>
                         <td>@menuItem.Price</td>
+                        <td><a href="" style="color: red; font-size: 20px; text-decoration:none">✗</a></td>
                     </tr>
                 }
             </tbody>
