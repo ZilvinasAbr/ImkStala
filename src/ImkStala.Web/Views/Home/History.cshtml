@@ -20,7 +20,10 @@
                     <div class="col-md-12">
                         <a class="infoButton col-md-4" href="/Home/Restaurant/{{ history.Restaurant.Id }}"> Informacija </a>
                         <a class="bookButton col-md-4" href="/Home/Book/{{ history.Restaurant.Id }}"> Rezervuoti </a>
-                        <a class="favoriteButton col-md-4" href="/Home/Restaurant/{{ history.Restaurant.Id }}"> Pamėgti </a>
+                        <form asp-controller="Home" asp-action="Favorite" method="post" role="form">
+                            <input type="hidden" name="id" value="{{ restaurant.Id }}" />
+                            <input type="submit" class="favoriteButton col-md-4" value="Pamėgti">
+                        </form>
                     </div>
                 </div>
             </div>

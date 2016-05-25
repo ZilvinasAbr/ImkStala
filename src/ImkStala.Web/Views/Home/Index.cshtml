@@ -28,7 +28,10 @@
                         @if (User.IsSignedIn() && User.IsInRole("Visitor"))
                         {
                             <a class="bookButton col-md-4" href="/Home/Book/{{ restaurant.Id }}"> Rezervuoti </a>
-                            <a class="favoriteButton col-md-4" href="/"> Pamėgti </a>
+                            <form asp-controller="Home" asp-action="Favorite" method="post" role="form">
+                                <input type="hidden" name="id" value="{{ restaurant.Id }}" />
+                                <input type="submit" class="favoriteButton col-md-4" value="Pamėgti">
+                            </form>
                         }
                     </div>
                 </div>
