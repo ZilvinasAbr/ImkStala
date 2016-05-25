@@ -8,3 +8,4 @@
 src/ImkStala.DataAccess/Entities/Migrations/20160511083654_FirstMigration.cs
 src/ImkStala.DataAccess/Entities/Migrations/ApplicationDbContextModelSnapshot.cs
 src/ImkStala.DataAccess/Entities/Migrations/20160511083654_FirstMigration.Designer.cs
+*.png
