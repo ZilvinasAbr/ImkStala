@@ -361,10 +361,10 @@ namespace ImkStala.Services
             MenuItemType withSameTypeName = _dbContext.MenuItemTypes
                 .SingleOrDefault(m => m.TypeName == menuItemType.TypeName);
 
-            if (withSameTypeName != null)
+            /*if (withSameTypeName != null)
             {
                 return false;
-            }
+            }*/
 
             _dbContext.MenuItemTypes.Add(menuItemType);
             _dbContext.SaveChanges();
