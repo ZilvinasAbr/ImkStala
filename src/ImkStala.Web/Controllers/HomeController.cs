@@ -162,9 +162,15 @@ namespace ImkStala.Web.Controllers
             return View();
         }
 
-        public IActionResult Restaurant(int id)
+        public async Task<IActionResult> Restaurant(int id)
         {
             ViewBag.Id = id;
+            var user = await _userManager.FindByIdAsync(HttpContext.User.GetUserId());
+            if (User.IsInRole("Visitor"))
+            {
+                Visitor visitor = _applicationService.GetVisitorByUserId(user.Id);
+                ViewData["VisitorId"] = visitor.Id;
+            }
             return View();
         }
 

@@ -100,6 +100,7 @@
                                 }
                             }
                         </form>
+                        <p ng-repeat="rating in restaurant.Ratings" class="restaurantInfo" ng-if="@ViewBag.VisitorId == rating.Visitor.Id"><span>Jūsų įvertinimas: </span> {{rating.RatingValue}}</p>
                     </div>
                     <button class="btn btn-primary" onclick="getLocation()"> Rodyti atstumą iki restorano </button>
 

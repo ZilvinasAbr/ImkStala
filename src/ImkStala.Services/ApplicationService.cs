@@ -132,6 +132,7 @@ namespace ImkStala.Services
                 .ThenInclude(ke => ke.Type)
                 .Include(z => z.Interiors)
                 .Include(c => c.Ratings)
+                .ThenInclude(ce => ce.Visitor)
                 .FirstOrDefault(x => x.Id == id);
             return restaurant;
         }
