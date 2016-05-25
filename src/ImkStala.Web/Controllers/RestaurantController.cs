@@ -113,7 +113,7 @@ namespace ImkStala.Web.Controllers
                 }*/
                 if (success)
                 {
-                    TempData["Success"] = "Sėkmingai idejote " + tableViewModel.TableCount.ToString() + " staliukus!";
+                    TempData["Success"] = "Sėkmingai įdėjote " + tableViewModel.TableCount.ToString() + " staliukus!";
                 }
                 
                 return RedirectToAction("ViewTables");
@@ -197,6 +197,25 @@ namespace ImkStala.Web.Controllers
             }
             else
                 TempData["Unsuccess"] = "Nepavyko pridėti patiekalo!";
+
+            return RedirectToAction("ViewMenu");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> RemoveMenu()
+        {
+            var user = await _userManager.FindByIdAsync(HttpContext.User.GetUserId());
+
+            Restaurant restaurant = _applicationService.GetRestaurantByUserId(user.Id);
+            int menu = int.Parse(Request.Form["menu"]);
+            if (ModelState.IsValid)
+            {
+                _applicationService.RemoveMenuItemByRestaurantId(menu, restaurant.Id);
+                TempData["Success"] = "Sėkmingai pašalinote patiekalą!";
+            }
+            else
+                TempData["Unsuccess"] = "Nepavyko pašalinti patiekalo!";
 
             return RedirectToAction("ViewMenu");
         }

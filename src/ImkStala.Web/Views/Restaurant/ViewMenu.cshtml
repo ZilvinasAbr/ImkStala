@@ -82,7 +82,7 @@
                     <tr>
                         <td>@menuItem.Name</td>
                         <td>@menuItem.Price</td>
-                        <td><a href="" style="color: red; font-size: 20px; text-decoration:none">✗</a></td>
+                        <td><form asp-controller="Restaurant" asp-action="RemoveMenu" style="color: red; font-size: 20px; text-decoration:none"><input type="hidden" name="menu" value="@menuItem.Id"/><input type="submit" value="✗" style="background-color:white; border:0px;"/></form></td>
                     </tr>
                 }
             </tbody>

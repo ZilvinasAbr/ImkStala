@@ -44,6 +44,25 @@ namespace ImkStala.Services
             return true;
         }
 
+        public bool RemoveMenuItemByRestaurantId(int menuId, int id)
+        {
+            Restaurant restaurant = _dbContext
+                .Restaurants
+                .Include(x => x.Meals)
+                //.Include(x => x.RestaurantTables)
+                .FirstOrDefault(r => r.Id == id);
+            MenuItem menu = _dbContext.Meals.FirstOrDefault(z => z.Id == menuId);
+            if (restaurant == null)
+            {
+                return false;
+            }
+
+            restaurant.Meals.Remove(menu);
+            _dbContext.SaveChanges();
+
+            return true;
+        }
+
         public void AddVisitor(Visitor visitor)
         {
             _dbContext.Visitors.Add(visitor);
