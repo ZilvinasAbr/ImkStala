@@ -48,12 +48,12 @@
                     <p class="restaurantInfo"><span>Adresas:</span> {{ restaurant.Address }} </p>
                     <p class="restaurantInfo"><span class="glyphicon glyphicon-earphone"></span> {{ restaurant.PhoneNumber }}</p>
                     <p class="restaurantInfo"><span class="glyphicon glyphicon-envelope"></span> {{ restaurant.Email }}</p>
-                    <p class="restaurantInfo"><span>Įvertinimas:</span> {{ restaurant.Rating }}</p>
+                    <p class="restaurantInfo"><span>Įvertinimas:</span> {{ restaurant.Rating }}<span style="color: yellow; font-size: 20px">★</span></p>
                     <p class="restaurantInfo"><span>Įvertinimų kiekis:</span> {{ restaurant.RateAmount }}</p>
                     <a href="{{ restaurant.Website }}" target="_blank"> Apsilankykite restorano svetainėje</a>
                  </div>
                 <div class="col-md-7">
-                    <div ng-if="restaurant.Interiors.length!=0" id="myCarousel" class="carousel slide" data-ride="carousel">
+                    <div ng-if="restaurant.Interiors.length!=0" style="min-height: 350px" id="myCarousel" class="carousel slide" data-ride="carousel">
                         <!-- Indicators -->
                         <ol class="carousel-indicators">
                             <li ng-repeat="image in restaurant.Interiors" data-target="#myCarousel" data-target-to="{{ $index }}"></li>
@@ -62,10 +62,10 @@
                         <!-- Wrapper for slides -->
                         <div class="carousel-inner" role="listbox">
                             <div class="item active">
-                                <img src="~/{{ restaurant.Interiors[0].InteriorPath }}" alt="{{ restaurant.RestaurantName }}" title="{{ restaurant.RestaurantName }}">
+                                <img style="height: 350px; margin: auto" src="~/{{ restaurant.Interiors[0].InteriorPath }}" alt="{{ restaurant.RestaurantName }}" title="{{ restaurant.RestaurantName }}">
                             </div>
                             <div ng-repeat="image in restaurant.Interiors" ng-if="!$first" class="item">
-                                <img src="~/{{image.InteriorPath}}" alt="{{restaurant.RestaurantName}} Interior" title="{{restaurant.RestaurantName}}">
+                                <img style="height: 350px; margin: auto" src="~/{{image.InteriorPath}}" alt="{{restaurant.RestaurantName}} Interior" title="{{restaurant.RestaurantName}}">
                             </div>
                         </div>
 
@@ -98,7 +98,7 @@
                             }
                         </form>
                     </div>
-                    <button onclick="getLocation()"> Rodyti atstumą iki restorano </button>
+                    <button class="btn btn-default" onclick="getLocation()"> Rodyti atstumą iki restorano </button>
                     <p id="demo"></p>
                     <div id="googleMap" style="height:300px;">
 

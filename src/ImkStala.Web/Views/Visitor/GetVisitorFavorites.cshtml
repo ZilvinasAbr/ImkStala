@@ -1,6 +1,10 @@
 <input type="hidden" id="visitorId" value="@ViewBag.Id" />
 <script src="~/js/visitor.js"></script>
-<h1> Pam?gti restoranai </h1>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+@{
+    ViewData["Title"] = "Pamegti restoranai";
+}
+<h1> Pam&#279;gti restoranai </h1>
 <div class="row" ng-app="visitorApp" ng-controller="favorites">
     <div class="col-md-4" ng-repeat="favorites in favoriteRestaurants">
         <div class="restaurants">
